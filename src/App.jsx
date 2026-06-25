@@ -246,7 +246,7 @@ export default function App() {
             Dean Burt
           </span>
           <a
-            href="mailto:deanburt1308@gmail.com"
+            href="https://calendly.com/deanburt"
             className="inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5"
             style={{
               background: `linear-gradient(135deg, ${BRAND} 0%, ${BRAND2} 100%)`,
@@ -325,7 +325,7 @@ export default function App() {
           {/* CTAs */}
           <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
             <a
-              href="mailto:deanburt1308@gmail.com"
+              href="https://calendly.com/deanburt"
               className="inline-flex items-center gap-2 rounded-xl px-7 py-4 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5"
               style={{
                 background: `linear-gradient(135deg, ${BRAND} 0%, ${BRAND2} 100%)`,
@@ -477,7 +477,7 @@ export default function App() {
           </p>
 
           <a
-            href="mailto:deanburt1308@gmail.com"
+            href="https://calendly.com/deanburt"
             className="mt-10 inline-flex items-center gap-2.5 rounded-xl px-8 py-4 text-sm font-bold text-white transition-all duration-200 hover:-translate-y-0.5"
             style={{
               background: `linear-gradient(135deg, ${BRAND} 0%, ${BRAND2} 100%)`,
