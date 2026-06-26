@@ -103,7 +103,7 @@ function Card({ app }) {
         }}>{app.tag}</span>
       </div>
       <div style={{ padding: '22px 22px 22px', display: 'flex', flexDirection: 'column', gap: 16, flex: 1 }}>
-        <p style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em', margin: 0 }}>{app.name}</p>
+        <p style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em', margin: 0, textAlign: 'center' }}>{app.name}</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 'auto' }}>
           <a
             href={app.url} target="_blank" rel="noopener noreferrer"
@@ -152,7 +152,7 @@ function Faq({ q, a }) {
 /* ─── shared section wrapper ─── */
 function Section({ id, bg, children }) {
   return (
-    <section id={id} style={{ width: '100%', background: bg || '#fff', padding: 'clamp(72px,10vw,120px) clamp(24px,6vw,60px)' }}>
+    <section id={id} style={{ width: '100%', background: bg || '#fff', padding: 'clamp(56px,10vw,120px) clamp(20px,5vw,60px)' }}>
       <div style={{ maxWidth: 1160, margin: '0 auto', width: '100%' }}>
         {children}
       </div>
@@ -215,12 +215,14 @@ export default function App() {
 
         <div style={{ maxWidth: 760, width: '100%', position: 'relative' }}>
           {/* badge */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 18px', borderRadius: 99, background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)', marginBottom: 32 }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 0 3px rgba(16,185,129,0.25)' }} />
-            <span style={{ fontSize: 12, fontWeight: 600, color: '#60a5fa', letterSpacing: '0.02em' }}>Available for 1 new project this month</span>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 32 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 16px', borderRadius: 99, background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)' }}>
+              <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#10b981', flexShrink: 0, display: 'inline-block', boxShadow: '0 0 0 3px rgba(16,185,129,0.25)' }} />
+              <span style={{ fontSize: 12, fontWeight: 600, color: '#60a5fa', letterSpacing: '0.02em' }}>1 project spot open this month</span>
+            </div>
           </div>
 
-          <h1 style={{ fontSize: 'clamp(42px,7.5vw,88px)', fontWeight: 900, lineHeight: 1.07, letterSpacing: '-0.04em', color: '#fff', margin: '0 0 24px' }}>
+          <h1 style={{ fontSize: 'clamp(36px,7.5vw,88px)', fontWeight: 900, lineHeight: 1.07, letterSpacing: '-0.04em', color: '#fff', margin: '0 0 24px' }}>
             I build apps that<br />
             <span style={{ background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>grow businesses.</span>
           </h1>
@@ -245,8 +247,8 @@ export default function App() {
             }}>See my work</a>
           </div>
 
-          {/* stats */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 1, background: 'rgba(255,255,255,0.08)', borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+          {/* stats — 2 cols on mobile, 4 on wider screens */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(130px,1fr))', gap: 1, background: 'rgba(255,255,255,0.08)', borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
             {[['6','Live apps'],['4–8wk','To launch'],['100%','Store handled'],['1','Spot open']].map(([n,l]) => (
               <div key={l} style={{ background: '#09090b', padding: '22px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
                 <span style={{ fontSize: 22, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em' }}>{n}</span>
@@ -328,8 +330,9 @@ export default function App() {
           </p>
 
           <a href="https://coding-leads.vercel.app/book" style={{
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-            padding: '18px 48px', borderRadius: 14, textDecoration: 'none',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            width: '100%', maxWidth: 360, margin: '0 auto',
+            padding: '18px 28px', borderRadius: 14, textDecoration: 'none',
             background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', color: '#fff',
             fontSize: 16, fontWeight: 700, boxShadow: '0 8px 32px rgba(59,130,246,0.5)',
           }}>Book a free call →</a>
