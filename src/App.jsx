@@ -1,58 +1,73 @@
 import { useState, useRef, useEffect } from 'react';
 
-const BLUE = "#3b82f6";
-const CYAN = "#06b6d4";
-const PAD = "clamp(20px, 6vw, 48px)";
-
-const apps = [
-  { name: "Bookrightly", tag: "Marketplace", demo: "https://www.bookrightly.co.uk/", img: "/images/1.jpg", testLogin: true },
-  { name: "Js Grw Up", tag: "Mobile App", demo: "https://js-grw-up.com/", img: "/images/2.jpg", testLogin: true },
-  { name: "Smart Life", tag: "AI App", demo: "https://smart-life-app.pages.dev/", img: "/images/3.jpg", testLogin: true },
-  { name: "DB's AI Trainer", tag: "AI App", demo: "https://pt-ai-helper.pages.dev/#/login", img: "/images/4.jpg", testLogin: true },
-  { name: "Bella Flor Jewellery", tag: "E-Commerce", demo: "https://www.bellaflorjewellery.co.uk/", img: "/images/5.jpg", website: true },
-  { name: "Payment Card Services", tag: "Website", demo: "https://www.paymentcardservices.co.uk/", img: "/images/6.jpg", website: true },
+const APPS = [
+  { name: "Bookrightly",           tag: "Marketplace",  url: "https://www.bookrightly.co.uk/",             img: "/images/1.jpg", login: true  },
+  { name: "Js Grw Up",             tag: "Mobile App",   url: "https://js-grw-up.com/",                     img: "/images/2.jpg", login: true  },
+  { name: "Smart Life",            tag: "AI App",       url: "https://smart-life-app.pages.dev/",          img: "/images/3.jpg", login: true  },
+  { name: "DB's AI Trainer",       tag: "AI App",       url: "https://pt-ai-helper.pages.dev/#/login",     img: "/images/4.jpg", login: true  },
+  { name: "Bella Flor Jewellery",  tag: "E-Commerce",   url: "https://www.bellaflorjewellery.co.uk/",      img: "/images/5.jpg", login: false },
+  { name: "Payment Card Services", tag: "Website",      url: "https://www.paymentcardservices.co.uk/",     img: "/images/6.jpg", login: false },
 ];
 
-function CredsDropdown() {
+const FAQS = [
+  { q: "How long does a project take?",        a: "Most apps and websites are done in 4–8 weeks from kickoff. I give you a clear timeline before we start and I stick to it." },
+  { q: "Do you handle the App Store?",         a: "Yes — fully. Play Store and App Store submissions, listing, screenshots, and approval. I handle everything so you don't have to." },
+  { q: "What if I only have an idea?",         a: "Perfect starting point. I help you scope it down to essentials and ship something real you can put in front of customers." },
+  { q: "How much does it cost?",               a: "Every project is scoped individually. We talk first, I understand what you need, then I give you a fixed price with no surprises." },
+];
+
+function LoginDropdown() {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(null);
   const ref = useRef(null);
+
   useEffect(() => {
-    const fn = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
-    document.addEventListener('mousedown', fn);
-    return () => document.removeEventListener('mousedown', fn);
+    const handler = (e) => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
   }, []);
-  const copy = (text, field) => { navigator.clipboard.writeText(text); setCopied(field); setTimeout(() => setCopied(null), 1500); };
+
+  const copy = (val, key) => {
+    navigator.clipboard.writeText(val);
+    setCopied(key);
+    setTimeout(() => setCopied(null), 1500);
+  };
+
   return (
-    <div ref={ref} className="relative">
-      <button onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-xs font-semibold transition-all"
-        style={{ background: "#f8fafc", border: "1px solid #e2e8f0", color: "#64748b" }}>
-        <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none">
-          <rect x="3" y="7" width="10" height="7" rx="1.5" stroke="currentColor" strokeWidth="1.4" />
-          <path d="M5 7V5a3 3 0 016 0v2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
-        </svg>
-        Test Login
-        <svg className="w-3 h-3 transition-transform" style={{ transform: open ? 'rotate(180deg)' : '' }} viewBox="0 0 16 16" fill="none">
-          <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+    <div ref={ref} style={{ position: 'relative' }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          gap: 8, padding: '10px 16px', borderRadius: 12, cursor: 'pointer',
+          background: '#f8fafc', border: '1px solid #e2e8f0', color: '#64748b',
+          fontSize: 12, fontWeight: 600, fontFamily: 'inherit',
+        }}>
+        🔒 Test Login {open ? '▲' : '▼'}
       </button>
       {open && (
-        <div className="absolute bottom-full left-0 right-0 mb-3 rounded-xl p-4 z-20 flex flex-col gap-3"
-          style={{ background: "#0f172a", boxShadow: "0 8px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06)" }}>
-          <p className="text-[9px] font-bold uppercase tracking-widest" style={{ color: "#334155" }}>Test credentials</p>
-          {[["Email", "test@test.com"], ["Password", "test1234"]].map(([label, value]) => (
-            <button key={label} onClick={() => copy(value, label)}
-              className="flex items-center justify-between rounded-xl px-4 py-3 transition-all"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
-              onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.08)"}
-              onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}>
-              <div>
-                <div className="text-[9px] font-bold uppercase tracking-widest mb-1" style={{ color: "#334155" }}>{label}</div>
-                <div className="text-xs font-mono font-semibold" style={{ color: "#e2e8f0" }}>{value}</div>
+        <div style={{
+          position: 'absolute', bottom: 'calc(100% + 8px)', left: 0, right: 0,
+          background: '#0f172a', borderRadius: 14, padding: 16, zIndex: 30,
+          boxShadow: '0 8px 40px rgba(0,0,0,0.5)', border: '1px solid rgba(255,255,255,0.08)',
+          display: 'flex', flexDirection: 'column', gap: 8,
+        }}>
+          {[['Email', 'test@test.com'], ['Password', 'test1234']].map(([label, val]) => (
+            <button
+              key={label}
+              onClick={() => copy(val, label)}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '10px 14px', borderRadius: 10, cursor: 'pointer',
+                background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)',
+                fontFamily: 'inherit',
+              }}>
+              <div style={{ textAlign: 'left' }}>
+                <div style={{ fontSize: 9, fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 2 }}>{label}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: '#e2e8f0', fontFamily: 'monospace' }}>{val}</div>
               </div>
-              <span className="text-[10px] font-bold ml-4" style={{ color: copied === label ? "#10b981" : BLUE }}>
-                {copied === label ? "✓ Copied" : "Copy"}
+              <span style={{ fontSize: 11, fontWeight: 700, color: copied === label ? '#10b981' : '#3b82f6', marginLeft: 12 }}>
+                {copied === label ? '✓ Copied' : 'Copy'}
               </span>
             </button>
           ))}
@@ -62,309 +77,274 @@ function CredsDropdown() {
   );
 }
 
-function AppCard({ app }) {
+function Card({ app }) {
   const [hovered, setHovered] = useState(false);
   return (
-    <div className="flex flex-col rounded-2xl overflow-hidden transition-all duration-300"
-      style={{
-        background: "#fff",
-        border: "1px solid #f1f5f9",
-        boxShadow: hovered ? "0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(59,130,246,0.1)" : "0 2px 8px rgba(0,0,0,0.06)",
-        transform: hovered ? "translateY(-6px)" : "translateY(0)",
-      }}
+    <div
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}>
-      <div className="relative overflow-hidden" style={{ aspectRatio: "16/9" }}>
-        <img src={app.img} alt={app.name}
-          className="w-full h-full object-cover object-top transition-transform duration-700"
-          style={{ transform: hovered ? "scale(1.06)" : "scale(1)" }} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.45) 100%)" }} />
-        <div className="absolute bottom-4 left-4 flex items-center gap-2">
-          <span className="px-3 py-1.5 rounded-full text-[10px] font-bold text-white"
-            style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.2)" }}>
-            {app.tag}
-          </span>
-          {app.website && (
-            <span className="px-3 py-1.5 rounded-full text-[10px] font-bold text-white"
-              style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})` }}>
-              Website
-            </span>
-          )}
-        </div>
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: '#fff', borderRadius: 20, overflow: 'hidden',
+        border: '1px solid #f0f0f0', display: 'flex', flexDirection: 'column',
+        boxShadow: hovered ? '0 24px 64px rgba(0,0,0,0.12)' : '0 2px 12px rgba(0,0,0,0.06)',
+        transform: hovered ? 'translateY(-6px)' : 'translateY(0)',
+        transition: 'all 0.3s ease',
+      }}>
+      <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden' }}>
+        <img
+          src={app.img} alt={app.name}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block',
+            transform: hovered ? 'scale(1.05)' : 'scale(1)', transition: 'transform 0.6s ease' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.5))' }} />
+        <span style={{
+          position: 'absolute', bottom: 14, left: 14, padding: '5px 12px', borderRadius: 99,
+          fontSize: 11, fontWeight: 700, color: '#fff',
+          background: 'rgba(255,255,255,0.18)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.2)',
+        }}>{app.tag}</span>
       </div>
-
-      <div className="p-6 flex flex-col gap-5 flex-1 items-center text-center">
-        <h3 className="text-base font-black text-slate-900 w-full" style={{ letterSpacing: "-0.02em" }}>{app.name}</h3>
-        <div className="flex flex-col gap-3 mt-auto w-full">
-          <a href={app.demo} target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold text-white transition-all"
-            style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})`, boxShadow: hovered ? "0 4px 16px rgba(59,130,246,0.4)" : "none" }}>
-            {app.website ? "Visit Site" : "Live Demo"}
-            <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+      <div style={{ padding: '22px 22px 22px', display: 'flex', flexDirection: 'column', gap: 16, flex: 1 }}>
+        <p style={{ fontSize: 15, fontWeight: 800, color: '#0f172a', letterSpacing: '-0.02em', margin: 0 }}>{app.name}</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 'auto' }}>
+          <a
+            href={app.url} target="_blank" rel="noopener noreferrer"
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              padding: '13px 20px', borderRadius: 12, textDecoration: 'none',
+              background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
+              color: '#fff', fontSize: 13, fontWeight: 700,
+              boxShadow: hovered ? '0 4px 16px rgba(59,130,246,0.4)' : 'none',
+              transition: 'box-shadow 0.3s',
+            }}>
+            {app.tag === 'E-Commerce' || app.tag === 'Website' ? 'Visit Site' : 'Live Demo'} →
           </a>
-          {app.testLogin && <CredsDropdown />}
+          {app.login && <LoginDropdown />}
         </div>
       </div>
     </div>
   );
 }
 
-function FaqItem({ q, a }) {
+function Faq({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="rounded-2xl overflow-hidden transition-all cursor-pointer"
-      style={{ border: "1px solid #f1f5f9", background: open ? "#fff" : "#fafafa" }}
-      onClick={() => setOpen(o => !o)}>
-      <div className="flex items-center justify-between px-7 py-6 gap-6">
-        <span className="text-sm font-semibold text-slate-800 leading-relaxed">{q}</span>
-        <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 transition-all"
-          style={{ background: open ? `linear-gradient(135deg, ${BLUE}, ${CYAN})` : "#f1f5f9" }}>
-          <svg className="w-3 h-3 transition-transform" style={{ transform: open ? 'rotate(45deg)' : '', color: open ? "#fff" : "#94a3b8" }} viewBox="0 0 12 12" fill="none">
-            <path d="M6 2v8M2 6h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+    <div
+      onClick={() => setOpen(o => !o)}
+      style={{
+        borderRadius: 16, border: '1px solid #e8eaed', overflow: 'hidden',
+        background: open ? '#fff' : '#fafafa', cursor: 'pointer',
+        transition: 'background 0.2s',
+      }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', gap: 16 }}>
+        <span style={{ fontSize: 14, fontWeight: 600, color: '#1e293b', lineHeight: 1.5 }}>{q}</span>
+        <div style={{
+          width: 28, height: 28, borderRadius: '50%', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: open ? 'linear-gradient(135deg,#3b82f6,#06b6d4)' : '#f1f5f9',
+          transition: 'background 0.2s',
+        }}>
+          <span style={{ fontSize: 16, color: open ? '#fff' : '#94a3b8', lineHeight: 1, transform: open ? 'rotate(45deg)' : 'none', display: 'block', transition: 'transform 0.2s' }}>+</span>
         </div>
       </div>
-      {open && <p className="px-7 pb-7 text-sm leading-loose text-slate-500">{a}</p>}
+      {open && <p style={{ padding: '0 24px 20px', fontSize: 14, color: '#64748b', lineHeight: 1.8, margin: 0 }}>{a}</p>}
+    </div>
+  );
+}
+
+/* ─── shared section wrapper ─── */
+function Section({ id, bg, children }) {
+  return (
+    <section id={id} style={{ width: '100%', background: bg || '#fff', padding: 'clamp(72px,10vw,120px) clamp(24px,6vw,60px)' }}>
+      <div style={{ maxWidth: 1160, margin: '0 auto', width: '100%' }}>
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function SectionHeader({ label, title, sub, light }) {
+  return (
+    <div style={{ textAlign: 'center', marginBottom: 56 }}>
+      <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#3b82f6', marginBottom: 12 }}>{label}</p>
+      <h2 style={{ fontSize: 'clamp(28px,4vw,44px)', fontWeight: 900, letterSpacing: '-0.03em', color: light ? '#fff' : '#0f172a', margin: '0 0 14px' }}>{title}</h2>
+      {sub && <p style={{ fontSize: 15, color: light ? 'rgba(255,255,255,0.45)' : '#94a3b8', maxWidth: 480, margin: '0 auto', lineHeight: 1.7 }}>{sub}</p>}
     </div>
   );
 }
 
 export default function App() {
   return (
-    <div className="w-full min-h-screen flex flex-col overflow-x-hidden" style={{ background: "#fafafa" }}>
+    <div style={{ minHeight: '100vh', width: '100%', background: '#f8fafc', fontFamily: 'Inter, system-ui, sans-serif' }}>
 
-      {/* NAV */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center" style={{ padding: "16px clamp(16px, 4vw, 32px) 0" }}>
-        <nav className="flex items-center justify-between w-full max-w-5xl rounded-2xl px-5 py-3.5"
-          style={{ background: "rgba(9,9,11,0.88)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.08)" }}>
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-black"
-              style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})` }}>D</div>
-            <span className="text-sm font-bold text-white" style={{ letterSpacing: "-0.02em" }}>Dean Burt</span>
+      {/* ── NAV ── */}
+      <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', justifyContent: 'center', padding: '14px 20px 0' }}>
+        <nav style={{
+          width: '100%', maxWidth: 1100, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '12px 20px', borderRadius: 18,
+          background: 'rgba(9,9,11,0.85)', backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255,255,255,0.08)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 10, background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 13, fontWeight: 900 }}>D</div>
+            <span style={{ color: '#fff', fontWeight: 700, fontSize: 14, letterSpacing: '-0.02em' }}>Dean Burt</span>
           </div>
-          <div className="hidden md:flex items-center gap-8">
-            {[["Work", "#work"], ["Services", "#services"], ["FAQ", "#faq"]].map(([l, h]) => (
-              <a key={l} href={h} className="text-xs font-medium transition-colors" style={{ color: "rgba(255,255,255,0.5)" }}
-                onMouseEnter={e => e.currentTarget.style.color = "#fff"}
-                onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.5)"}>{l}</a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 32 }} className="hidden md:flex">
+            {[['Work','#work'],['Services','#services'],['FAQ','#faq']].map(([l,h]) => (
+              <a key={l} href={h} style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontWeight: 500, textDecoration: 'none' }}
+                onMouseEnter={e => e.currentTarget.style.color='#fff'}
+                onMouseLeave={e => e.currentTarget.style.color='rgba(255,255,255,0.5)'}>{l}</a>
             ))}
           </div>
-          <a href="https://coding-leads.vercel.app/book"
-            className="flex items-center gap-2 rounded-xl px-5 py-2.5 text-xs font-bold text-white transition-all hover:-translate-y-0.5"
-            style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})`, boxShadow: "0 4px 14px rgba(59,130,246,0.4)" }}>
-            Book a Call
-          </a>
+          <a href="https://coding-leads.vercel.app/book" style={{
+            padding: '9px 20px', borderRadius: 12, textDecoration: 'none',
+            background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', color: '#fff',
+            fontSize: 13, fontWeight: 700, boxShadow: '0 4px 14px rgba(59,130,246,0.4)',
+          }}>Book a Call</a>
         </nav>
       </header>
 
-      {/* HERO */}
-      <section className="relative flex flex-col items-center justify-center text-center overflow-hidden"
-        style={{ background: "#09090b", minHeight: "100vh", padding: "clamp(100px, 20vw, 160px) clamp(24px, 6vw, 64px) clamp(80px, 12vw, 120px)" }}>
+      {/* ── HERO ── */}
+      <section style={{
+        minHeight: '100vh', width: '100%', background: '#09090b',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: 'clamp(120px,18vw,160px) clamp(24px,6vw,60px) clamp(80px,10vw,120px)',
+        position: 'relative', overflow: 'hidden', textAlign: 'center',
+      }}>
+        {/* grid bg */}
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.15, backgroundImage: 'linear-gradient(rgba(59,130,246,0.3) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,0.3) 1px,transparent 1px)', backgroundSize: '60px 60px', pointerEvents: 'none' }} />
+        {/* glow */}
+        <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 700, height: 400, background: 'radial-gradient(ellipse at top,rgba(59,130,246,0.3),transparent 65%)', opacity: 0.6, filter: 'blur(40px)', pointerEvents: 'none' }} />
 
-        <div className="absolute inset-0 opacity-20"
-          style={{ backgroundImage: "linear-gradient(rgba(59,130,246,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.15) 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] opacity-20 blur-3xl pointer-events-none"
-          style={{ background: `radial-gradient(ellipse at top, ${BLUE} 0%, transparent 65%)` }} />
-
-        <div className="relative max-w-4xl mx-auto w-full">
-          <div className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold mb-8"
-            style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.25)", color: "#60a5fa" }}>
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            </span>
-            Available for 1 new project this month
+        <div style={{ maxWidth: 760, width: '100%', position: 'relative' }}>
+          {/* badge */}
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 18px', borderRadius: 99, background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)', marginBottom: 32 }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 0 3px rgba(16,185,129,0.25)' }} />
+            <span style={{ fontSize: 12, fontWeight: 600, color: '#60a5fa', letterSpacing: '0.02em' }}>Available for 1 new project this month</span>
           </div>
 
-          <h1 className="text-white" style={{ fontSize: "clamp(40px, 8vw, 88px)", fontWeight: 900, lineHeight: 1.08, letterSpacing: "-0.04em" }}>
+          <h1 style={{ fontSize: 'clamp(42px,7.5vw,88px)', fontWeight: 900, lineHeight: 1.07, letterSpacing: '-0.04em', color: '#fff', margin: '0 0 24px' }}>
             I build apps that<br />
-            <span style={{ background: `linear-gradient(135deg, ${BLUE} 0%, ${CYAN} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              grow businesses.
-            </span>
+            <span style={{ background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>grow businesses.</span>
           </h1>
 
-          <p className="mx-auto mt-8 max-w-xl text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.8 }}>
+          <p style={{ fontSize: 'clamp(15px,2vw,18px)', color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, maxWidth: 520, margin: '0 auto 40px' }}>
             Full-stack developer building mobile apps and websites for local businesses.
             I handle everything — design, development, and store submission.
           </p>
 
-          <div className="mt-10 mb-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
-            <a href="https://coding-leads.vercel.app/book"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-sm font-bold text-white transition-all hover:-translate-y-0.5"
-              style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})`, boxShadow: "0 8px 24px rgba(59,130,246,0.45)" }}>
-              Book a free call
-              <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-            <a href="#work"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-sm font-bold transition-all hover:-translate-y-0.5"
-              style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.7)" }}>
-              See my work
-            </a>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, width: '100%', maxWidth: 400, margin: '0 auto 64px' }}>
+            <a href="https://coding-leads.vercel.app/book" style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              width: '100%', padding: '16px 28px', borderRadius: 14, textDecoration: 'none',
+              background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', color: '#fff',
+              fontSize: 15, fontWeight: 700, boxShadow: '0 8px 28px rgba(59,130,246,0.5)',
+            }}>Book a free call →</a>
+            <a href="#work" style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              width: '100%', padding: '16px 28px', borderRadius: 14, textDecoration: 'none',
+              background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)',
+              color: 'rgba(255,255,255,0.7)', fontSize: 15, fontWeight: 600,
+            }}>See my work</a>
           </div>
 
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 rounded-2xl overflow-hidden"
-            style={{ border: "1px solid rgba(255,255,255,0.07)", gap: "1px", background: "rgba(255,255,255,0.07)" }}>
-            {[["6", "Live apps"], ["4–8wk", "To launch"], ["100%", "Store handled"], ["1", "Spot open"]].map(([n, l]) => (
-              <div key={l} className="flex flex-col items-center gap-2 py-7 px-4"
-                style={{ background: "#09090b" }}>
-                <span className="text-2xl font-black" style={{ color: "#fff", letterSpacing: "-0.04em" }}>{n}</span>
-                <span className="text-[10px] font-medium uppercase tracking-wider text-center" style={{ color: "rgba(255,255,255,0.3)" }}>{l}</span>
+          {/* stats */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 1, background: 'rgba(255,255,255,0.08)', borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
+            {[['6','Live apps'],['4–8wk','To launch'],['100%','Store handled'],['1','Spot open']].map(([n,l]) => (
+              <div key={l} style={{ background: '#09090b', padding: '22px 12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 22, fontWeight: 900, color: '#fff', letterSpacing: '-0.04em' }}>{n}</span>
+                <span style={{ fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', textAlign: 'center' }}>{l}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* WORK */}
-      <section id="work" className="w-full" style={{ padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
-        <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
-          <div className="mb-14 w-full" style={{ textAlign: "center" }}>
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE, textAlign: "center" }}>Live work</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em", textAlign: "center" }}>
-              6 projects. All live.
-            </h2>
-            <p className="text-sm text-slate-400 mt-4 leading-relaxed" style={{ textAlign: "center", maxWidth: "400px", marginLeft: "auto", marginRight: "auto" }}>Not mockups. Production-grade software built and deployed end to end.</p>
-          </div>
-          <div className="w-full grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-            {apps.map(app => <AppCard key={app.name} app={app} />)}
-          </div>
+      {/* ── WORK ── */}
+      <Section id="work" bg="#f8fafc">
+        <SectionHeader label="Live Work" title="6 projects. All live." sub="Not mockups. Production-grade software built and deployed end to end." />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: 28 }}>
+          {APPS.map(app => <Card key={app.name} app={app} />)}
         </div>
-      </section>
+      </Section>
 
-      {/* SERVICES */}
-      <section id="services" className="w-full" style={{ background: "#09090b", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
-        <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
-          <div className="mb-14 w-full" style={{ textAlign: "center" }}>
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE, textAlign: "center" }}>Services</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-white" style={{ letterSpacing: "-0.04em", textAlign: "center" }}>
-              What I build for you.
-            </h2>
-          </div>
-          <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {[
-              { title: "Mobile Apps", desc: "React Native or PWA apps built for Android and iOS. I handle design, development, and full Play Store and App Store submission.", icon: "📱" },
-              { title: "Websites", desc: "Fast, modern websites that convert visitors into customers — e-commerce, bookings, and service businesses.", icon: "🌐" },
-              { title: "MVP Launch", desc: "Have an idea? I scope, design, and ship your first version in 4–8 weeks — ready for real users and investment.", icon: "🚀" },
-            ].map(s => (
-              <div key={s.title} className="rounded-2xl flex flex-col items-center text-center gap-5 transition-all"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", padding: "clamp(28px, 4vw, 40px)" }}
-                onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.07)"}
-                onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}>
-                <span className="text-4xl">{s.icon}</span>
-                <div className="flex flex-col gap-3">
-                  <h3 className="text-base font-black text-white" style={{ letterSpacing: "-0.02em" }}>{s.title}</h3>
-                  <p className="text-sm leading-loose" style={{ color: "rgba(255,255,255,0.4)" }}>{s.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* ── SERVICES ── */}
+      <Section id="services" bg="#09090b">
+        <SectionHeader label="Services" title="What I build for you." light />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: 20 }}>
+          {[
+            { icon: '📱', title: 'Mobile Apps',  desc: 'React Native or PWA apps for Android and iOS. Design, development, and full store submission handled.' },
+            { icon: '🌐', title: 'Websites',     desc: 'Fast, modern websites that convert visitors — e-commerce, bookings, and service businesses.' },
+            { icon: '🚀', title: 'MVP Launch',   desc: 'Have an idea? I scope, design, and ship your first version in 4–8 weeks, ready for real users.' },
+          ].map(s => (
+            <div key={s.title} style={{ borderRadius: 18, padding: 'clamp(28px,4vw,40px)', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 16 }}>
+              <span style={{ fontSize: 40 }}>{s.icon}</span>
+              <h3 style={{ fontSize: 16, fontWeight: 800, color: '#fff', margin: 0, letterSpacing: '-0.02em' }}>{s.title}</h3>
+              <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.42)', lineHeight: 1.75, margin: 0 }}>{s.desc}</p>
+            </div>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      {/* PROCESS */}
-      <section className="w-full" style={{ background: "#fff", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
-        <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
-          <div className="mb-14 w-full" style={{ textAlign: "center" }}>
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE, textAlign: "center" }}>Process</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em", textAlign: "center" }}>
-              Simple. Three steps.
-            </h2>
-          </div>
-          <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {[
-              { n: "01", title: "We talk", body: "Free 15-minute call. You explain the idea, I ask the right questions, and I tell you honestly if I can help." },
-              { n: "02", title: "I build", body: "Fixed price, fixed timeline. Weekly updates, no surprises. You see the progress the whole way through." },
-              { n: "03", title: "You launch", body: "I handle store submission, deployment, everything technical. You show up on launch day ready to go." },
-            ].map(s => (
-              <div key={s.n} className="relative rounded-2xl flex flex-col items-center text-center gap-4"
-                style={{ border: "1px solid #f1f5f9", background: "#fafafa", padding: "clamp(28px, 4vw, 40px)" }}>
-                <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-sm font-black text-white flex-shrink-0"
-                  style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})` }}>{s.n}</div>
-                <div className="flex flex-col gap-3">
-                  <h3 className="text-xl font-black text-slate-900" style={{ letterSpacing: "-0.03em" }}>{s.title}</h3>
-                  <p className="text-sm leading-loose text-slate-500">{s.body}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* ── PROCESS ── */}
+      <Section bg="#fff">
+        <SectionHeader label="Process" title="Simple. Three steps." sub="From first call to live app — here's exactly how it works." />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: 20 }}>
+          {[
+            { n: '01', title: 'We talk',    body: 'Free 15-minute call. You explain the idea, I ask questions and tell you honestly if I can help.' },
+            { n: '02', title: 'I build',    body: 'Fixed price, fixed timeline. Weekly updates, no surprises. You see progress the whole way.' },
+            { n: '03', title: 'You launch', body: 'I handle store submission, deployment, everything technical. You show up on launch day ready.' },
+          ].map(s => (
+            <div key={s.n} style={{ borderRadius: 18, padding: 'clamp(28px,4vw,40px)', background: '#fafafa', border: '1px solid #eef0f3', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 16 }}>
+              <div style={{ width: 48, height: 48, borderRadius: 14, background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 14, fontWeight: 900 }}>{s.n}</div>
+              <h3 style={{ fontSize: 18, fontWeight: 900, color: '#0f172a', margin: 0, letterSpacing: '-0.03em' }}>{s.title}</h3>
+              <p style={{ fontSize: 14, color: '#64748b', lineHeight: 1.75, margin: 0 }}>{s.body}</p>
+            </div>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      {/* FAQ */}
-      <section id="faq" className="w-full" style={{ background: "#fafafa", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
-        <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
-          <div className="mb-14 text-center">
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>FAQ</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
-              Common questions.
-            </h2>
-          </div>
-          <div className="w-full flex flex-col gap-4">
-            {[
-              { q: "How long does a project take?", a: "Most apps and websites are completed in 4–8 weeks from kickoff. I give you a clear timeline before we start and I stick to it." },
-              { q: "Do you handle the App Store submission?", a: "Yes — fully. Play Store and App Store submissions are where most developers leave businesses stuck. I manage the entire process including setup, listing, screenshots, and approval." },
-              { q: "What if I only have an idea?", a: "Perfect starting point. I help you scope it down to the essentials, cut what doesn't matter, and ship something real that you can put in front of customers." },
-              { q: "How much does it cost?", a: "Every project is scoped individually. I don't quote blind — we talk first, I understand what you need, then I give you a fixed price with no surprises." },
-            ].map(f => <FaqItem key={f.q} {...f} />)}
-          </div>
+      {/* ── FAQ ── */}
+      <Section id="faq" bg="#f8fafc">
+        <SectionHeader label="FAQ" title="Common questions." sub="Everything you need to know before we start." />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 720, margin: '0 auto' }}>
+          {FAQS.map(f => <Faq key={f.q} {...f} />)}
         </div>
-      </section>
+      </Section>
 
-      {/* FOOTER */}
-      <footer className="w-full relative overflow-hidden text-center"
-        style={{ background: "#09090b", padding: "clamp(64px, 12vw, 128px) clamp(24px, 6vw, 64px)" }}>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-25 blur-3xl pointer-events-none"
-          style={{ background: `radial-gradient(ellipse at top, ${BLUE} 0%, transparent 65%)` }} />
-
-        <div className="relative max-w-2xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold mb-10"
-            style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.2)", color: "#60a5fa" }}>
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            </span>
-            1 spot open this month
+      {/* ── FOOTER ── */}
+      <section style={{ width: '100%', background: '#09090b', padding: 'clamp(80px,12vw,140px) clamp(24px,6vw,60px)', position: 'relative', overflow: 'hidden', textAlign: 'center' }}>
+        <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 600, height: 300, background: 'radial-gradient(ellipse at top,rgba(59,130,246,0.35),transparent 65%)', opacity: 0.7, filter: 'blur(40px)', pointerEvents: 'none' }} />
+        <div style={{ maxWidth: 600, margin: '0 auto', position: 'relative' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 18px', borderRadius: 99, background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.25)', marginBottom: 32 }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#10b981', display: 'inline-block', boxShadow: '0 0 0 3px rgba(16,185,129,0.25)' }} />
+            <span style={{ fontSize: 12, fontWeight: 600, color: '#60a5fa' }}>1 spot open this month</span>
           </div>
 
-          <h2 className="text-white" style={{ fontSize: "clamp(36px, 6vw, 64px)", fontWeight: 900, lineHeight: 1.08, letterSpacing: "-0.04em" }}>
+          <h2 style={{ fontSize: 'clamp(36px,5.5vw,64px)', fontWeight: 900, letterSpacing: '-0.04em', color: '#fff', lineHeight: 1.1, margin: '0 0 20px' }}>
             Ready to build<br />
-            <span style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              something real?
-            </span>
+            <span style={{ background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>something real?</span>
           </h2>
 
-          <p className="mt-7 text-base max-w-md mx-auto" style={{ color: "rgba(255,255,255,0.4)", lineHeight: 1.8 }}>
-            Book a free 15-minute call. No pitch, no obligation — just an honest conversation about your project.
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', lineHeight: 1.8, marginBottom: 40 }}>
+            Book a free 15-minute call. No pitch, no pressure — just an honest conversation about your project.
           </p>
 
-          <a href="https://coding-leads.vercel.app/book"
-            className="mt-12 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl px-10 py-5 text-sm font-bold text-white transition-all hover:-translate-y-0.5"
-            style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})`, boxShadow: "0 8px 32px rgba(59,130,246,0.5)" }}>
-            Book a free call
-            <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
+          <a href="https://coding-leads.vercel.app/book" style={{
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            padding: '18px 48px', borderRadius: 14, textDecoration: 'none',
+            background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', color: '#fff',
+            fontSize: 16, fontWeight: 700, boxShadow: '0 8px 32px rgba(59,130,246,0.5)',
+          }}>Book a free call →</a>
 
-          <p className="mt-6 text-sm" style={{ color: "rgba(255,255,255,0.2)" }}>
-            or email{" "}
-            <a href="mailto:deanburt1308@gmail.com" className="underline underline-offset-2 hover:opacity-70 transition-opacity" style={{ color: "#60a5fa" }}>
-              deanburt1308@gmail.com
-            </a>
+          <p style={{ marginTop: 20, fontSize: 14, color: 'rgba(255,255,255,0.25)' }}>
+            or email{' '}
+            <a href="mailto:deanburt1308@gmail.com" style={{ color: '#60a5fa', textDecoration: 'underline' }}>deanburt1308@gmail.com</a>
           </p>
 
-          <div className="mt-24 pt-8 flex items-center justify-center gap-4"
-            style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-            <p className="text-xs" style={{ color: "rgba(255,255,255,0.15)" }}>
-              © {new Date().getFullYear()} Dean Burt · Full-Stack Developer · UK
-            </p>
+          <div style={{ marginTop: 80, paddingTop: 28, borderTop: '1px solid rgba(255,255,255,0.07)', textAlign: 'center' }}>
+            <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.18)', margin: 0 }}>© {new Date().getFullYear()} Dean Burt · Full-Stack Developer · UK</p>
           </div>
         </div>
-      </footer>
+      </section>
+
     </div>
   );
 }
