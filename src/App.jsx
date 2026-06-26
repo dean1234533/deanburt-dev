@@ -375,13 +375,7 @@ export default function App() {
               <span className="text-xs font-bold text-white opacity-50">Dean Burt</span>
             </div>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.2)" }}>© {new Date().getFullYear()} Dean Burt · Full-Stack Developer · UK</p>
-            <div className="flex gap-5">
-              {[["GitHub", "https://github.com/dean1234533"], ["Google Play", "https://play.google.com"]].map(([l, h]) => (
-                <a key={l} href={h} target="_blank" rel="noopener noreferrer"
-                  className="text-xs font-medium transition-opacity hover:opacity-60"
-                  style={{ color: "rgba(255,255,255,0.3)" }}>{l}</a>
-              ))}
-            </div>
+            <div />
           </div>
         </div>
       </footer>
