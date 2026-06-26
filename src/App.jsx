@@ -159,7 +159,7 @@ export default function App() {
 
       {/* HERO */}
       <section className="relative flex flex-col items-center justify-center text-center px-5 overflow-hidden"
-        style={{ background: "#09090b", minHeight: "100vh", paddingTop: "clamp(80px, 18vw, 140px)", paddingBottom: "clamp(60px, 10vw, 100px)" }}>
+        style={{ background: "#09090b", minHeight: "100vh", paddingTop: "clamp(80px, 18vw, 140px)", paddingBottom: "clamp(60px, 10vw, 100px)", paddingLeft: "clamp(24px, 6vw, 48px)", paddingRight: "clamp(24px, 6vw, 48px)" }}>
 
         {/* grid bg */}
         <div className="absolute inset-0 opacity-20"
@@ -222,7 +222,7 @@ export default function App() {
       </section>
 
       {/* WORK */}
-      <section id="work" className="px-5 py-20 sm:py-28">
+      <section id="work" className="px-6 sm:px-10 py-20 sm:py-28">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
             <div>
@@ -240,7 +240,7 @@ export default function App() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="px-5 py-20 sm:py-28" style={{ background: "#09090b" }}>
+      <section id="services" className="px-6 sm:px-10 py-20 sm:py-28" style={{ background: "#09090b" }}>
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 sm:mb-14">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BLUE }}>Services</p>
@@ -280,7 +280,7 @@ export default function App() {
       </section>
 
       {/* PROCESS */}
-      <section className="px-5 py-20 sm:py-28" style={{ background: "#fff" }}>
+      <section className="px-6 sm:px-10 py-20 sm:py-28" style={{ background: "#fff" }}>
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 sm:mb-14">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BLUE }}>Process</p>
@@ -310,7 +310,7 @@ export default function App() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="px-5 py-20 sm:py-28" style={{ background: "#fafafa" }}>
+      <section id="faq" className="px-6 sm:px-10 py-20 sm:py-28" style={{ background: "#fafafa" }}>
         <div className="mx-auto max-w-3xl">
           <div className="mb-14 text-center">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BLUE }}>FAQ</p>
@@ -330,7 +330,7 @@ export default function App() {
       </section>
 
       {/* FOOTER CTA */}
-      <footer className="relative overflow-hidden px-5 py-20 sm:py-32 text-center" style={{ background: "#09090b" }}>
+      <footer className="relative overflow-hidden py-20 sm:py-32 text-center" style={{ background: "#09090b", paddingLeft: "clamp(24px, 6vw, 48px)", paddingRight: "clamp(24px, 6vw, 48px)" }}>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-25 blur-3xl pointer-events-none"
           style={{ background: `radial-gradient(ellipse at top, ${BLUE} 0%, transparent 65%)` }} />
         <div className="relative max-w-2xl mx-auto">
