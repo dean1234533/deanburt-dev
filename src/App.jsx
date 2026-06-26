@@ -5,7 +5,7 @@ const CYAN = "#06b6d4";
 
 const apps = [
   { name: "Bookrightly", tag: "Marketplace", demo: "https://www.bookrightly.co.uk/", img: "/images/1.jpg", testLogin: true },
-  { name: "JS Grow Up", tag: "Mobile App", demo: "https://js-grw-up.com/", img: "/images/2.jpg", testLogin: true },
+  { name: "Js Grw Up", tag: "Mobile App", demo: "https://js-grw-up.com/", img: "/images/2.jpg", testLogin: true },
   { name: "Smart Life", tag: "AI App", demo: "https://smart-life-app.pages.dev/", img: "/images/3.jpg", testLogin: true },
   { name: "DB's AI Trainer", tag: "AI App", demo: "https://pt-ai-helper.pages.dev/#/login", img: "/images/4.jpg", testLogin: true },
   { name: "Bella Flor Jewellery", tag: "E-Commerce", demo: "https://www.bellaflorjewellery.co.uk/", img: "/images/5.jpg", website: true },
