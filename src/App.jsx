@@ -139,7 +139,11 @@ export default function App() {
       <header className="fixed top-0 left-0 right-0 z-50 flex justify-center" style={{ padding: "16px clamp(16px, 4vw, 32px) 0" }}>
         <nav className="flex items-center justify-between w-full max-w-5xl rounded-2xl px-5 py-3.5"
           style={{ background: "rgba(9,9,11,0.88)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.08)" }}>
-          <div />
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-black"
+              style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})` }}>D</div>
+            <span className="text-sm font-bold text-white" style={{ letterSpacing: "-0.02em" }}>Dean Burt</span>
+          </div>
           <div className="hidden md:flex items-center gap-8">
             {[["Work", "#work"], ["Services", "#services"], ["FAQ", "#faq"]].map(([l, h]) => (
               <a key={l} href={h} className="text-xs font-medium transition-colors" style={{ color: "rgba(255,255,255,0.5)" }}
@@ -355,17 +359,11 @@ export default function App() {
             </a>
           </p>
 
-          <div className="mt-24 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+          <div className="mt-24 pt-8 flex items-center justify-center gap-4"
             style={{ borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-            <div className="flex items-center gap-3">
-              <div className="w-7 h-7 rounded-md flex items-center justify-center text-white text-[10px] font-black"
-                style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})` }}>D</div>
-              <span className="text-xs font-bold" style={{ color: "rgba(255,255,255,0.3)" }}>Dean Burt</span>
-            </div>
             <p className="text-xs" style={{ color: "rgba(255,255,255,0.15)" }}>
               © {new Date().getFullYear()} Dean Burt · Full-Stack Developer · UK
             </p>
-            <div />
           </div>
         </div>
       </footer>
