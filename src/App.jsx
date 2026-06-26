@@ -222,14 +222,12 @@ export default function App() {
       {/* WORK */}
       <section id="work" style={{ padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
         <div className="mx-auto max-w-6xl">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-14">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Live work</p>
-              <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
-                6 projects. All live.
-              </h2>
-            </div>
-            <p className="text-sm text-slate-400 max-w-xs leading-relaxed">Not mockups. Production-grade software built and deployed end to end.</p>
+          <div className="text-center mb-14">
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Live work</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
+              6 projects. All live.
+            </h2>
+            <p className="text-sm text-slate-400 mt-4 mx-auto max-w-sm leading-relaxed">Not mockups. Production-grade software built and deployed end to end.</p>
           </div>
           <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
             {apps.map(app => <AppCard key={app.name} app={app} />)}
@@ -240,7 +238,7 @@ export default function App() {
       {/* SERVICES */}
       <section id="services" style={{ background: "#09090b", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
         <div className="mx-auto max-w-6xl">
-          <div className="mb-14">
+          <div className="text-center mb-14">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Services</p>
             <h2 className="text-3xl sm:text-4xl font-black text-white" style={{ letterSpacing: "-0.04em" }}>
               What I build for you.
@@ -270,7 +268,7 @@ export default function App() {
       {/* PROCESS */}
       <section style={{ background: "#fff", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
         <div className="mx-auto max-w-6xl">
-          <div className="mb-14">
+          <div className="text-center mb-14">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Process</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
               Simple. Three steps.
