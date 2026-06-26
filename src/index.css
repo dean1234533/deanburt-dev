@@ -16,4 +16,9 @@ html {
 body {
   background: #f8fafc;
   color: #0f172a;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
 }

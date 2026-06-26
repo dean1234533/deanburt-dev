@@ -133,7 +133,7 @@ function FaqItem({ q, a }) {
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#fafafa" }}>
+    <div className="w-full min-h-screen flex flex-col overflow-x-hidden" style={{ background: "#fafafa" }}>
 
       {/* NAV */}
       <header className="fixed top-0 left-0 right-0 z-50 flex justify-center" style={{ padding: "16px clamp(16px, 4vw, 32px) 0" }}>
@@ -220,31 +220,31 @@ export default function App() {
       </section>
 
       {/* WORK */}
-      <section id="work" style={{ padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-14">
+      <section id="work" className="w-full" style={{ padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
+        <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
+          <div className="text-center mb-14 w-full">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Live work</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
               6 projects. All live.
             </h2>
             <p className="text-sm text-slate-400 mt-4 mx-auto max-w-sm leading-relaxed">Not mockups. Production-grade software built and deployed end to end.</p>
           </div>
-          <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="w-full grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
             {apps.map(app => <AppCard key={app.name} app={app} />)}
           </div>
         </div>
       </section>
 
       {/* SERVICES */}
-      <section id="services" style={{ background: "#09090b", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-14">
+      <section id="services" className="w-full" style={{ background: "#09090b", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
+        <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
+          <div className="text-center mb-14 w-full">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Services</p>
             <h2 className="text-3xl sm:text-4xl font-black text-white" style={{ letterSpacing: "-0.04em" }}>
               What I build for you.
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
               { title: "Mobile Apps", desc: "React Native or PWA apps built for Android and iOS. I handle design, development, and full Play Store and App Store submission.", icon: "📱" },
               { title: "Websites", desc: "Fast, modern websites that convert visitors into customers — e-commerce, bookings, and service businesses.", icon: "🌐" },
@@ -266,15 +266,15 @@ export default function App() {
       </section>
 
       {/* PROCESS */}
-      <section style={{ background: "#fff", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center mb-14">
+      <section className="w-full" style={{ background: "#fff", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
+        <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
+          <div className="text-center mb-14 w-full">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Process</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
               Simple. Three steps.
             </h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-6">
             {[
               { n: "01", title: "We talk", body: "Free 15-minute call. You explain the idea, I ask the right questions, and I tell you honestly if I can help." },
               { n: "02", title: "I build", body: "Fixed price, fixed timeline. Weekly updates, no surprises. You see the progress the whole way through." },
@@ -295,15 +295,15 @@ export default function App() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" style={{ background: "#fafafa", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
-        <div className="mx-auto max-w-3xl">
+      <section id="faq" className="w-full" style={{ background: "#fafafa", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
+        <div className="w-full max-w-3xl mx-auto flex flex-col items-center">
           <div className="mb-14 text-center">
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>FAQ</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
               Common questions.
             </h2>
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="w-full flex flex-col gap-4">
             {[
               { q: "How long does a project take?", a: "Most apps and websites are completed in 4–8 weeks from kickoff. I give you a clear timeline before we start and I stick to it." },
               { q: "Do you handle the App Store submission?", a: "Yes — fully. Play Store and App Store submissions are where most developers leave businesses stuck. I manage the entire process including setup, listing, screenshots, and approval." },
@@ -315,7 +315,7 @@ export default function App() {
       </section>
 
       {/* FOOTER */}
-      <footer className="relative overflow-hidden text-center"
+      <footer className="w-full relative overflow-hidden text-center"
         style={{ background: "#09090b", padding: "clamp(64px, 12vw, 128px) clamp(24px, 6vw, 64px)" }}>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-25 blur-3xl pointer-events-none"
           style={{ background: `radial-gradient(ellipse at top, ${BLUE} 0%, transparent 65%)` }} />
