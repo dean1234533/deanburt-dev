@@ -159,7 +159,7 @@ export default function App() {
 
       {/* HERO */}
       <section className="relative flex flex-col items-center justify-center text-center px-5 overflow-hidden"
-        style={{ background: "#09090b", minHeight: "100vh", paddingTop: "clamp(72px, 15vw, 140px)", paddingBottom: "clamp(48px, 8vw, 100px)" }}>
+        style={{ background: "#09090b", minHeight: "100vh", paddingTop: "clamp(80px, 18vw, 140px)", paddingBottom: "clamp(60px, 10vw, 100px)" }}>
 
         {/* grid bg */}
         <div className="absolute inset-0 opacity-20"
@@ -170,7 +170,7 @@ export default function App() {
           style={{ background: `radial-gradient(ellipse at top, ${BLUE} 0%, transparent 65%)` }} />
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold mb-5"
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold mb-7"
             style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.25)", color: "#60a5fa" }}>
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -179,21 +179,21 @@ export default function App() {
             Available for 1 new project this month
           </div>
 
-          <h1 className="text-white" style={{ fontSize: "clamp(38px, 8vw, 88px)", fontWeight: 900, lineHeight: 1.06, letterSpacing: "-0.04em" }}>
+          <h1 className="text-white" style={{ fontSize: "clamp(40px, 8vw, 88px)", fontWeight: 900, lineHeight: 1.08, letterSpacing: "-0.04em" }}>
             I build apps that<br />
             <span style={{ background: `linear-gradient(135deg, ${BLUE} 0%, ${CYAN} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               grow businesses.
             </span>
           </h1>
 
-          <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.65 }}>
+          <p className="mx-auto mt-8 max-w-xl text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.75 }}>
             Full-stack developer building mobile apps and websites for local businesses.
             I handle everything — design, development, and store submission.
           </p>
 
-          <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <a href="https://coding-leads.vercel.app/book"
-              className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-bold text-white transition-all hover:-translate-y-0.5"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-7 py-4 text-sm font-bold text-white transition-all hover:-translate-y-0.5"
               style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})`, boxShadow: "0 8px 24px rgba(59,130,246,0.45)" }}>
               Book a free call
               <svg className="w-4 h-4" viewBox="0 0 16 16" fill="none">
@@ -201,14 +201,14 @@ export default function App() {
               </svg>
             </a>
             <a href="#work"
-              className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-bold transition-all hover:-translate-y-0.5"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-7 py-4 text-sm font-bold transition-all hover:-translate-y-0.5"
               style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)" }}>
               See my work
             </a>
           </div>
 
           {/* stats */}
-          <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden"
+          <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden"
             style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
             {[["6", "Live apps"], ["4–8wk", "To launch"], ["100%", "Store handled"], ["1", "Spot open"]].map(([n, l]) => (
               <div key={l} className="flex flex-col items-center gap-1.5 py-6 px-3"
@@ -222,7 +222,7 @@ export default function App() {
       </section>
 
       {/* WORK */}
-      <section id="work" className="px-5 py-16 sm:py-28">
+      <section id="work" className="px-5 py-20 sm:py-28">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
             <div>
@@ -240,9 +240,9 @@ export default function App() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="px-5 py-16 sm:py-28" style={{ background: "#09090b" }}>
+      <section id="services" className="px-5 py-20 sm:py-28" style={{ background: "#09090b" }}>
         <div className="mx-auto max-w-6xl">
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-12 sm:mb-14">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BLUE }}>Services</p>
             <h2 className="text-3xl sm:text-4xl font-black text-white" style={{ letterSpacing: "-0.04em" }}>
               What I build for you.
@@ -280,9 +280,9 @@ export default function App() {
       </section>
 
       {/* PROCESS */}
-      <section className="px-5 py-16 sm:py-28" style={{ background: "#fff" }}>
+      <section className="px-5 py-20 sm:py-28" style={{ background: "#fff" }}>
         <div className="mx-auto max-w-6xl">
-          <div className="mb-10 sm:mb-14">
+          <div className="mb-12 sm:mb-14">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BLUE }}>Process</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
               Simple. Three steps.
@@ -310,7 +310,7 @@ export default function App() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="px-5 py-16 sm:py-28" style={{ background: "#fafafa" }}>
+      <section id="faq" className="px-5 py-20 sm:py-28" style={{ background: "#fafafa" }}>
         <div className="mx-auto max-w-3xl">
           <div className="mb-14 text-center">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BLUE }}>FAQ</p>
