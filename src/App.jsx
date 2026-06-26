@@ -260,7 +260,7 @@ export default function App() {
       {/* ── WORK ── */}
       <Section id="work" bg="#f8fafc">
         <SectionHeader label="Live Work" title="6 projects. All live." sub="Not mockups. Production-grade software built and deployed end to end." />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))', gap: 28 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(300px,1fr))', gap: 28 }}>
           {APPS.map(app => <Card key={app.name} app={app} />)}
         </div>
       </Section>
@@ -268,7 +268,7 @@ export default function App() {
       {/* ── SERVICES ── */}
       <Section id="services" bg="#09090b">
         <SectionHeader label="Services" title="What I build for you." light />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: 20 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20 }}>
           {[
             { icon: '📱', title: 'Mobile Apps',  desc: 'React Native or PWA apps for Android and iOS. Design, development, and full store submission handled.' },
             { icon: '🌐', title: 'Websites',     desc: 'Fast, modern websites that convert visitors — e-commerce, bookings, and service businesses.' },
@@ -286,7 +286,7 @@ export default function App() {
       {/* ── PROCESS ── */}
       <Section bg="#fff">
         <SectionHeader label="Process" title="Simple. Three steps." sub="From first call to live app — here's exactly how it works." />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: 20 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 20 }}>
           {[
             { n: '01', title: 'We talk',    body: 'Free 15-minute call. You explain the idea, I ask questions and tell you honestly if I can help.' },
             { n: '02', title: 'I build',    body: 'Fixed price, fixed timeline. Weekly updates, no surprises. You see progress the whole way.' },
