@@ -159,7 +159,7 @@ export default function App() {
 
       {/* HERO */}
       <section className="relative flex flex-col items-center justify-center text-center px-5 overflow-hidden"
-        style={{ background: "#09090b", minHeight: "100vh", paddingTop: "clamp(100px, 20vw, 140px)", paddingBottom: "clamp(60px, 10vw, 100px)" }}>
+        style={{ background: "#09090b", minHeight: "100vh", paddingTop: "clamp(72px, 15vw, 140px)", paddingBottom: "clamp(48px, 8vw, 100px)" }}>
 
         {/* grid bg */}
         <div className="absolute inset-0 opacity-20"
@@ -170,7 +170,7 @@ export default function App() {
           style={{ background: `radial-gradient(ellipse at top, ${BLUE} 0%, transparent 65%)` }} />
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold mb-8"
+          <div className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold mb-5"
             style={{ background: "rgba(59,130,246,0.1)", border: "1px solid rgba(59,130,246,0.25)", color: "#60a5fa" }}>
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -186,12 +186,12 @@ export default function App() {
             </span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-xl text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.7 }}>
+          <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg" style={{ color: "rgba(255,255,255,0.45)", lineHeight: 1.65 }}>
             Full-stack developer building mobile apps and websites for local businesses.
             I handle everything — design, development, and store submission.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
             <a href="https://coding-leads.vercel.app/book"
               className="flex items-center gap-2 rounded-xl px-7 py-3.5 text-sm font-bold text-white transition-all hover:-translate-y-0.5"
               style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})`, boxShadow: "0 8px 24px rgba(59,130,246,0.45)" }}>
@@ -208,7 +208,7 @@ export default function App() {
           </div>
 
           {/* stats */}
-          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden"
+          <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden"
             style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
             {[["6", "Live apps"], ["4–8wk", "To launch"], ["100%", "Store handled"], ["1", "Spot open"]].map(([n, l]) => (
               <div key={l} className="flex flex-col items-center gap-1.5 py-6 px-3"
