@@ -231,7 +231,7 @@ export default function App() {
                 6 projects. All live.
               </h2>
             </div>
-            <p className="text-sm text-slate-400 max-w-xs">Not mockups. Production software with real users.</p>
+            <p className="text-sm text-slate-400 max-w-xs">Not mockups. Production-grade software built and deployed end to end.</p>
           </div>
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {apps.map(app => <AppCard key={app.name} app={app} />)}
