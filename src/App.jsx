@@ -190,7 +190,7 @@ export default function App() {
             I handle everything — design, development, and store submission.
           </p>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+          <div className="mt-10 mb-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <a href="https://coding-leads.vercel.app/book"
               className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-sm font-bold text-white transition-all hover:-translate-y-0.5"
               style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})`, boxShadow: "0 8px 24px rgba(59,130,246,0.45)" }}>
@@ -200,7 +200,7 @@ export default function App() {
               </svg>
             </a>
             <a href="#work"
-              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-sm font-bold transition-all hover:-translate-y-0.5 mb-8"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-8 py-4 text-sm font-bold transition-all hover:-translate-y-0.5"
               style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.7)" }}>
               See my work
             </a>
