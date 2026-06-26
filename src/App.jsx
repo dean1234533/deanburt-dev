@@ -93,9 +93,9 @@ function AppCard({ app }) {
         </div>
       </div>
 
-      <div className="p-6 flex flex-col gap-5 flex-1">
-        <h3 className="text-base font-black text-slate-900" style={{ letterSpacing: "-0.02em" }}>{app.name}</h3>
-        <div className="flex flex-col gap-3 mt-auto">
+      <div className="p-6 flex flex-col gap-5 flex-1 items-center text-center">
+        <h3 className="text-base font-black text-slate-900 w-full" style={{ letterSpacing: "-0.02em" }}>{app.name}</h3>
+        <div className="flex flex-col gap-3 mt-auto w-full">
           <a href={app.demo} target="_blank" rel="noopener noreferrer"
             className="flex items-center justify-center gap-2 rounded-xl py-3.5 text-sm font-bold text-white transition-all"
             style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})`, boxShadow: hovered ? "0 4px 16px rgba(59,130,246,0.4)" : "none" }}>
@@ -222,7 +222,7 @@ export default function App() {
       {/* WORK */}
       <section id="work" className="w-full" style={{ padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
         <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
-          <div className="text-center mb-14 w-full">
+          <div className="mb-14 w-full" style={{ textAlign: "center" }}>
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Live work</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
               6 projects. All live.
@@ -238,7 +238,7 @@ export default function App() {
       {/* SERVICES */}
       <section id="services" className="w-full" style={{ background: "#09090b", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
         <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
-          <div className="text-center mb-14 w-full">
+          <div className="mb-14 w-full" style={{ textAlign: "center" }}>
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Services</p>
             <h2 className="text-3xl sm:text-4xl font-black text-white" style={{ letterSpacing: "-0.04em" }}>
               What I build for you.
@@ -250,8 +250,8 @@ export default function App() {
               { title: "Websites", desc: "Fast, modern websites that convert visitors into customers — e-commerce, bookings, and service businesses.", icon: "🌐" },
               { title: "MVP Launch", desc: "Have an idea? I scope, design, and ship your first version in 4–8 weeks — ready for real users and investment.", icon: "🚀" },
             ].map(s => (
-              <div key={s.title} className="rounded-2xl flex flex-col gap-6 transition-all"
-                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", padding: "clamp(24px, 4vw, 36px)" }}
+              <div key={s.title} className="rounded-2xl flex flex-col items-center text-center gap-5 transition-all"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", padding: "clamp(28px, 4vw, 40px)" }}
                 onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.07)"}
                 onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}>
                 <span className="text-4xl">{s.icon}</span>
@@ -268,7 +268,7 @@ export default function App() {
       {/* PROCESS */}
       <section className="w-full" style={{ background: "#fff", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
         <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
-          <div className="text-center mb-14 w-full">
+          <div className="mb-14 w-full" style={{ textAlign: "center" }}>
             <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Process</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
               Simple. Three steps.
@@ -280,11 +280,11 @@ export default function App() {
               { n: "02", title: "I build", body: "Fixed price, fixed timeline. Weekly updates, no surprises. You see the progress the whole way through." },
               { n: "03", title: "You launch", body: "I handle store submission, deployment, everything technical. You show up on launch day ready to go." },
             ].map(s => (
-              <div key={s.n} className="relative rounded-2xl flex flex-col gap-5"
-                style={{ border: "1px solid #f1f5f9", background: "#fafafa", padding: "clamp(24px, 4vw, 36px)" }}>
-                <span className="font-black select-none" style={{ color: BLUE, opacity: 0.07, letterSpacing: "-0.05em", lineHeight: 1, fontSize: "clamp(64px, 10vw, 96px)" }}>{s.n}</span>
-                <div className="flex flex-col gap-3 -mt-3">
-                  <span className="text-xs font-bold uppercase tracking-widest" style={{ color: BLUE }}>{s.n}</span>
+              <div key={s.n} className="relative rounded-2xl flex flex-col items-center text-center gap-4"
+                style={{ border: "1px solid #f1f5f9", background: "#fafafa", padding: "clamp(28px, 4vw, 40px)" }}>
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-sm font-black text-white flex-shrink-0"
+                  style={{ background: `linear-gradient(135deg, ${BLUE}, ${CYAN})` }}>{s.n}</div>
+                <div className="flex flex-col gap-3">
                   <h3 className="text-xl font-black text-slate-900" style={{ letterSpacing: "-0.03em" }}>{s.title}</h3>
                   <p className="text-sm leading-loose text-slate-500">{s.body}</p>
                 </div>
