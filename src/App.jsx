@@ -223,11 +223,11 @@ export default function App() {
       <section id="work" className="w-full" style={{ padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
         <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
           <div className="mb-14 w-full" style={{ textAlign: "center" }}>
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Live work</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE, textAlign: "center" }}>Live work</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em", textAlign: "center" }}>
               6 projects. All live.
             </h2>
-            <p className="text-sm text-slate-400 mt-4 mx-auto max-w-sm leading-relaxed">Not mockups. Production-grade software built and deployed end to end.</p>
+            <p className="text-sm text-slate-400 mt-4 leading-relaxed" style={{ textAlign: "center", maxWidth: "400px", marginLeft: "auto", marginRight: "auto" }}>Not mockups. Production-grade software built and deployed end to end.</p>
           </div>
           <div className="w-full grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
             {apps.map(app => <AppCard key={app.name} app={app} />)}
@@ -239,8 +239,8 @@ export default function App() {
       <section id="services" className="w-full" style={{ background: "#09090b", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
         <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
           <div className="mb-14 w-full" style={{ textAlign: "center" }}>
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Services</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-white" style={{ letterSpacing: "-0.04em" }}>
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE, textAlign: "center" }}>Services</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-white" style={{ letterSpacing: "-0.04em", textAlign: "center" }}>
               What I build for you.
             </h2>
           </div>
@@ -269,8 +269,8 @@ export default function App() {
       <section className="w-full" style={{ background: "#fff", padding: "clamp(64px, 10vw, 112px) clamp(20px, 6vw, 48px)" }}>
         <div className="w-full max-w-6xl mx-auto flex flex-col items-center">
           <div className="mb-14 w-full" style={{ textAlign: "center" }}>
-            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE }}>Process</p>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
+            <p className="text-xs font-bold uppercase tracking-widest mb-3" style={{ color: BLUE, textAlign: "center" }}>Process</p>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em", textAlign: "center" }}>
               Simple. Three steps.
             </h2>
           </div>
