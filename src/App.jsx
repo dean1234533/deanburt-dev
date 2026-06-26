@@ -134,7 +134,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col" style={{ background: "#fafafa" }}>
 
       {/* NAV */}
-      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-6 pt-4">
+      <header className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4">
         <nav className="flex items-center justify-between w-full max-w-5xl rounded-2xl px-5 py-3"
           style={{ background: "rgba(9,9,11,0.85)", backdropFilter: "blur(20px)", border: "1px solid rgba(255,255,255,0.08)" }}>
           <div className="flex items-center gap-2.5">
@@ -158,8 +158,8 @@ export default function App() {
       </header>
 
       {/* HERO */}
-      <section className="relative flex flex-col items-center justify-center text-center px-6 overflow-hidden"
-        style={{ background: "#09090b", minHeight: "100vh", paddingTop: 120, paddingBottom: 100 }}>
+      <section className="relative flex flex-col items-center justify-center text-center px-5 overflow-hidden"
+        style={{ background: "#09090b", minHeight: "100vh", paddingTop: "clamp(100px, 20vw, 140px)", paddingBottom: "clamp(60px, 10vw, 100px)" }}>
 
         {/* grid bg */}
         <div className="absolute inset-0 opacity-20"
@@ -179,7 +179,7 @@ export default function App() {
             Available for 1 new project this month
           </div>
 
-          <h1 className="text-white" style={{ fontSize: "clamp(48px, 8vw, 88px)", fontWeight: 900, lineHeight: 1.02, letterSpacing: "-0.05em" }}>
+          <h1 className="text-white" style={{ fontSize: "clamp(38px, 8vw, 88px)", fontWeight: 900, lineHeight: 1.06, letterSpacing: "-0.04em" }}>
             I build apps that<br />
             <span style={{ background: `linear-gradient(135deg, ${BLUE} 0%, ${CYAN} 100%)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               grow businesses.
@@ -208,13 +208,13 @@ export default function App() {
           </div>
 
           {/* stats */}
-          <div className="mt-20 grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden"
+          <div className="mt-16 grid grid-cols-2 sm:grid-cols-4 gap-px rounded-2xl overflow-hidden"
             style={{ border: "1px solid rgba(255,255,255,0.07)" }}>
             {[["6", "Live apps"], ["4–8wk", "To launch"], ["100%", "Store handled"], ["1", "Spot open"]].map(([n, l]) => (
-              <div key={l} className="flex flex-col items-center gap-1 py-5 px-4"
+              <div key={l} className="flex flex-col items-center gap-1.5 py-6 px-3"
                 style={{ background: "rgba(255,255,255,0.03)" }}>
-                <span className="text-2xl font-black" style={{ color: "#fff", letterSpacing: "-0.04em" }}>{n}</span>
-                <span className="text-[10px] font-medium uppercase tracking-wider" style={{ color: "rgba(255,255,255,0.3)" }}>{l}</span>
+                <span className="text-xl font-black" style={{ color: "#fff", letterSpacing: "-0.04em" }}>{n}</span>
+                <span className="text-[9px] font-medium uppercase tracking-wider text-center" style={{ color: "rgba(255,255,255,0.3)" }}>{l}</span>
               </div>
             ))}
           </div>
@@ -222,7 +222,7 @@ export default function App() {
       </section>
 
       {/* WORK */}
-      <section id="work" className="px-6 py-28">
+      <section id="work" className="px-5 py-16 sm:py-28">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-14">
             <div>
@@ -240,9 +240,9 @@ export default function App() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="px-6 py-28" style={{ background: "#09090b" }}>
+      <section id="services" className="px-5 py-16 sm:py-28" style={{ background: "#09090b" }}>
         <div className="mx-auto max-w-6xl">
-          <div className="mb-14">
+          <div className="mb-10 sm:mb-14">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BLUE }}>Services</p>
             <h2 className="text-3xl sm:text-4xl font-black text-white" style={{ letterSpacing: "-0.04em" }}>
               What I build for you.
@@ -280,9 +280,9 @@ export default function App() {
       </section>
 
       {/* PROCESS */}
-      <section className="px-6 py-28" style={{ background: "#fff" }}>
+      <section className="px-5 py-16 sm:py-28" style={{ background: "#fff" }}>
         <div className="mx-auto max-w-6xl">
-          <div className="mb-14">
+          <div className="mb-10 sm:mb-14">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BLUE }}>Process</p>
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900" style={{ letterSpacing: "-0.04em" }}>
               Simple. Three steps.
@@ -310,7 +310,7 @@ export default function App() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="px-6 py-28" style={{ background: "#fafafa" }}>
+      <section id="faq" className="px-5 py-16 sm:py-28" style={{ background: "#fafafa" }}>
         <div className="mx-auto max-w-3xl">
           <div className="mb-14 text-center">
             <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: BLUE }}>FAQ</p>
@@ -330,7 +330,7 @@ export default function App() {
       </section>
 
       {/* FOOTER CTA */}
-      <footer className="relative overflow-hidden px-6 py-32 text-center" style={{ background: "#09090b" }}>
+      <footer className="relative overflow-hidden px-5 py-20 sm:py-32 text-center" style={{ background: "#09090b" }}>
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] opacity-25 blur-3xl pointer-events-none"
           style={{ background: `radial-gradient(ellipse at top, ${BLUE} 0%, transparent 65%)` }} />
         <div className="relative max-w-2xl mx-auto">
