@@ -175,18 +175,22 @@ export default function App() {
     <div style={{ minHeight: '100vh', width: '100%', background: '#f8fafc', fontFamily: 'Inter, system-ui, sans-serif' }}>
 
       {/* ── NAV ── */}
-      <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', justifyContent: 'center', padding: '14px 20px 0' }}>
+      <style>{`
+        .nav-links { display: none; gap: 32px; align-items: center; }
+        @media (min-width: 768px) { .nav-links { display: flex; } }
+      `}</style>
+      <header style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, display: 'flex', justifyContent: 'center', padding: '14px 16px 0' }}>
         <nav style={{
           width: '100%', maxWidth: 1100, display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '12px 20px', borderRadius: 18,
-          background: 'rgba(9,9,11,0.85)', backdropFilter: 'blur(20px)',
+          padding: '11px 18px', borderRadius: 18,
+          background: 'rgba(9,9,11,0.88)', backdropFilter: 'blur(20px)',
           border: '1px solid rgba(255,255,255,0.08)',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 10, background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 13, fontWeight: 900 }}>D</div>
-            <span style={{ color: '#fff', fontWeight: 700, fontSize: 14, letterSpacing: '-0.02em' }}>Dean Burt</span>
+            <div style={{ width: 32, height: 32, borderRadius: 10, background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 13, fontWeight: 900, flexShrink: 0 }}>D</div>
+            <span style={{ color: '#fff', fontWeight: 700, fontSize: 14, letterSpacing: '-0.02em', whiteSpace: 'nowrap' }}>Dean Burt</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 32 }} className="hidden md:flex">
+          <div className="nav-links">
             {[['Work','#work'],['Services','#services'],['FAQ','#faq']].map(([l,h]) => (
               <a key={l} href={h} style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontWeight: 500, textDecoration: 'none' }}
                 onMouseEnter={e => e.currentTarget.style.color='#fff'}
@@ -194,9 +198,10 @@ export default function App() {
             ))}
           </div>
           <a href="https://coding-leads.vercel.app/book" style={{
-            padding: '9px 20px', borderRadius: 12, textDecoration: 'none',
+            padding: '9px 18px', borderRadius: 12, textDecoration: 'none',
             background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', color: '#fff',
             fontSize: 13, fontWeight: 700, boxShadow: '0 4px 14px rgba(59,130,246,0.4)',
+            whiteSpace: 'nowrap', flexShrink: 0,
           }}>Book a Call</a>
         </nav>
       </header>
