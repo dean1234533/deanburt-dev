@@ -16,7 +16,6 @@ const apps = [
     description: "A co-parenting coordination app that keeps communications civil, organised, and focused on the kids.",
     demo: "https://js-grw-up.com/",
     img: "/images/2.jpg",
-    badge: "Google Play",
     testLogin: true,
   },
   {
