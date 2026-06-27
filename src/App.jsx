@@ -290,6 +290,96 @@ export default function App() {
         </div>
       </Section>
 
+      {/* ── MAINTENANCE ── */}
+      <Section bg="#f8fafc">
+        <SectionHeader
+          label="Maintenance & Management"
+          title="Keep your site running perfectly."
+          sub="Hosting, security, backups, and uptime monitoring — all handled. You focus on your business."
+        />
+
+        {/* plans */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 20, marginBottom: 48 }}>
+          {[
+            {
+              name: 'Essential', price: '£25', per: '/mo',
+              tag: null,
+              desc: 'Perfect for static sites and portfolios.',
+              features: ['Managed Hosting & SSL','24/7 Uptime Monitoring','Monthly Security Scan & Backup','Deployment Pipeline','Email Support'],
+              cta: 'Get Essential',
+            },
+            {
+              name: 'Professional', price: '£69', per: '/mo',
+              tag: 'Most Popular',
+              desc: 'Built for small businesses and e-commerce.',
+              features: ['Everything in Essential','Weekly Security Scan & Backup','1 Hour Content Updates / Month','Priority Email & Phone Support','Performance Monitoring'],
+              cta: 'Get Professional',
+            },
+          ].map(plan => (
+            <div key={plan.name} style={{
+              borderRadius: 20, padding: 'clamp(28px,4vw,40px)',
+              background: plan.tag ? 'linear-gradient(145deg,#0f172a,#1e293b)' : '#fff',
+              border: plan.tag ? '1px solid rgba(59,130,246,0.4)' : '1px solid #eef0f3',
+              display: 'flex', flexDirection: 'column', gap: 24, position: 'relative', overflow: 'hidden',
+              boxShadow: plan.tag ? '0 8px 40px rgba(59,130,246,0.2)' : '0 2px 12px rgba(0,0,0,0.05)',
+            }}>
+              {plan.tag && (
+                <div style={{ position: 'absolute', top: 18, right: 18, padding: '4px 12px', borderRadius: 99, background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', fontSize: 11, fontWeight: 700, color: '#fff' }}>{plan.tag}</div>
+              )}
+              <div>
+                <p style={{ fontSize: 13, fontWeight: 700, color: plan.tag ? '#60a5fa' : '#3b82f6', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 8px' }}>{plan.name}</p>
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 4, marginBottom: 8 }}>
+                  <span style={{ fontSize: 48, fontWeight: 900, letterSpacing: '-0.04em', color: plan.tag ? '#fff' : '#0f172a', lineHeight: 1 }}>{plan.price}</span>
+                  <span style={{ fontSize: 16, fontWeight: 600, color: plan.tag ? 'rgba(255,255,255,0.4)' : '#94a3b8' }}>{plan.per}</span>
+                </div>
+                <p style={{ fontSize: 14, color: plan.tag ? 'rgba(255,255,255,0.45)' : '#64748b', margin: 0, lineHeight: 1.6 }}>{plan.desc}</p>
+              </div>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {plan.features.map(f => (
+                  <li key={f} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: plan.tag ? 'rgba(255,255,255,0.75)' : '#374151' }}>
+                    <span style={{ width: 18, height: 18, borderRadius: '50%', background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 10, color: '#fff', fontWeight: 900 }}>✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <a href="https://coding-leads.vercel.app/book" style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                padding: '14px 24px', borderRadius: 12, textDecoration: 'none', marginTop: 'auto',
+                background: plan.tag ? 'linear-gradient(135deg,#3b82f6,#06b6d4)' : 'transparent',
+                border: plan.tag ? 'none' : '2px solid #e2e8f0',
+                color: plan.tag ? '#fff' : '#374151', fontSize: 14, fontWeight: 700,
+                boxShadow: plan.tag ? '0 4px 16px rgba(59,130,246,0.4)' : 'none',
+              }}>{plan.cta} →</a>
+            </div>
+          ))}
+        </div>
+
+        {/* what's included detail */}
+        <div style={{ background: '#fff', borderRadius: 20, padding: 'clamp(24px,4vw,40px)', border: '1px solid #eef0f3' }}>
+          <p style={{ fontSize: 13, fontWeight: 700, color: '#3b82f6', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 20px', textAlign: 'center' }}>What's covered</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: 20 }}>
+            {[
+              { icon: '🌐', t: 'Hosting & CDN',      d: 'High-performance global hosting with SSL managed for you.' },
+              { icon: '👁️', t: 'Uptime Monitoring',  d: 'Constant 24/7 watch — issues resolved before customers notice.' },
+              { icon: '🔒', t: 'Security & Firewall', d: 'Proactive scanning and firewall to block threats.' },
+              { icon: '💾', t: 'Automated Backups',   d: 'Regular backups so we can restore your site instantly.' },
+              { icon: '🚀', t: 'Deployment Pipeline', d: 'Safe, automated updates with zero downtime.' },
+            ].map(item => (
+              <div key={item.t} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+                <span style={{ fontSize: 24, lineHeight: 1, flexShrink: 0 }}>{item.icon}</span>
+                <div>
+                  <p style={{ fontSize: 14, fontWeight: 700, color: '#0f172a', margin: '0 0 4px' }}>{item.t}</p>
+                  <p style={{ fontSize: 13, color: '#64748b', margin: 0, lineHeight: 1.6 }}>{item.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p style={{ fontSize: 13, color: '#94a3b8', textAlign: 'center', margin: '28px 0 0', lineHeight: 1.6 }}>
+            New features, major redesigns, and large content changes are billed separately at my standard hourly rate.
+          </p>
+        </div>
+      </Section>
+
       {/* ── PROCESS ── */}
       <Section bg="#fff">
         <SectionHeader label="Process" title="Simple. Three steps." sub="From first call to live app — here's exactly how it works." />
