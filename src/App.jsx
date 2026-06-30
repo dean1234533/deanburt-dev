@@ -219,6 +219,12 @@ export default function App() {
         <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: 700, height: 400, background: 'radial-gradient(ellipse at top,rgba(59,130,246,0.3),transparent 65%)', opacity: 0.6, filter: 'blur(40px)', pointerEvents: 'none' }} />
 
         <div style={{ maxWidth: 760, width: '100%', position: 'relative' }}>
+          {/* headshot */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
+            <div style={{ padding: 3, borderRadius: '50%', background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', boxShadow: '0 0 40px rgba(59,130,246,0.4)' }}>
+              <img src="/images/dean.jpg" alt="Dean Burt" style={{ width: 96, height: 96, borderRadius: '50%', objectFit: 'cover', objectPosition: 'top', display: 'block', border: '3px solid #09090b' }} />
+            </div>
+          </div>
           {/* badge */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 32 }}>
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '7px 16px', borderRadius: 99, background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)' }}>
@@ -346,6 +352,22 @@ export default function App() {
             or email{' '}
             <a href="mailto:deanburt1308@gmail.com" style={{ color: '#60a5fa', textDecoration: 'underline' }}>deanburt1308@gmail.com</a>
           </p>
+
+          <a href="https://www.instagram.com/deandadev123" target="_blank" rel="noopener noreferrer" style={{
+            display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 20,
+            padding: '10px 20px', borderRadius: 12, textDecoration: 'none',
+            background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
+            color: 'rgba(255,255,255,0.6)', fontSize: 13, fontWeight: 600,
+            transition: 'all 0.2s',
+          }}
+            onMouseEnter={e => { e.currentTarget.style.background='rgba(255,255,255,0.1)'; e.currentTarget.style.color='#fff'; }}
+            onMouseLeave={e => { e.currentTarget.style.background='rgba(255,255,255,0.05)'; e.currentTarget.style.color='rgba(255,255,255,0.6)'; }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+            @deandadev123
+          </a>
 
           <div style={{ marginTop: 80, paddingTop: 28, borderTop: '1px solid rgba(255,255,255,0.07)', textAlign: 'center' }}>
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.18)', margin: 0 }}>© {new Date().getFullYear()} Dean Burt · Full-Stack Developer · UK</p>
