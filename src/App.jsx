@@ -223,7 +223,7 @@ export default function App() {
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
             <div style={{ padding: 3, borderRadius: '50%', background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', boxShadow: '0 0 40px rgba(59,130,246,0.4)' }}>
               <div style={{ width: 120, height: 120, borderRadius: '50%', overflow: 'hidden', border: '3px solid #fff', background: '#fff' }}>
-                <img src="/images/dean.png" alt="Dean Burt" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 65%', display: 'block' }} />
+                <img src="/images/dean.png" alt="Dean Burt" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '50% 30%', display: 'block' }} />
               </div>
             </div>
           </div>
