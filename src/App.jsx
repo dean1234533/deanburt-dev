@@ -222,7 +222,7 @@ export default function App() {
           {/* headshot */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 28 }}>
             <div style={{ padding: 3, borderRadius: '50%', background: 'linear-gradient(135deg,#3b82f6,#06b6d4)', boxShadow: '0 0 40px rgba(59,130,246,0.4)' }}>
-              <img src="/images/dean.jpg" alt="Dean Burt" style={{ width: 96, height: 96, borderRadius: '50%', objectFit: 'cover', objectPosition: 'top', display: 'block', border: '3px solid #09090b' }} />
+              <img src="/images/dean.jpg" alt="Dean Burt" style={{ width: 96, height: 96, borderRadius: '50%', objectFit: 'cover', objectPosition: '50% 5%', display: 'block', border: '3px solid #09090b' }} />
             </div>
           </div>
           {/* badge */}
