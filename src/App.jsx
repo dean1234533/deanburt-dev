@@ -500,7 +500,35 @@ function ToolGrid({ tools: items, navigate }) {
   );
 }
 
+function ToolFilter({ activeCategory, onChange }) {
+  const options = [{ slug: 'all', label: 'All', count: tools.length }, ...categories.map((category) => ({
+    ...category,
+    count: categoryTools(category.slug).length,
+  }))];
+
+  return (
+    <div className="tool-filter" aria-label="Filter tools by category">
+      {options.map((option) => (
+        <button
+          className={activeCategory === option.slug ? 'active' : ''}
+          type="button"
+          onClick={() => onChange(option.slug)}
+          key={option.slug}
+          aria-pressed={activeCategory === option.slug}
+        >
+          <span>{option.label}</span>
+          <strong>{option.count}</strong>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function ToolsHubPage({ navigate }) {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const filteredTools = activeCategory === 'all' ? tools : categoryTools(activeCategory);
+  const activeLabel = activeCategory === 'all' ? 'All Tools' : `${categories.find((category) => category.slug === activeCategory)?.label} Tools`;
+
   return (
     <>
       <Hero
@@ -516,8 +544,9 @@ function ToolsHubPage({ navigate }) {
         <CategoryGrid navigate={navigate} />
       </Section>
       <Section tone="dark">
-        <SectionHeader eyebrow="All Tools" title="Phase One tools are live and working." copy="No placeholder pages. Every card opens a usable tool with results, related tools, FAQs, CTA, and metadata." />
-        <ToolGrid tools={tools} navigate={navigate} />
+        <SectionHeader eyebrow={activeLabel} title="Filter the tools by what you need." copy="Choose one category at a time so the grid stays focused on the job you are trying to do." />
+        <ToolFilter activeCategory={activeCategory} onChange={setActiveCategory} />
+        <ToolGrid tools={filteredTools} navigate={navigate} />
       </Section>
     </>
   );
