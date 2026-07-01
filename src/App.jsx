@@ -515,6 +515,7 @@ function ToolFilter({ activeCategory, onChange }) {
           onClick={() => onChange(option.slug)}
           key={option.slug}
           aria-pressed={activeCategory === option.slug}
+          aria-label={`Show ${option.label} tools`}
         >
           <span>{option.label}</span>
           <strong>{option.count}</strong>
