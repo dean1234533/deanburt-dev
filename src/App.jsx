@@ -126,8 +126,15 @@ function App() {
 
   const navigate = (href) => {
     if (href.startsWith('http') || href.startsWith('mailto:')) return;
+    const next = new URL(href, window.location.origin);
     window.history.pushState({}, '', href);
-    setPath(normalizePath(href));
+    setPath(normalizePath(next.pathname));
+    if (next.hash) {
+      window.setTimeout(() => {
+        document.querySelector(next.hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 0);
+      return;
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -401,7 +408,7 @@ function HomePage({ navigate }) {
           ))}
         </div>
         <div className="center-gap">
-          <Button href="/services" navigate={navigate}>Explore services</Button>
+          <Button href="/services#services-detail" navigate={navigate}>See service details</Button>
         </div>
       </Section>
       <ServicesSnapshot navigate={navigate} />
@@ -951,7 +958,7 @@ function ServicesSnapshot({ navigate, currentPage = '' }) {
             <Button href="/pricing" variant="secondary" navigate={navigate}>Explore pricing</Button>
           </div>
         ) : (
-          <Button href="/services" navigate={navigate}>Explore services</Button>
+          <Button href="/services#services-detail" navigate={navigate}>See what you get</Button>
         )}
       </div>
     </Section>
