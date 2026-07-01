@@ -407,11 +407,8 @@ function HomePage({ navigate }) {
             </div>
           ))}
         </div>
-        <div className="center-gap">
-          <Button href="/services#services-detail" navigate={navigate}>See service details</Button>
-        </div>
       </Section>
-      <ServicesSnapshot navigate={navigate} />
+      <ServicesSnapshot />
       <Section tone="dark">
         <SectionHeader eyebrow="Free Tools" title="Use the tools. Hire me when you need it built properly." copy="The tools hub is there to help you plan better projects. The homepage is here to show how Dean Da Dev can build the real thing." />
         <ToolGrid tools={tools.slice(0, 6)} navigate={navigate} />
@@ -937,9 +934,7 @@ function FAQList({ faqs }) {
   return <div className="faq-list">{faqs.map((faq) => <details key={faq.q}><summary>{faq.q}</summary><p>{faq.a}</p></details>)}</div>;
 }
 
-function ServicesSnapshot({ navigate, currentPage = '' }) {
-  const onServicesPage = currentPage === 'services';
-
+function ServicesSnapshot() {
   return (
     <Section>
       <SectionHeader eyebrow="Services" title="When a free tool is not enough, hire the builder." copy="Dean Da Dev designs and ships the production version: mobile apps, fast websites, dashboards, AI workflows, automation, and useful business tools." />
@@ -950,16 +945,6 @@ function ServicesSnapshot({ navigate, currentPage = '' }) {
           ['Operations', 'Business Tools', 'Practical dashboards, calculators, client intake forms, admin views, and workflow helpers for smaller business operations.'],
           ['AI', 'AI Development', 'Prompt systems, AI assistants, automations, document workflows, and lead-generation tools.'],
         ].map(([label, title, copy]) => <div className="service-card" key={title}><span>{label}</span><h3>{title}</h3><p>{copy}</p></div>)}
-      </div>
-      <div className="center-gap">
-        {onServicesPage ? (
-          <div className="button-row">
-            <Button href="#services-detail">Show me more</Button>
-            <Button href="/pricing" variant="secondary" navigate={navigate}>Explore pricing</Button>
-          </div>
-        ) : (
-          <Button href="/services#services-detail" navigate={navigate}>See what you get</Button>
-        )}
       </div>
     </Section>
   );
@@ -1008,11 +993,11 @@ function LeadCTA() {
 }
 
 function AboutPage({ navigate }) {
-  return <><Hero eyebrow="About" title="Dean Da Dev builds practical apps, websites, and AI tools for businesses that need outcomes." copy="The platform gives value first. The services behind it turn useful ideas into production-ready apps, websites, business tools, and AI workflows." primary={['View services', '/services']} secondary={['See portfolio', '/portfolio']} navigate={navigate} /><ServicesSnapshot navigate={navigate} /></>;
+  return <><Hero eyebrow="About" title="Dean Da Dev builds practical apps, websites, and AI tools for businesses that need outcomes." copy="The platform gives value first. The services behind it turn useful ideas into production-ready apps, websites, business tools, and AI workflows." primary={['View services', '/services']} secondary={['See portfolio', '/portfolio']} navigate={navigate} /><ServicesSnapshot /></>;
 }
 
 function ServicesPage({ navigate }) {
-  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ServicesSnapshot navigate={navigate} currentPage="services" /><ServicesDetail /><LeadCTA /></>;
+  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ServicesSnapshot /><ServicesDetail /><LeadCTA /></>;
 }
 
 function PortfolioPage() {
