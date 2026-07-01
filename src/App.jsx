@@ -1009,11 +1009,11 @@ function SocialProofBanner() {
   const [activeReview, setActiveReview] = useState(0);
 
   useEffect(() => {
-    const timer = window.setInterval(() => {
+    const timer = window.setTimeout(() => {
       setActiveReview((index) => (index + 1) % REVIEWS.length);
     }, 6000);
-    return () => window.clearInterval(timer);
-  }, []);
+    return () => window.clearTimeout(timer);
+  }, [activeReview]);
 
   const moveReview = (direction) => {
     setActiveReview((index) => (index + direction + REVIEWS.length) % REVIEWS.length);
