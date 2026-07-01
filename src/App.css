@@ -944,6 +944,10 @@ pre {
   gap: 20px;
 }
 
+.review-clone {
+  display: none;
+}
+
 .review-card {
   display: flex;
   flex-direction: column;
@@ -1014,6 +1018,16 @@ pre {
   color: #fbbf24;
   letter-spacing: 2px;
   line-height: 1;
+}
+
+@keyframes reviews-slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 10px));
+  }
 }
 
 /* ── About Page ── */
@@ -1174,6 +1188,43 @@ pre {
   }
 }
 
+@media (max-width: 1100px) {
+  .reviews-section {
+    overflow: hidden;
+  }
+
+  .reviews-header {
+    margin-bottom: 28px;
+  }
+
+  .reviews-grid {
+    display: flex;
+    width: max-content;
+    gap: 16px;
+    animation: reviews-slide 34s linear infinite;
+    will-change: transform;
+  }
+
+  .reviews-grid:hover {
+    animation-play-state: paused;
+  }
+
+  .review-card {
+    flex: 0 0 min(72vw, 380px);
+    width: min(72vw, 380px);
+  }
+
+  .review-clone {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews-grid {
+    animation: none;
+  }
+}
+
 @media (max-width: 620px) {
   .site-header {
     padding: 12px;
@@ -1204,5 +1255,11 @@ pre {
 
   .button-row .button {
     width: 100%;
+  }
+
+  .review-card {
+    flex-basis: 82vw;
+    width: 82vw;
+    padding: 24px;
   }
 }

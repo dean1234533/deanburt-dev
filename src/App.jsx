@@ -1020,8 +1020,8 @@ function SocialProofBanner() {
           <a className="button button-secondary" href={BOOKING_URL}>Book a free discovery call →</a>
         </div>
         <div className="reviews-grid">
-          {REVIEWS.map((r) => (
-            <div className="review-card" key={r.name}>
+          {[...REVIEWS, ...REVIEWS].map((r, index) => (
+            <div className={`review-card ${index >= REVIEWS.length ? 'review-clone' : ''}`} key={`${r.name}-${index}`} aria-hidden={index >= REVIEWS.length ? 'true' : undefined}>
               <div className="review-stars" aria-label="5 stars">★★★★★</div>
               <p className="review-text">"{r.text}"</p>
               <div className="review-author">
@@ -1098,7 +1098,7 @@ function AboutPage({ navigate }) {
 }
 
 function ServicesPage({ navigate }) {
-  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ServicesSnapshot /><ServicesDetail /><LeadCTA /></>;
+  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ServicesDetail /><LeadCTA /></>;
 }
 
 const PORTFOLIO_APPS = [
