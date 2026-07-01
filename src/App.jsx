@@ -947,8 +947,8 @@ function ServicesSnapshot({ navigate, currentPage = '' }) {
       <div className="center-gap">
         {onServicesPage ? (
           <div className="button-row">
-            <Button href={`mailto:${CONTACT_EMAIL}`}>Request a quote</Button>
-            <Button href="/portfolio" variant="secondary" navigate={navigate}>View portfolio</Button>
+            <Button href="#services-detail">Show me more</Button>
+            <Button href="/pricing" variant="secondary" navigate={navigate}>Explore pricing</Button>
           </div>
         ) : (
           <Button href="/services" navigate={navigate}>Explore services</Button>
