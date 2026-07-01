@@ -1017,15 +1017,7 @@ function SocialProofBanner() {
               <p>9 verified Google Reviews</p>
             </div>
           </div>
-          <a
-            className="button button-secondary"
-            href="https://www.google.com/search?q=Dean-Da-Dev+developer+UK"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Read all Dean Da Dev reviews on Google"
-          >
-            See all reviews on Google →
-          </a>
+          <a className="button button-secondary" href={BOOKING_URL}>Book a free discovery call →</a>
         </div>
         <div className="reviews-grid">
           {REVIEWS.map((r) => (
