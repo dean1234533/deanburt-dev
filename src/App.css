@@ -1021,12 +1021,24 @@ pre {
 }
 
 @keyframes reviews-slide {
-  from {
+  0%,
+  18% {
     transform: translateX(0);
   }
 
-  to {
-    transform: translateX(calc(-50% - 10px));
+  26%,
+  44% {
+    transform: translateX(calc(-100% - 16px));
+  }
+
+  52%,
+  70% {
+    transform: translateX(calc(-200% - 32px));
+  }
+
+  78%,
+  100% {
+    transform: translateX(calc(-300% - 48px));
   }
 }
 
@@ -1193,15 +1205,20 @@ pre {
     overflow: hidden;
   }
 
+  .reviews-section .section-inner {
+    max-width: min(760px, calc(100vw - 40px));
+    overflow: hidden;
+  }
+
   .reviews-header {
     margin-bottom: 28px;
   }
 
   .reviews-grid {
     display: flex;
-    width: max-content;
+    width: 100%;
     gap: 16px;
-    animation: reviews-slide 34s linear infinite;
+    animation: reviews-slide 18s ease-in-out infinite;
     will-change: transform;
   }
 
@@ -1210,8 +1227,8 @@ pre {
   }
 
   .review-card {
-    flex: 0 0 min(72vw, 380px);
-    width: min(72vw, 380px);
+    flex: 0 0 100%;
+    width: 100%;
   }
 
   .review-clone {
@@ -1258,8 +1275,6 @@ pre {
   }
 
   .review-card {
-    flex-basis: 82vw;
-    width: 82vw;
     padding: 24px;
   }
 }
