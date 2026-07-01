@@ -981,27 +981,67 @@ function ServicesDetail() {
   );
 }
 
+const REVIEWS = [
+  {
+    name: 'Jane Ford',
+    initials: 'JF',
+    color: '#7c3aed',
+    service: 'Booking App',
+    text: "I recently worked with Dean to build a booking and scheduling app, and I honestly couldn't be happier with the experience. Communication was smooth and consistent — he kept me in the loop at every stage. What really impressed me was how quickly everything came together without any drop in quality. Dean clearly knew what he was doing, but more than that, he genuinely cared about getting it right for me. There were moments where Dean went above and beyond what I expected — suggesting improvements I hadn't even thought of. I'll definitely be working with him again.",
+  },
+  {
+    name: 'Sean Bree',
+    initials: 'SB',
+    color: '#0369a1',
+    service: 'App Rebuild',
+    text: "I highly recommend Dean for any mobile app development or app troubleshooting needs. I hired him to fix and rebuild my application, and the results have been incredible. Dean demonstrated deep technical expertise in full-stack app development, quickly identifying the root causes of my app's performance issues and implementing a robust, scalable rebuild. He was professional, transparent about timelines, and maintained excellent communication throughout. His work has significantly improved my app's functionality and user experience.",
+  },
+  {
+    name: 'Blossom Burt',
+    initials: 'BB',
+    color: '#059669',
+    service: 'E-Commerce Website',
+    text: "Working with Dean to create bellaflorjewellery was a fantastic experience. I had a specific vision for how I wanted my jewellery pieces to be displayed, and Dean brought that vision to life perfectly. Dean was incredibly patient with my requests and provided great technical advice throughout the process to ensure the site was fast and easy for my customers to navigate. I'm thrilled with the end result — the site looks beautiful and is already helping me grow my business. I couldn't have asked for a better partner for this project!",
+  },
+];
+
 function SocialProofBanner() {
   return (
-    <section className="sp-section" aria-label="Client reviews">
-      <div className="section-inner sp-inner">
-        <div className="sp-rating">
-          <span className="sp-stars" aria-label="5 stars">★★★★★</span>
-          <div>
-            <strong>5.0 out of 5</strong>
-            <p>8 verified Google Reviews</p>
+    <section className="reviews-section" aria-label="Client reviews">
+      <div className="section-inner">
+        <div className="reviews-header">
+          <div className="reviews-rating">
+            <span className="sp-stars" aria-label="5 stars">★★★★★</span>
+            <div>
+              <strong>5.0 out of 5</strong>
+              <p>9 verified Google Reviews</p>
+            </div>
           </div>
+          <a
+            className="button button-secondary"
+            href="https://www.google.com/maps/search/Dean-Da-Dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Read all Dean Da Dev reviews on Google"
+          >
+            See all reviews on Google →
+          </a>
         </div>
-        <p className="sp-copy">Trusted by local businesses and founders across the UK to build and ship production-grade apps and websites — on time and on budget.</p>
-        <a
-          className="button button-secondary"
-          href="https://www.google.com/search?q=Dean+Da+Dev+developer+UK"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Read Dean Da Dev reviews on Google"
-        >
-          Read our reviews on Google →
-        </a>
+        <div className="reviews-grid">
+          {REVIEWS.map((r) => (
+            <div className="review-card" key={r.name}>
+              <div className="review-stars" aria-label="5 stars">★★★★★</div>
+              <p className="review-text">"{r.text}"</p>
+              <div className="review-author">
+                <div className="review-avatar" style={{ background: r.color }} aria-hidden="true">{r.initials}</div>
+                <div>
+                  <strong>{r.name}</strong>
+                  <span>{r.service}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
