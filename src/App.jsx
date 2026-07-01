@@ -416,7 +416,7 @@ function HomePage({ navigate }) {
       <ServicesSnapshot />
       <Section tone="dark">
         <SectionHeader eyebrow="Free Tools" title="Use the tools. Hire me when you need it built properly." copy="The tools hub is there to help you plan better projects. The portfolio shows what happens when the real build is commissioned." />
-        <ToolGrid tools={tools.slice(0, 6)} navigate={navigate} />
+        <HomeToolsPreview navigate={navigate} />
         <div className="center-gap">
           <Button href="/free-tools" navigate={navigate}>Open the Tools Hub</Button>
         </div>
@@ -522,6 +522,18 @@ function ToolFilter({ activeCategory, onChange }) {
         </button>
       ))}
     </div>
+  );
+}
+
+function HomeToolsPreview({ navigate }) {
+  const [activeCategory, setActiveCategory] = useState('all');
+  const previewTools = activeCategory === 'all' ? tools.slice(0, 6) : categoryTools(activeCategory).slice(0, 6);
+
+  return (
+    <>
+      <ToolFilter activeCategory={activeCategory} onChange={setActiveCategory} />
+      <ToolGrid tools={previewTools} navigate={navigate} />
+    </>
   );
 }
 
