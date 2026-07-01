@@ -944,10 +944,6 @@ pre {
   gap: 20px;
 }
 
-.review-clone {
-  display: none;
-}
-
 .review-card {
   display: flex;
   flex-direction: column;
@@ -1020,26 +1016,8 @@ pre {
   line-height: 1;
 }
 
-@keyframes reviews-slide {
-  0%,
-  18% {
-    transform: translateX(0);
-  }
-
-  26%,
-  44% {
-    transform: translateX(calc(-100% - 16px));
-  }
-
-  52%,
-  70% {
-    transform: translateX(calc(-200% - 32px));
-  }
-
-  78%,
-  100% {
-    transform: translateX(calc(-300% - 48px));
-  }
+.review-controls {
+  display: none;
 }
 
 /* ── About Page ── */
@@ -1207,23 +1185,23 @@ pre {
 
   .reviews-section .section-inner {
     max-width: min(760px, calc(100vw - 40px));
-    overflow: hidden;
   }
 
   .reviews-header {
     margin-bottom: 28px;
   }
 
+  .reviews-viewport {
+    overflow: hidden;
+  }
+
   .reviews-grid {
     display: flex;
     width: 100%;
     gap: 16px;
-    animation: reviews-slide 18s ease-in-out infinite;
+    transform: translateX(calc(var(--review-index, 0) * (-100% - 16px)));
+    transition: transform 520ms ease;
     will-change: transform;
-  }
-
-  .reviews-grid:hover {
-    animation-play-state: paused;
   }
 
   .review-card {
@@ -1231,14 +1209,57 @@ pre {
     width: 100%;
   }
 
-  .review-clone {
+  .review-controls {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 18px;
+  }
+
+  .review-controls button {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.92);
+    color: #ffffff;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    font-size: 30px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .review-controls button:active {
+    transform: scale(0.96);
+  }
+
+  .review-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .review-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.45);
+    transition: width 180ms ease, background 180ms ease;
+  }
+
+  .review-dots span.active {
+    width: 22px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reviews-grid {
-    animation: none;
+    transition: none;
   }
 }
 

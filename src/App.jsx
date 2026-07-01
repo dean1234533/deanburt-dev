@@ -1006,6 +1006,19 @@ const REVIEWS = [
 ];
 
 function SocialProofBanner() {
+  const [activeReview, setActiveReview] = useState(0);
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveReview((index) => (index + 1) % REVIEWS.length);
+    }, 6000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const moveReview = (direction) => {
+    setActiveReview((index) => (index + direction + REVIEWS.length) % REVIEWS.length);
+  };
+
   return (
     <section className="reviews-section" aria-label="Client reviews">
       <div className="section-inner">
@@ -1019,9 +1032,10 @@ function SocialProofBanner() {
           </div>
           <a className="button button-secondary" href={BOOKING_URL}>Book a free discovery call →</a>
         </div>
-        <div className="reviews-grid">
-          {[...REVIEWS, ...REVIEWS].map((r, index) => (
-            <div className={`review-card ${index >= REVIEWS.length ? 'review-clone' : ''}`} key={`${r.name}-${index}`} aria-hidden={index >= REVIEWS.length ? 'true' : undefined}>
+        <div className="reviews-viewport">
+          <div className="reviews-grid" style={{ '--review-index': activeReview }}>
+            {REVIEWS.map((r) => (
+            <div className="review-card" key={r.name}>
               <div className="review-stars" aria-label="5 stars">★★★★★</div>
               <p className="review-text">"{r.text}"</p>
               <div className="review-author">
@@ -1033,6 +1047,14 @@ function SocialProofBanner() {
               </div>
             </div>
           ))}
+          </div>
+        </div>
+        <div className="review-controls" aria-label="Review carousel controls">
+          <button type="button" onClick={() => moveReview(-1)} aria-label="Previous review">‹</button>
+          <div className="review-dots" aria-hidden="true">
+            {REVIEWS.map((r, index) => <span className={activeReview === index ? 'active' : ''} key={r.name} />)}
+          </div>
+          <button type="button" onClick={() => moveReview(1)} aria-label="Next review">›</button>
         </div>
       </div>
     </section>
