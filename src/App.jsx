@@ -500,8 +500,8 @@ function ToolGrid({ tools: items, navigate }) {
   );
 }
 
-function ToolFilter({ activeCategory, onChange }) {
-  const options = [{ slug: 'all', label: 'All', count: tools.length }, ...categories.map((category) => ({
+function ToolFilter({ activeCategory, onChange, includeAll = true }) {
+  const options = [...(includeAll ? [{ slug: 'all', label: 'All', count: tools.length }] : []), ...categories.map((category) => ({
     ...category,
     count: categoryTools(category.slug).length,
   }))];
@@ -526,12 +526,12 @@ function ToolFilter({ activeCategory, onChange }) {
 }
 
 function HomeToolsPreview({ navigate }) {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const previewTools = activeCategory === 'all' ? tools.slice(0, 6) : categoryTools(activeCategory).slice(0, 6);
+  const [activeCategory, setActiveCategory] = useState('ai-tools');
+  const previewTools = categoryTools(activeCategory).slice(0, 6);
 
   return (
     <>
-      <ToolFilter activeCategory={activeCategory} onChange={setActiveCategory} />
+      <ToolFilter activeCategory={activeCategory} onChange={setActiveCategory} includeAll={false} />
       <ToolGrid tools={previewTools} navigate={navigate} />
     </>
   );
