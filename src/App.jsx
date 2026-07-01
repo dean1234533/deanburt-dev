@@ -360,6 +360,7 @@ function Footer({ navigate }) {
           <a href={BOOKING_URL}>Book a discovery call</a>
           <a href={`mailto:${CONTACT_EMAIL}`}>Request a quote</a>
           <a href="/portfolio" onClick={(event) => handleLink(event, '/portfolio', navigate)}>View portfolio</a>
+          <a href="https://www.instagram.com/deandadev123" target="_blank" rel="noopener noreferrer" aria-label="Dean Da Dev on Instagram">Instagram @deandadev123</a>
         </div>
       </div>
       <p className="footer-meta">© {new Date().getFullYear()} Dean Da Dev. UK app development, web development, AI tools, dashboards, and automation.</p>
@@ -388,11 +389,12 @@ function HomePage({ navigate }) {
       <Hero
         eyebrow="Dean Da Dev"
         title="Apps, websites, AI tools, and automations built to win business."
-        copy="I help UK businesses launch useful digital products without agency prices: conversion-focused websites, app MVPs, dashboards, AI workflows, and practical business tools."
+        copy="UK full-stack developer. 6 live apps shipped. I handle everything — design, build, deployment, and App Store submission — without agency prices."
         primary={['Book a discovery call', BOOKING_URL]}
-        secondary={['View pricing', '/pricing']}
+        secondary={['View live work', '/portfolio']}
         navigate={navigate}
       />
+      <SocialProofBanner />
       <Section>
         <SectionHeader eyebrow="What I build" title="A practical build partner for small businesses and founders." copy="Start lean, validate quickly, and ship something real: a website that gets enquiries, an app MVP, or a focused tool that saves time." />
         <div className="value-grid">
@@ -407,10 +409,13 @@ function HomePage({ navigate }) {
             </div>
           ))}
         </div>
+        <div className="center-gap">
+          <Button href="/pricing" navigate={navigate}>Explore pricing</Button>
+        </div>
       </Section>
       <ServicesSnapshot />
       <Section tone="dark">
-        <SectionHeader eyebrow="Free Tools" title="Use the tools. Hire me when you need it built properly." copy="The tools hub is there to help you plan better projects. The homepage is here to show how Dean Da Dev can build the real thing." />
+        <SectionHeader eyebrow="Free Tools" title="Use the tools. Hire me when you need it built properly." copy="The tools hub is there to help you plan better projects. The portfolio shows what happens when the real build is commissioned." />
         <ToolGrid tools={tools.slice(0, 6)} navigate={navigate} />
         <div className="center-gap">
           <Button href="/free-tools" navigate={navigate}>Open the Tools Hub</Button>
@@ -437,8 +442,8 @@ function Hero({ eyebrow, title, copy, primary, secondary, navigate }) {
           <Button href={primary[1]} navigate={navigate}>{primary[0]}</Button>
           <Button href={secondary[1]} variant="secondary" navigate={navigate}>{secondary[0]}</Button>
         </div>
-        <div className="trust-strip" aria-label="Key platform benefits">
-          {['Apps built too', 'SEO-ready pages', 'Premium dark UI', 'Built for leads'].map((item) => <span key={item}>{item}</span>)}
+        <div className="trust-strip" aria-label="Key credentials">
+          {['6 live apps shipped', 'Google Play publisher', 'UK-based developer', '4–8 week delivery'].map((item) => <span key={item}>{item}</span>)}
         </div>
       </div>
     </section>
@@ -976,6 +981,32 @@ function ServicesDetail() {
   );
 }
 
+function SocialProofBanner() {
+  return (
+    <section className="sp-section" aria-label="Client reviews">
+      <div className="section-inner sp-inner">
+        <div className="sp-rating">
+          <span className="sp-stars" aria-label="5 stars">★★★★★</span>
+          <div>
+            <strong>5.0 out of 5</strong>
+            <p>8 verified Google Reviews</p>
+          </div>
+        </div>
+        <p className="sp-copy">Trusted by local businesses and founders across the UK to build and ship production-grade apps and websites — on time and on budget.</p>
+        <a
+          className="button button-secondary"
+          href="https://www.google.com/search?q=Dean+Da+Dev+developer+UK"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Read Dean Da Dev reviews on Google"
+        >
+          Read our reviews on Google →
+        </a>
+      </div>
+    </section>
+  );
+}
+
 function LeadCTA() {
   return (
     <section className="lead-cta">
@@ -993,23 +1024,125 @@ function LeadCTA() {
 }
 
 function AboutPage({ navigate }) {
-  return <><Hero eyebrow="About" title="Dean Da Dev builds practical apps, websites, and AI tools for businesses that need outcomes." copy="The platform gives value first. The services behind it turn useful ideas into production-ready apps, websites, business tools, and AI workflows." primary={['View services', '/services']} secondary={['See portfolio', '/portfolio']} navigate={navigate} /><ServicesSnapshot /></>;
+  return (
+    <>
+      <Hero
+        eyebrow="About Dean Da Dev"
+        title="UK developer who builds and ships real products, not mockups."
+        copy="6 live apps. Google Play publisher. Full-stack from design to deployment — without agency overhead."
+        primary={['Book a discovery call', BOOKING_URL]}
+        secondary={['See live work', '/portfolio']}
+        navigate={navigate}
+      />
+      <Section>
+        <div className="about-layout">
+          <div className="about-photo">
+            <img src="/images/dean.png" alt="Dean Burt, founder of Dean Da Dev, UK full-stack developer" />
+          </div>
+          <div className="about-bio">
+            <p className="eyebrow">Dean Burt · Founder</p>
+            <h2>Building production-grade apps and websites for UK businesses.</h2>
+            <p>Dean Burt is a UK-based full-stack developer who designs, builds, and ships mobile apps, websites, AI tools, and dashboards for local businesses and early-stage founders. Every project is handled end to end — from initial scope and UX through development, App Store submission, and deployment.</p>
+            <p>With 6 live production apps, a Google Play publisher account, and a track record of shipping in 4–8 weeks, Dean Da Dev offers the expertise of an agency at a fraction of the price. No account managers, no handoffs, no delays — just a direct line to the developer building your product.</p>
+            <div className="about-stats">
+              {[['6', 'Live apps shipped'], ['4–8 wk', 'Average time to launch'], ['100%', 'Handled end to end'], ['UK', 'Based and built here']].map(([n, l]) => (
+                <div key={l} className="about-stat">
+                  <strong>{n}</strong>
+                  <span>{l}</span>
+                </div>
+              ))}
+            </div>
+            <div className="button-row">
+              <Button href={BOOKING_URL} navigate={navigate}>Book a free discovery call</Button>
+              <Button href="/portfolio" variant="secondary" navigate={navigate}>See live work</Button>
+            </div>
+          </div>
+        </div>
+      </Section>
+      <SocialProofBanner />
+      <ServicesSnapshot />
+    </>
+  );
 }
 
 function ServicesPage({ navigate }) {
   return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ServicesSnapshot /><ServicesDetail /><LeadCTA /></>;
 }
 
-function PortfolioPage() {
-  const apps = [
-    ['Bookrightly', 'Marketplace', 'https://www.bookrightly.co.uk/', '/images/1.jpg'],
-    ['Js Grw Up', 'Mobile App', 'https://js-grw-up.com/', '/images/2.jpg'],
-    ['Smart Life', 'AI App', 'https://smart-life-app.pages.dev/', '/images/3.jpg'],
-    ["DB's AI Trainer", 'AI App', 'https://pt-ai-helper.pages.dev/#/login', '/images/4.jpg'],
-    ['Bella Flor Jewellery', 'E-Commerce', 'https://www.bellaflorjewellery.co.uk/', '/images/5.jpg'],
-    ['Payment Card Services', 'Website', 'https://www.paymentcardservices.co.uk/', '/images/6.jpg'],
-  ];
-  return <><Hero eyebrow="Portfolio" title="Live builds, not mockups." copy="A selection of shipped websites, apps, ecommerce projects, and AI products." primary={['Book a call', BOOKING_URL]} secondary={['View tools', '/free-tools']} /><Section><div className="portfolio-grid">{apps.map(([name, tag, url, img]) => <a className="portfolio-card" href={url} target="_blank" rel="noreferrer" key={name}><img src={img} alt={name} /><div><span>{tag}</span><h3>{name}</h3></div></a>)}</div></Section><LeadCTA /></>;
+const PORTFOLIO_APPS = [
+  {
+    name: 'Bookrightly',
+    tag: 'Marketplace',
+    url: 'https://www.bookrightly.co.uk/',
+    img: '/images/1.jpg',
+    desc: 'A UK booking marketplace connecting customers with local service providers. Real-time availability, provider profiles, and online booking built end to end.',
+  },
+  {
+    name: 'Js Grw Up',
+    tag: 'Mobile App',
+    url: 'https://js-grw-up.com/',
+    img: '/images/2.jpg',
+    desc: 'A co-parenting mobile app helping separated parents coordinate schedules, communicate clearly, and keep everything in one place.',
+  },
+  {
+    name: 'Smart Life',
+    tag: 'AI App',
+    url: 'https://smart-life-app.pages.dev/',
+    img: '/images/3.jpg',
+    desc: 'An AI-powered lifestyle app that delivers personalised recommendations and insights to help users build better daily habits.',
+  },
+  {
+    name: "DB's AI Trainer",
+    tag: 'AI App',
+    url: 'https://pt-ai-helper.pages.dev/#/login',
+    img: '/images/4.jpg',
+    desc: 'A personal AI fitness trainer that generates custom workout plans, tracks progress, and adapts its recommendations to the user over time.',
+  },
+  {
+    name: 'Bella Flor Jewellery',
+    tag: 'E-Commerce',
+    url: 'https://www.bellaflorjewellery.co.uk/',
+    img: '/images/5.jpg',
+    desc: 'A full e-commerce store for a UK handmade jewellery brand — product catalogue, shopping cart, and a checkout experience built to convert.',
+  },
+  {
+    name: 'Payment Card Services',
+    tag: 'Website',
+    url: 'https://www.paymentcardservices.co.uk/',
+    img: '/images/6.jpg',
+    desc: 'A professional lead-generation website for a UK payment card services business, built to establish credibility and drive enquiries.',
+  },
+];
+
+function PortfolioPage({ navigate }) {
+  return (
+    <>
+      <Hero
+        eyebrow="Portfolio"
+        title="Live builds, not mockups."
+        copy="6 production apps and websites shipped end to end — from design and development through to App Store submission and deployment."
+        primary={['Book a discovery call', BOOKING_URL]}
+        secondary={['View pricing', '/pricing']}
+        navigate={navigate}
+      />
+      <Section>
+        <div className="portfolio-grid">
+          {PORTFOLIO_APPS.map((app) => (
+            <a className="portfolio-card" href={app.url} target="_blank" rel="noreferrer" key={app.name}>
+              <img src={app.img} alt={`${app.name} — ${app.tag} built by Dean Da Dev`} loading="lazy" />
+              <div>
+                <span>{app.tag}</span>
+                <h3>{app.name}</h3>
+                <p>{app.desc}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </Section>
+      <SocialProofBanner />
+      <LeadCTA />
+    </>
+  );
 }
 
 function PricingPage() {

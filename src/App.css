@@ -793,7 +793,14 @@ pre {
 }
 
 .portfolio-card h3 {
-  margin: 8px 0 0;
+  margin: 8px 0 8px;
+}
+
+.portfolio-card p {
+  margin: 0;
+  color: #475569;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 .value-card {
@@ -895,6 +902,122 @@ pre {
   font-size: 13px;
 }
 
+/* ── Social Proof Banner ── */
+.sp-section {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(17, 24, 39, 0.7), rgba(9, 13, 23, 0.7));
+  padding: 40px 20px;
+}
+
+.sp-inner {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.sp-rating {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.sp-stars {
+  font-size: 28px;
+  color: #fbbf24;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.sp-rating strong {
+  display: block;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.sp-rating p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.sp-copy {
+  flex: 1;
+  min-width: 200px;
+  margin: 0;
+  color: var(--soft);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── About Page ── */
+.about-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.about-photo img {
+  width: 100%;
+  border-radius: 16px;
+  object-fit: cover;
+  object-position: 50% 20%;
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--line);
+}
+
+.about-bio h2 {
+  margin: 10px 0 20px;
+  font-size: clamp(26px, 3.5vw, 40px);
+  line-height: 1.1;
+  color: #0f172a;
+}
+
+.about-bio > p {
+  color: #475569;
+  font-size: 17px;
+  line-height: 1.8;
+  margin: 0 0 16px;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(15, 23, 42, 0.12);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 28px 0;
+}
+
+.about-stat {
+  background: #ffffff;
+  padding: 18px 12px;
+  text-align: center;
+}
+
+.about-stat strong {
+  display: block;
+  font-size: 22px;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+}
+
+.about-stat span {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
 @media (max-width: 900px) {
   .desktop-nav {
     display: none;
@@ -962,8 +1085,21 @@ pre {
 
   .tool-layout,
   .lead-cta,
-  .footer-grid {
+  .footer-grid,
+  .about-layout,
+  .about-stats {
     grid-template-columns: 1fr;
+  }
+
+  .about-photo img {
+    aspect-ratio: 1 / 1;
+    max-width: 280px;
+  }
+
+  .sp-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
   }
 
   .tool-aside {
