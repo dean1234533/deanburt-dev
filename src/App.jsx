@@ -1012,7 +1012,7 @@ function AboutPage({ navigate }) {
 }
 
 function ServicesPage({ navigate }) {
-  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['Explore services', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ServicesSnapshot navigate={navigate} currentPage="services" /><ServicesDetail /><LeadCTA /></>;
+  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ServicesSnapshot navigate={navigate} currentPage="services" /><ServicesDetail /><LeadCTA /></>;
 }
 
 function PortfolioPage() {
