@@ -5,7 +5,7 @@ import './App.css';
 const SITE_URL = 'https://dean-da-dev.co.uk';
 const BOOKING_URL = '/DiscoveryCall';
 const BOOKING_EMBED_URL = 'https://coding-leads.vercel.app/book';
-const CONTACT_EMAIL = 'deanburt1308@gmail.com';
+const CONTACT_EMAIL = 'dean@dean-da-dev.co.uk';
 
 const categories = [
   { slug: 'ai-tools', label: 'AI', intro: 'Prompt and content tools for faster launches.' },
