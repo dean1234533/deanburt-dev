@@ -527,7 +527,7 @@ function ToolFilter({ activeCategory, onChange, includeAll = true }) {
 
 function HomeToolsPreview({ navigate }) {
   const [activeCategory, setActiveCategory] = useState('ai-tools');
-  const previewTools = categoryTools(activeCategory).slice(0, 6);
+  const previewTools = categoryTools(activeCategory).slice(0, 3);
 
   return (
     <>
