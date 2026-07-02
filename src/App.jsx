@@ -538,9 +538,9 @@ function HomeToolsPreview({ navigate }) {
 }
 
 function ToolsHubPage({ navigate }) {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const filteredTools = activeCategory === 'all' ? tools : categoryTools(activeCategory);
-  const activeLabel = activeCategory === 'all' ? 'All Tools' : `${categories.find((category) => category.slug === activeCategory)?.label} Tools`;
+  const [activeCategory, setActiveCategory] = useState('business-tools');
+  const filteredTools = categoryTools(activeCategory);
+  const activeLabel = `${categories.find((category) => category.slug === activeCategory)?.label} Tools`;
 
   return (
     <>
@@ -552,13 +552,9 @@ function ToolsHubPage({ navigate }) {
         secondary={['Book a discovery call', BOOKING_URL]}
         navigate={navigate}
       />
-      <Section>
-        <SectionHeader eyebrow="Categories" title="Choose the job you need done." copy="Each category is built around search intent, practical utility, and a natural next step into professional services." />
-        <CategoryGrid navigate={navigate} />
-      </Section>
       <Section tone="dark">
-        <SectionHeader eyebrow={activeLabel} title="Filter the tools by what you need." copy="Choose one category at a time so the grid stays focused on the job you are trying to do." />
-        <ToolFilter activeCategory={activeCategory} onChange={setActiveCategory} />
+        <SectionHeader eyebrow={activeLabel} title="Choose one tool type at a time." copy="Use the filter to switch between AI, SEO, developer, business, design, performance, accessibility, and security tools without scrolling through everything at once." />
+        <ToolFilter activeCategory={activeCategory} onChange={setActiveCategory} includeAll={false} />
         <ToolGrid tools={filteredTools} navigate={navigate} />
       </Section>
     </>
