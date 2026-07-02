@@ -1276,7 +1276,46 @@ function DiscoveryCallPage({ navigate }) {
 }
 
 function ResourcesPage({ navigate }) {
-  return <><Hero eyebrow="Resources" title="Guides that help businesses plan better digital projects." copy="Every guide supports a tool, answers search intent, and builds confidence before a client conversation." primary={['Explore tools', '/free-tools']} secondary={['Hire Dean', BOOKING_URL]} navigate={navigate} /><Section><div className="resource-grid">{resourceGuides().map((guide) => <a className="resource-card" href={guide.path} onClick={(event) => handleLink(event, guide.path, navigate)} key={guide.path}><span>{guide.toolName}</span><h3>{guide.title}</h3><p>{guide.description}</p></a>)}</div></Section></>;
+  const guides = resourceGuides();
+  const [activeCategory, setActiveCategory] = useState('business-tools');
+  const filteredGuides = guides.filter((guide) => guide.categories.includes(activeCategory));
+  const activeLabel = categories.find((category) => category.slug === activeCategory)?.label || 'Business';
+
+  return (
+    <>
+      <Hero eyebrow="Resources" title="Guides that help businesses plan better digital projects." copy="Every guide supports a tool, answers search intent, and builds confidence before a client conversation." primary={['Explore tools', '/free-tools']} secondary={['Hire Dean', BOOKING_URL]} navigate={navigate} />
+      <Section>
+        <SectionHeader eyebrow={`${activeLabel} Guides`} title="Filter guides by the thing you are trying to plan." copy="Choose one category at a time so mobile visitors do not have to scroll through every resource card." />
+        <ResourceFilter activeCategory={activeCategory} onChange={setActiveCategory} guides={guides} />
+        <div className="resource-grid">{filteredGuides.map((guide) => <a className="resource-card" href={guide.path} onClick={(event) => handleLink(event, guide.path, navigate)} key={guide.path}><span>{guide.toolName}</span><h3>{guide.title}</h3><p>{guide.description}</p></a>)}</div>
+      </Section>
+    </>
+  );
+}
+
+function ResourceFilter({ activeCategory, onChange, guides }) {
+  const options = categories.map((category) => ({
+    ...category,
+    count: guides.filter((guide) => guide.categories.includes(category.slug)).length,
+  })).filter((category) => category.count > 0);
+
+  return (
+    <div className="tool-filter resource-filter" aria-label="Filter resource guides by category">
+      {options.map((option) => (
+        <button
+          className={activeCategory === option.slug ? 'active' : ''}
+          type="button"
+          onClick={() => onChange(option.slug)}
+          key={option.slug}
+          aria-pressed={activeCategory === option.slug}
+          aria-label={`Show ${option.label} guides`}
+        >
+          <span>{option.label}</span>
+          <strong>{option.count}</strong>
+        </button>
+      ))}
+    </div>
+  );
 }
 
 function GuidePage({ route, navigate }) {
@@ -1326,6 +1365,7 @@ function resourceGuides() {
       title,
       toolName: item.name,
       toolPath: item.path,
+      categories: item.categories,
       path: `/resources/${item.slug}/${slugify(title)}`,
       description: `A practical guide connected to the ${item.name}, written for UK businesses planning better digital projects.`,
       body: `This guide helps you understand the decisions behind ${item.name.toLowerCase()}: budget, scope, realistic assumptions, conversion impact, and when a professional build is worth the investment.`,
