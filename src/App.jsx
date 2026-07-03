@@ -112,6 +112,41 @@ const navItems = [
   ['Free Tools', '/free-tools'],
 ];
 
+const siteImages = {
+  websiteScreen: {
+    src: '/images/free/website-screen.jpg',
+    alt: 'Website homepage shown on a computer screen',
+  },
+  appPhone: {
+    src: '/images/free/app-phone-laptop.jpg',
+    alt: 'Phone app in front of a laptop during development',
+  },
+  codeDesk: {
+    src: '/images/free/code-desk.jpg',
+    alt: 'Laptop with code on a clean developer desk',
+  },
+  mobileCode: {
+    src: '/images/free/mobile-code.jpg',
+    alt: 'Smartphone displaying code',
+  },
+  wireframes: {
+    src: '/images/free/wireframe-sketches.jpg',
+    alt: 'Watercolor wireframe sketches for website layouts',
+  },
+  professionalWorkspace: {
+    src: '/images/free/professional-workspace.jpg',
+    alt: 'Professional workspace with laptop showing business charts',
+  },
+  techWork: {
+    src: '/images/free/tech-work.jpg',
+    alt: 'Professional working on a laptop in an office',
+  },
+  performance: {
+    src: '/images/free/performance-dashboard.jpg',
+    alt: 'Analytics dashboard with performance charts',
+  },
+};
+
 function App() {
   const [path, setPath] = useState(normalizePath(window.location.pathname));
 
@@ -397,6 +432,7 @@ function HomePage({ navigate }) {
         navigate={navigate}
       />
       <SocialProofBanner />
+      <ImageFeatureSection />
       <Section>
         <SectionHeader eyebrow="What I build" title="A practical build partner for small businesses and founders." copy="Start lean, validate quickly, and ship something real: a website that gets enquiries, an app MVP, or a focused tool that saves time." />
         <div className="value-grid">
@@ -470,20 +506,37 @@ function Button({ href, children, variant = 'primary', navigate }) {
   return <a className={`button button-${variant}`} href={href} onClick={(event) => navigate && handleLink(event, href, navigate)}>{children}</a>;
 }
 
-function CategoryGrid({ navigate }) {
+function ImageFeatureSection() {
+  const featureImages = [
+    [siteImages.professionalWorkspace, 'Discovery', 'Turn business goals into a clear build plan.'],
+    [siteImages.techWork, 'Development', 'Design, build, test, and refine with care.'],
+    [siteImages.performance, 'Launch', 'Measure performance and improve after release.'],
+  ];
+
   return (
-    <div className="category-grid">
-      {categories.map((category) => {
-        const count = categoryTools(category.slug).length;
-        return (
-          <a className="category-card" href={`/${category.slug}`} onClick={(event) => handleLink(event, `/${category.slug}`, navigate)} key={category.slug}>
-            <span>{category.label}</span>
-            <p>{category.intro}</p>
-            <strong>{count || 'Coming'} tools</strong>
-          </a>
-        );
-      })}
-    </div>
+    <section className="image-feature-section">
+      <div className="image-feature-inner">
+        <div className="image-feature-media">
+          {featureImages.map(([image, label, copy]) => (
+            <figure className="image-feature-card" key={image.src}>
+              <img src={image.src} alt={image.alt} loading="lazy" />
+              <figcaption>
+                <strong>{label}</strong>
+                <span>{copy}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+        <div className="image-feature-copy">
+          <p className="eyebrow">Plan, build, launch</p>
+          <h2>Proper websites and apps start with a clear business conversation.</h2>
+          <p>Before a build starts, the goal is mapped around the customer journey, content, conversion points, and the simplest version that can ship well.</p>
+          <div className="image-feature-points">
+            {['Discovery before design', 'UX planning before code', 'Launch support after build'].map((item) => <span key={item}>{item}</span>)}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -980,16 +1033,25 @@ function FAQList({ faqs }) {
 }
 
 function ServicesSnapshot() {
+  const services = [
+    ['Apps', 'App Development', 'Mobile apps and progressive web apps for customer portals, booking flows, marketplaces, AI products, and MVP launches.', siteImages.appPhone],
+    ['Websites', 'Web Development', 'Premium websites, landing pages, SEO foundations, booking flows, ecommerce, and CMS builds.', siteImages.websiteScreen],
+    ['Operations', 'Business Tools', 'Practical dashboards, calculators, client intake forms, admin views, and workflow helpers for smaller business operations.', siteImages.mobileCode],
+    ['AI', 'AI Development', 'Prompt systems, AI assistants, automations, document workflows, and lead-generation tools.', siteImages.codeDesk],
+  ];
+
   return (
     <Section>
       <SectionHeader eyebrow="Services" title="When a free tool is not enough, hire the builder." copy="Dean Da Dev designs and ships the production version: mobile apps, fast websites, dashboards, AI workflows, automation, and useful business tools." />
       <div className="service-grid">
-        {[
-          ['Apps', 'App Development', 'Mobile apps and progressive web apps for customer portals, booking flows, marketplaces, AI products, and MVP launches.'],
-          ['Websites', 'Web Development', 'Premium websites, landing pages, SEO foundations, booking flows, ecommerce, and CMS builds.'],
-          ['Operations', 'Business Tools', 'Practical dashboards, calculators, client intake forms, admin views, and workflow helpers for smaller business operations.'],
-          ['AI', 'AI Development', 'Prompt systems, AI assistants, automations, document workflows, and lead-generation tools.'],
-        ].map(([label, title, copy]) => <div className="service-card" key={title}><span>{label}</span><h3>{title}</h3><p>{copy}</p></div>)}
+        {services.map(([label, title, copy, image]) => (
+          <div className="service-card" key={title}>
+            <img src={image.src} alt={image.alt} loading="lazy" />
+            <span>{label}</span>
+            <h3>{title}</h3>
+            <p>{copy}</p>
+          </div>
+        ))}
       </div>
     </Section>
   );
@@ -1160,7 +1222,7 @@ function AboutPage({ navigate }) {
 }
 
 function ServicesPage({ navigate }) {
-  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ServicesDetail /><LeadCTA /></>;
+  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ImageFeatureSection /><ServicesDetail /><LeadCTA /></>;
 }
 
 const PORTFOLIO_APPS = [
