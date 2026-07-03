@@ -121,6 +121,10 @@ const siteImages = {
     src: '/images/free/app-phone-laptop.jpg',
     alt: 'Phone app in front of a laptop during development',
   },
+  websiteDesignScreen: {
+    src: '/images/free/website-design-screen.jpg',
+    alt: 'Professional website design shown on a desktop screen',
+  },
   codeDesk: {
     src: '/images/free/code-desk.jpg',
     alt: 'Laptop with code on a clean developer desk',
@@ -128,6 +132,10 @@ const siteImages = {
   mobileCode: {
     src: '/images/free/mobile-code.jpg',
     alt: 'Smartphone displaying code',
+  },
+  businessTools: {
+    src: '/images/free/digital-business-dashboard.jpg',
+    alt: 'Digital business dashboard with charts and reporting tools',
   },
   wireframes: {
     src: '/images/free/wireframe-sketches.jpg',
@@ -1035,8 +1043,8 @@ function FAQList({ faqs }) {
 function ServicesSnapshot() {
   const services = [
     ['Apps', 'App Development', 'Mobile apps and progressive web apps for customer portals, booking flows, marketplaces, AI products, and MVP launches.', siteImages.appPhone],
-    ['Websites', 'Web Development', 'Premium websites, landing pages, SEO foundations, booking flows, ecommerce, and CMS builds.', siteImages.websiteScreen],
-    ['Operations', 'Business Tools', 'Practical dashboards, calculators, client intake forms, admin views, and workflow helpers for smaller business operations.', siteImages.mobileCode],
+    ['Websites', 'Web Development', 'Premium websites, landing pages, SEO foundations, booking flows, ecommerce, and CMS builds.', siteImages.websiteDesignScreen],
+    ['Operations', 'Business Tools', 'Practical dashboards, calculators, client intake forms, admin views, and workflow helpers for smaller business operations.', siteImages.businessTools],
     ['AI', 'AI Development', 'Prompt systems, AI assistants, automations, document workflows, and lead-generation tools.', siteImages.codeDesk],
   ];
 

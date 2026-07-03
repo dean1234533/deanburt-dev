@@ -1555,9 +1555,112 @@ pre {
   }
 }
 
+@media (max-width: 620px) {
+  .image-feature-section {
+    padding-inline: 0;
+  }
+
+  .image-feature-inner {
+    padding-inline: 20px;
+    overflow: hidden;
+  }
+
+  .image-feature-media {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    width: 100%;
+    margin-inline: 0;
+    overflow: hidden;
+    animation: none;
+  }
+
+  .image-feature-card,
+  .image-feature-card:first-child {
+    grid-area: 1 / 1;
+    flex: none;
+    min-width: 0;
+    width: 100%;
+    min-height: 360px;
+    aspect-ratio: auto;
+    opacity: 0;
+    animation: imageFeatureFade 15s ease-in-out infinite;
+  }
+
+  .image-feature-card img {
+    height: 250px;
+  }
+
+  .image-feature-card::after {
+    display: none;
+  }
+
+  .image-feature-card:first-child {
+    opacity: 1;
+    animation: none;
+  }
+
+  .image-feature-card:nth-child(2) {
+    animation-delay: 4.8s;
+  }
+
+  .image-feature-card:nth-child(3) {
+    animation-delay: 9.8s;
+  }
+
+  .image-feature-card figcaption {
+    position: static;
+    min-height: 110px;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(2, 6, 23, 0.98));
+    padding: 16px;
+  }
+
+  .image-feature-card figcaption strong {
+    display: block;
+    font-size: 21px;
+    line-height: 1.12;
+    overflow-wrap: anywhere;
+  }
+
+  .image-feature-card figcaption span {
+    display: block;
+    max-width: 100%;
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  @keyframes imageFeatureFade {
+    0%,
+    7% {
+      opacity: 0;
+    }
+
+    12%,
+    32% {
+      opacity: 1;
+    }
+
+    38%,
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
 @media (max-width: 620px) and (prefers-reduced-motion: reduce) {
   .image-feature-media {
     animation: none;
     transform: none;
+  }
+
+  .image-feature-card {
+    animation: none;
+    opacity: 1;
+  }
+
+  .image-feature-card:not(:first-child) {
+    display: none;
   }
 }
