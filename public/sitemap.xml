@@ -8,7 +8,18 @@
   <url><loc>https://dean-da-dev.co.uk/pricing</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://dean-da-dev.co.uk/blog</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dean-da-dev.co.uk/resources</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://dean-da-dev.co.uk/free-tools</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools</loc><lastmod>2026-07-04</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/image-compressor</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/jpg-to-webp</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/png-to-webp</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/webp-to-png</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/png-to-jpg</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/jpg-to-png</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/image-size-checker</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/pdf-compressor</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/image-to-pdf</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/tools/file-size-converter</loc><lastmod>2026-07-04</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://dean-da-dev.co.uk/free-tools</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://dean-da-dev.co.uk/templates</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://dean-da-dev.co.uk/ai-tools</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://dean-da-dev.co.uk/seo-tools</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>

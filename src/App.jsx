@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import './App.css';
+import { ImageToolWorkspace } from './ImageTools';
 
 const SITE_URL = 'https://dean-da-dev.co.uk';
 const BOOKING_URL = '/DiscoveryCall';
@@ -76,6 +77,144 @@ const tools = [
   tool('Project Cost Calculator', 'project-cost-calculator', 'Business', ['business-tools'], 'Estimate project cost from complexity, team size, timeline, integrations, and risk.', 'Scope a realistic software project budget.'),
 ];
 
+function imageTool(name, slug, description, short, customFaqs) {
+  const defaultFaqs = [
+    { q: `Is this ${name.toLowerCase()} free?`, a: `Yes. Completely free, no sign-up required, no watermark.` },
+    { q: 'Are my files private?', a: 'Yes. All file processing happens directly in your browser. Your files are never uploaded to any server.' },
+    { q: 'Can I use this on mobile?', a: 'Yes. The tool is fully responsive and works on phones, tablets, and desktops.' },
+    { q: 'Can dean-da-dev help with my website?', a: 'Yes. If your website feels slow, outdated, or is not generating enquiries, dean-da-dev can build a faster, more professional website designed to convert visitors into customers.' },
+  ];
+  return { name, slug, description, short, title: `${name} | Free Online Tool | dean-da-dev`, metaDescription: description, path: `/tools/${slug}`, faqs: customFaqs || defaultFaqs };
+}
+
+const imageTools = [
+  imageTool('Image Compressor', 'image-compressor',
+    'Compress JPG, PNG, and WebP images online to reduce file size and help websites load faster.',
+    'Reduce image file size for faster websites. No sign-up, no watermark.',
+    [
+      { q: 'Is the Image Compressor free?', a: 'Yes. Completely free, no sign-up required, no watermark.' },
+      { q: 'What image formats are supported?', a: 'JPG, PNG, and WebP images are all supported.' },
+      { q: 'Are my images private?', a: 'Yes. All image compression happens locally in your browser using the Canvas API. Your images are never uploaded to any server.' },
+      { q: 'Why should I compress images for my website?', a: 'Large images are one of the most common reasons websites load slowly. Compressing images improves page speed, user experience, and helps with Google\'s Core Web Vitals performance scoring.' },
+      { q: 'What is WebP and should I use it?', a: 'WebP is a modern image format from Google that produces files 25–35% smaller than JPG or PNG at similar quality. It is recommended for website images and is supported by all modern browsers.' },
+      { q: 'Can dean-da-dev help with my website speed?', a: 'Yes. A website built by dean-da-dev is optimised for speed from the ground up — compressed assets, fast hosting, and performance best practices included as standard.' },
+    ]
+  ),
+  imageTool('JPG to WebP Converter', 'jpg-to-webp',
+    'Convert JPG images to WebP format for smaller file sizes and faster website loading.',
+    'Convert JPG to WebP for smaller, faster files. Free, no sign-up.',
+    [
+      { q: 'Is this JPG to WebP converter free?', a: 'Yes. Completely free, no sign-up, no watermark.' },
+      { q: 'What is WebP and why use it?', a: 'WebP is a modern image format from Google that produces files 25–35% smaller than JPG while maintaining comparable quality. Using WebP for website images helps pages load faster.' },
+      { q: 'Are my images private?', a: 'Yes. Conversion happens entirely in your browser using the Canvas API. Your images are never sent to any server.' },
+      { q: 'Which browsers support WebP?', a: 'WebP is supported by all modern browsers including Chrome, Firefox, Safari, and Edge. It is safe to use for all websites.' },
+      { q: 'Can dean-da-dev build a faster website for me?', a: 'Yes. dean-da-dev builds mobile-friendly, speed-optimised websites for UK businesses. Book a free discovery call to get started.' },
+    ]
+  ),
+  imageTool('PNG to WebP Converter', 'png-to-webp',
+    'Convert PNG images to WebP format to reduce file size and improve website performance.',
+    'Convert PNG to WebP to shrink file sizes and speed up your website. Free and instant.',
+    [
+      { q: 'Is this PNG to WebP converter free?', a: 'Yes. Free to use, no sign-up, no watermark.' },
+      { q: 'Does it preserve transparency?', a: 'Yes. WebP supports transparency, so transparent PNG images will be converted with full transparency preserved.' },
+      { q: 'Are my images private?', a: 'Yes. Everything is processed locally in your browser. No server uploads.' },
+      { q: 'How much smaller will the WebP file be?', a: 'PNG to WebP conversions typically produce files 25–35% smaller. Results vary depending on image content.' },
+      { q: 'Can dean-da-dev help with my website?', a: 'Yes. dean-da-dev builds professional websites for UK businesses, optimised for speed, SEO, and conversions.' },
+    ]
+  ),
+  imageTool('WebP to PNG Converter', 'webp-to-png',
+    'Convert WebP files back into PNG format quickly and easily.',
+    'Convert WebP images to PNG for universal compatibility. Free and instant.',
+    [
+      { q: 'Is this WebP to PNG converter free?', a: 'Yes. Completely free, no sign-up required.' },
+      { q: 'Why convert WebP to PNG?', a: 'While WebP is great for websites, some software, apps, and services do not support the WebP format. Converting to PNG ensures the image works everywhere.' },
+      { q: 'Are my images private?', a: 'Yes. All processing happens in your browser. No uploads to any server.' },
+      { q: 'Will converting to PNG increase the file size?', a: 'Yes, PNG files are typically larger than WebP. PNG is best when universal compatibility matters more than file size.' },
+      { q: 'Can dean-da-dev build my website?', a: 'Yes. dean-da-dev builds professional websites for UK businesses. Book a free discovery call to discuss your project.' },
+    ]
+  ),
+  imageTool('PNG to JPG Converter', 'png-to-jpg',
+    'Convert PNG files into JPG format online for smaller file sizes and easier sharing.',
+    'Convert PNG to JPG for smaller, widely compatible files. Free, no sign-up.',
+    [
+      { q: 'Is this PNG to JPG converter free?', a: 'Yes. Free, no sign-up, no watermark.' },
+      { q: 'What happens to transparent areas?', a: 'JPG does not support transparency. Transparent areas in your PNG will be filled with a background colour — white by default. You can choose a custom colour in the tool.' },
+      { q: 'Are my images private?', a: 'Yes. Conversion happens locally using the Canvas API. No files are sent to any server.' },
+      { q: 'When should I use JPG over PNG?', a: 'JPG is best for photographs and images where smaller file size matters. PNG is better for logos, icons, and images with transparency.' },
+      { q: 'Can dean-da-dev help with my website?', a: 'Yes. Book a free discovery call to discuss building a professional website for your business.' },
+    ]
+  ),
+  imageTool('JPG to PNG Converter', 'jpg-to-png',
+    'Convert JPG images into PNG format online with a simple free tool.',
+    'Convert JPG to PNG for lossless quality and transparency support. Free and instant.',
+    [
+      { q: 'Is this JPG to PNG converter free?', a: 'Yes. Completely free, no sign-up, no watermark.' },
+      { q: 'Why convert JPG to PNG?', a: 'PNG is a lossless format. Converting from JPG stops further quality loss from future re-saving. PNG also supports transparency, which JPG does not.' },
+      { q: 'Are my images private?', a: 'Yes. All conversion happens locally in your browser. No server uploads.' },
+      { q: 'Will converting improve image quality?', a: 'Converting from JPG to PNG will not recover quality already lost to JPG compression, but it will prevent further quality loss from any future re-saving.' },
+      { q: 'Can dean-da-dev build my website?', a: 'Yes. dean-da-dev builds fast, modern websites for UK businesses from £399. Book a discovery call to get started.' },
+    ]
+  ),
+  imageTool('Website Image Size Checker', 'image-size-checker',
+    'Check whether an image is too large for website use and get simple advice to improve website speed.',
+    'Check if your image is too large for your website and get instant advice. Free.',
+    [
+      { q: 'What image size is best for a website?', a: 'Most website images should be under 200 KB. Full-width hero images can go up to 400 KB. Images over 500 KB can noticeably slow down a website and may harm your Google ranking.' },
+      { q: 'Is this tool free?', a: 'Yes. Completely free, no sign-up required.' },
+      { q: 'Are my images private?', a: 'Yes. File analysis happens entirely in your browser. No images are uploaded to any server.' },
+      { q: 'What should I do if my image is too large?', a: 'Use the Image Compressor or WebP converter on this site to reduce the file size. Aim for under 200 KB for most website images.' },
+      { q: 'Why do large images slow down websites?', a: 'Large images take longer to download, which makes pages feel slow. This can increase bounce rates, reduce conversions, and negatively affect your Google search ranking.' },
+      { q: 'Can dean-da-dev help with website speed?', a: 'Yes. Websites built by dean-da-dev include optimised images, fast hosting, and clean code as standard. Book a discovery call to discuss your project.' },
+    ]
+  ),
+  imageTool('PDF Compressor', 'pdf-compressor',
+    'Reduce PDF file size online for easier sharing, uploading, and emailing.',
+    'Compress PDF files to reduce size for easier sharing. Free, no sign-up, no watermark.',
+    [
+      { q: 'Is the PDF Compressor free?', a: 'Yes. Free to use, no sign-up, no watermark.' },
+      { q: 'Are my PDFs private?', a: 'Yes. PDF processing happens entirely in your browser. Your files are never sent to any server.' },
+      { q: 'How much will the file size be reduced?', a: 'Results vary. Text-heavy PDFs typically compress well. PDFs that are mostly large embedded images may see smaller reductions from browser-based compression.' },
+      { q: 'What is the maximum file size?', a: 'For best results, keep PDFs under 50 MB. Larger files may take longer to process in the browser.' },
+      { q: 'Can dean-da-dev help with my website?', a: 'Yes. dean-da-dev builds professional websites for UK businesses. Book a free discovery call to discuss your project.' },
+    ]
+  ),
+  imageTool('Image to PDF Converter', 'image-to-pdf',
+    'Convert JPG and PNG images into a PDF document online.',
+    'Convert images to PDF instantly. Multiple images supported. Free, no sign-up.',
+    [
+      { q: 'Is this Image to PDF converter free?', a: 'Yes. Completely free, no sign-up, no watermark.' },
+      { q: 'Can I add multiple images?', a: 'Yes. You can add multiple images and each one will become a separate page in the PDF.' },
+      { q: 'Are my images private?', a: 'Yes. All processing happens in your browser. No files are sent to any server.' },
+      { q: 'What image formats are supported?', a: 'JPG and PNG images are supported.' },
+      { q: 'Can I reorder images before converting?', a: 'Yes. Use the up and down buttons to reorder images before converting to PDF.' },
+      { q: 'Can dean-da-dev build my website?', a: 'Yes. dean-da-dev builds professional websites and apps for UK businesses. Book a free discovery call.' },
+    ]
+  ),
+  imageTool('File Size Converter', 'file-size-converter',
+    'Convert between bytes, KB, MB, GB, and TB using a simple free calculator.',
+    'Instantly convert between bytes, KB, MB, GB, and TB. Simple and free.',
+    [
+      { q: 'Is this File Size Converter free?', a: 'Yes. Completely free, no sign-up needed.' },
+      { q: 'What units does it support?', a: 'Bytes, Kilobytes (KB), Megabytes (MB), Gigabytes (GB), and Terabytes (TB). Calculations use 1 KB = 1,024 bytes (binary standard).' },
+      { q: 'What is the difference between KB and KiB?', a: 'KB (Kilobyte) technically means 1,000 bytes in the decimal (SI) system. KiB (Kibibyte) means 1,024 bytes in the binary system. Most storage and web tools use binary, which is what this tool uses.' },
+      { q: 'Can dean-da-dev help with my website?', a: 'Yes. dean-da-dev builds fast, mobile-friendly websites for UK businesses. Book a free call to discuss your project.' },
+    ]
+  ),
+];
+
+const TOOL_ICONS = {
+  'image-compressor': '🗜️',
+  'jpg-to-webp': '🔄',
+  'png-to-webp': '🔄',
+  'webp-to-png': '🔄',
+  'png-to-jpg': '🔄',
+  'jpg-to-png': '🔄',
+  'image-size-checker': '📏',
+  'pdf-compressor': '📄',
+  'image-to-pdf': '📑',
+  'file-size-converter': '⚖️',
+};
+
 function tool(name, slug, primaryCategory, categoriesForTool, description, short) {
   return {
     name,
@@ -108,8 +247,8 @@ const navItems = [
   ['Services', '/services'],
   ['Portfolio', '/portfolio'],
   ['Pricing', '/pricing'],
+  ['Tools', '/tools'],
   ['Resources', '/resources'],
-  ['Free Tools', '/free-tools'],
 ];
 
 const siteImages = {
@@ -200,6 +339,27 @@ function normalizePath(value) {
 }
 
 function resolveRoute(path) {
+  if (path === '/tools') {
+    return {
+      Component: ImageToolsHubPage,
+      meta: {
+        title: 'Free Business & Website Tools | dean-da-dev',
+        description: 'Free tools from dean-da-dev to compress images, convert files, check website assets, and improve your online presence. No sign-up, no watermark, no hidden paywall.',
+        path,
+        schema: imageToolsHubSchema(),
+      },
+    };
+  }
+
+  const imageToolMatch = imageTools.find((item) => item.path === path);
+  if (imageToolMatch) {
+    return {
+      Component: ImageToolPage,
+      tool: imageToolMatch,
+      meta: metaForImageTool(imageToolMatch),
+    };
+  }
+
   const toolMatch = tools.find((item) => item.path === path);
   if (toolMatch) {
     return {
@@ -620,6 +780,216 @@ function ToolsHubPage({ navigate }) {
         <ToolFilter activeCategory={activeCategory} onChange={setActiveCategory} includeAll={false} />
         <ToolGrid tools={filteredTools} navigate={navigate} />
       </Section>
+    </>
+  );
+}
+
+const HUB_BENEFITS = [
+  ['🆓', 'Free to Use', 'Every tool on this page is completely free. No hidden costs, no premium tier.'],
+  ['🔐', 'No Sign-Up', 'No account needed. Open a tool, use it, leave. No email required.'],
+  ['💧', 'No Watermark', 'Your files come back clean. No branding, no stamps added.'],
+  ['⚡', 'Fast & Simple', 'Tools load fast and stay out of the way. Upload, convert, download.'],
+  ['🌐', 'Built for Website Speed', 'Compression and conversion tools designed with web performance in mind.'],
+  ['🏢', 'Useful for Business', 'File tools for businesses that send proposals, publish content, or manage websites.'],
+];
+
+const HUB_FAQS = [
+  { q: 'Are these tools really free?', a: 'Yes. Every tool on this page is completely free to use with no sign-up, no subscription, and no hidden costs.' },
+  { q: 'Do I need to create an account?', a: 'No. There is no account or sign-up required for any tool on this page.' },
+  { q: 'Will there be a watermark on my files?', a: 'No. Your converted and compressed files are completely clean. No logos, branding, or watermarks are added.' },
+  { q: 'Are my files private?', a: 'Yes. All file processing happens locally in your browser using JavaScript. Your files are never uploaded to any server.' },
+  { q: 'Why should I compress images for my website?', a: 'Large images are one of the most common reasons websites load slowly. Compressing images reduces page load time, improves user experience, and can positively affect your Google search ranking.' },
+  { q: 'What is WebP?', a: 'WebP is a modern image format developed by Google. It produces files 25–35% smaller than JPG or PNG at similar quality, making it ideal for website images. All modern browsers support WebP.' },
+  { q: 'Can dean-da-dev help improve my website?', a: 'Yes. If your website feels slow, outdated, or is not generating enquiries, dean-da-dev can build a professional, mobile-friendly website designed to make your business look credible and attract more customers.' },
+  { q: 'Can I use these tools on mobile?', a: 'Yes. All tools are fully responsive and work on phones, tablets, and desktops.' },
+];
+
+function ImageToolCard({ tool: item, navigate }) {
+  return (
+    <a className="image-tool-card" href={item.path} onClick={(e) => handleLink(e, item.path, navigate)}>
+      <div className="image-tool-card-icon" aria-hidden="true">{TOOL_ICONS[item.slug] || '🛠️'}</div>
+      <h3>{item.name}</h3>
+      <p>{item.short}</p>
+      <span className="image-tool-card-cta">Use tool →</span>
+    </a>
+  );
+}
+
+function ImageToolsHubPage({ navigate }) {
+  const imageOnlyTools = imageTools.filter((t) =>
+    ['image-compressor', 'jpg-to-webp', 'png-to-webp', 'webp-to-png', 'png-to-jpg', 'jpg-to-png', 'image-size-checker'].includes(t.slug)
+  );
+  const pdfTools = imageTools.filter((t) => ['pdf-compressor', 'image-to-pdf', 'file-size-converter'].includes(t.slug));
+
+  return (
+    <>
+      <section className="tools-hub-hero">
+        <div className="hero-bg" />
+        <div className="tools-hub-hero-inner">
+          <p className="eyebrow">dean-da-dev · Free Tools</p>
+          <h1>Free Tools for Faster Websites and Smarter Business Tasks.</h1>
+          <p className="tools-hub-hero-copy">Use free tools from dean-da-dev to compress images, convert files, check website assets, and improve your online presence. No sign-up, no watermark, no hidden paywall.</p>
+          <div className="button-row">
+            <Button href="#tools" navigate={navigate}>Start Using Tools</Button>
+            <Button href="/services" variant="secondary" navigate={navigate}>View Web Design Services</Button>
+          </div>
+          <div className="tools-hub-badges">
+            {['Free to use', 'No sign-up', 'No watermark', 'Browser-based', 'Privacy-friendly'].map((b) => (
+              <span className="tool-badge" key={b}>{b}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Section tone="dark" className="anchor-section">
+        <div id="tools" />
+        <SectionHeader eyebrow="Image Tools" title="Compress, convert, and check images for your website." copy="All image tools run directly in your browser. Your files never leave your device." />
+        <div className="image-tools-grid">
+          {imageOnlyTools.map((t) => <ImageToolCard key={t.slug} tool={t} navigate={navigate} />)}
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeader eyebrow="PDF & File Tools" title="Compress PDFs, convert images to PDF, and calculate file sizes." copy="Process PDF files and calculate file sizes, all without uploading anything to a server." />
+        <div className="image-tools-grid">
+          {pdfTools.map((t) => <ImageToolCard key={t.slug} tool={t} navigate={navigate} />)}
+        </div>
+      </Section>
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="Developer & SEO Tools" title="More free tools for building better websites." copy="Dean Da Dev also offers a full suite of free developer, SEO, AI, and business tools." />
+        <div className="image-tools-grid">
+          {tools.slice(0, 6).map((t) => (
+            <a className="image-tool-card" href={t.path} onClick={(e) => handleLink(e, t.path, navigate)} key={t.slug}>
+              <div className="image-tool-card-icon" aria-hidden="true">🛠️</div>
+              <h3>{t.name}</h3>
+              <p>{t.short}</p>
+              <span className="image-tool-card-cta">Open tool →</span>
+            </a>
+          ))}
+        </div>
+        <div className="center-gap">
+          <Button href="/free-tools" navigate={navigate}>See all developer &amp; SEO tools</Button>
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeader eyebrow="Why Use These Tools" title="Built for businesses, developers, and website owners." copy="No account needed. No watermarks. Files stay on your device." />
+        <div className="benefits-grid">
+          {HUB_BENEFITS.map(([icon, title, copy]) => (
+            <div className="benefit-card" key={title}>
+              <div className="benefit-icon" aria-hidden="true">{icon}</div>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="Website Performance" title="Why file size matters for your website." />
+        <div className="speed-education">
+          <p>Large images and oversized files are one of the most common reasons small business websites feel slow. When a visitor lands on a slow page, they often leave before it finishes loading — and that hurts both your enquiry rate and your Google ranking.</p>
+          <p>Compressing images, converting to modern formats like WebP, and keeping assets lightweight can significantly improve your website's performance. Google uses page speed as a ranking factor. Faster websites hold visitors' attention longer, which means more enquiries and more sales.</p>
+          <p>As a rough guide: most website images should be under 200 KB. Use WebP format where possible. Keep PDFs compact for email and download links. These are small changes that make a real difference.</p>
+          <div className="speed-tips">
+            {[
+              ['📷', 'Images', 'Aim for under 200 KB per image. Use WebP format for the web.'],
+              ['📄', 'PDFs', 'Compress PDFs before using them as email attachments or downloads.'],
+              ['🌐', 'Performance', 'Faster pages rank better and convert better. Start with your images.'],
+            ].map(([icon, label, copy]) => (
+              <div className="speed-tip" key={label}>
+                <span aria-hidden="true">{icon}</span>
+                <div><strong>{label}</strong><p>{copy}</p></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      <section className="tools-service-cta">
+        <div className="tools-service-cta-inner">
+          <p className="eyebrow">Need more than free tools?</p>
+          <h2>Build a faster, more professional website with dean-da-dev.</h2>
+          <p>If your website feels slow, outdated, or hard to use, dean-da-dev can help you build a premium, mobile-friendly website designed to make your business look professional and get more enquiries.</p>
+          <div className="button-row">
+            <Button href={BOOKING_URL} navigate={navigate}>Book a free discovery call</Button>
+            <Button href="/services" variant="secondary" navigate={navigate}>View web design services</Button>
+          </div>
+        </div>
+      </section>
+
+      <Section>
+        <SectionHeader eyebrow="FAQ" title="Common questions about the free tools." />
+        <FAQList faqs={HUB_FAQS} />
+      </Section>
+    </>
+  );
+}
+
+function ImageToolPage({ route, navigate }) {
+  const item = route.tool;
+  const related = imageTools.filter((t) => t.slug !== item.slug).slice(0, 3);
+
+  return (
+    <>
+      <section className="tool-hero">
+        <div className="tool-hero-inner">
+          <Breadcrumbs items={[['Home', '/'], ['Tools', '/tools'], [item.name, item.path]]} navigate={navigate} />
+          <p className="eyebrow">Free Online Tool</p>
+          <h1>{item.name}</h1>
+          <p>{item.description}</p>
+          <div className="tools-hub-badges" style={{ marginTop: 16 }}>
+            {['Free to use', 'No sign-up', 'No watermark', 'Browser-based'].map((b) => (
+              <span className="tool-badge" key={b}>{b}</span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Section className="tool-section">
+        <div id="tool" />
+        <div className="tool-layout">
+          <ImageToolWorkspace slug={item.slug} />
+          <aside className="tool-aside">
+            <div className="mini-panel">
+              <h2>Need a faster website?</h2>
+              <p>Large images slow down websites. dean-da-dev builds professionally optimised websites for UK businesses that load fast and convert visitors into enquiries.</p>
+              <Button href={BOOKING_URL}>Book a free call</Button>
+            </div>
+            <div className="mini-panel">
+              <h2>Privacy</h2>
+              <p>All file processing happens in your browser. Your files are never uploaded to any server.</p>
+            </div>
+          </aside>
+        </div>
+      </Section>
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="Related Tools" title="Keep going with the next useful task." copy="Use these tools together to optimise images and files for your website." />
+        <div className="image-tools-grid">
+          {related.map((t) => <ImageToolCard key={t.slug} tool={t} navigate={navigate} />)}
+        </div>
+        <div className="center-gap" style={{ marginTop: 24 }}>
+          <Button href="/tools" variant="secondary" navigate={navigate}>See all free tools</Button>
+        </div>
+      </Section>
+
+      <section className="tools-service-cta">
+        <div className="tools-service-cta-inner">
+          <p className="eyebrow">Need this built properly?</p>
+          <h2>Large images can slow down your website.</h2>
+          <p>If your website feels slow or outdated, dean-da-dev can help you build a faster, more professional website — optimised images, clean code, and performance best practices included as standard.</p>
+          <Button href={BOOKING_URL} navigate={navigate}>Improve My Website</Button>
+        </div>
+      </section>
+
+      <Section>
+        <SectionHeader eyebrow="FAQ" title={`Questions about the ${item.name.toLowerCase()}.`} />
+        <FAQList faqs={item.faqs} />
+      </Section>
+
+      <LeadCTA />
     </>
   );
 }
@@ -1537,6 +1907,49 @@ function articleSchema(guide) {
     description: guide.description,
     author: { '@type': 'Person', name: 'Dean Burt' },
     mainEntityOfPage: `${SITE_URL}${guide.path}`,
+  };
+}
+
+function imageToolsHubSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Free Business & Website Tools | dean-da-dev',
+    url: `${SITE_URL}/tools`,
+    description: 'Free tools to compress images, convert files, check website assets, and improve online presence. No sign-up, no watermark.',
+    hasPart: imageTools.map((item) => ({
+      '@type': 'SoftwareApplication',
+      name: item.name,
+      applicationCategory: 'UtilitiesApplication',
+      operatingSystem: 'Web',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+      url: `${SITE_URL}${item.path}`,
+      description: item.description,
+    })),
+  };
+}
+
+function metaForImageTool(item) {
+  return {
+    title: item.title,
+    description: item.metaDescription,
+    path: item.path,
+    schema: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        breadcrumbSchema([['Home', '/'], ['Tools', '/tools'], [item.name, item.path]]),
+        {
+          '@type': 'SoftwareApplication',
+          name: item.name,
+          applicationCategory: 'UtilitiesApplication',
+          operatingSystem: 'Web',
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'GBP' },
+          url: `${SITE_URL}${item.path}`,
+          description: item.description,
+        },
+        faqSchema(item.faqs),
+      ],
+    },
   };
 }
 
