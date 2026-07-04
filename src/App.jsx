@@ -340,7 +340,7 @@ function Header({ navigate, path }) {
   return (
     <header className="site-header">
       <a className="brand" href="/" onClick={(event) => navigateFromMenu(event, '/')} aria-label="Dean Da Dev home">
-        <span className="brand-mark">D</span>
+        <img src="/images/logo.png" alt="Dean Da Dev logo" className="brand-logo" />
         <span>Dean Da Dev</span>
       </a>
       <nav className="desktop-nav" aria-label="Main navigation">
@@ -385,7 +385,7 @@ function Footer({ navigate }) {
     <footer className="footer">
       <div className="footer-grid">
         <div>
-          <div className="brand footer-brand"><span className="brand-mark">D</span><span>Dean Da Dev</span></div>
+          <div className="brand footer-brand"><img src="/images/logo.png" alt="Dean Da Dev logo" className="brand-logo" /><span>Dean Da Dev</span></div>
           <p>Free tools for useful traffic. Professional builds for businesses that want the real thing shipped properly.</p>
         </div>
         <div>

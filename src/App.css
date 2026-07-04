@@ -85,6 +85,13 @@ summary:focus-visible {
   font-weight: 900;
 }
 
+.brand-logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
 .desktop-nav {
   display: flex;
   align-items: center;
