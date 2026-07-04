@@ -873,7 +873,7 @@ function ImageToolsHubPage({ navigate }) {
         </div>
       </Section>
 
-      <Section>
+      <Section tone="dark">
         <SectionHeader eyebrow="Why Use These Tools" title="Built for businesses, developers, and website owners." copy="No account needed. No watermarks. Files stay on your device." />
         <div className="benefits-grid">
           {HUB_BENEFITS.map(([icon, title, copy]) => (

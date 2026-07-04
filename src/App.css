@@ -272,6 +272,10 @@ summary:focus-visible {
   text-transform: uppercase;
 }
 
+.section-light .eyebrow {
+  color: #0369a1;
+}
+
 .trust-strip {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -698,11 +702,20 @@ summary:focus-visible {
 
 .mini-panel {
   padding: 22px;
+  color: var(--text);
 }
 
 .mini-panel h2 {
   margin: 0 0 10px;
   font-size: 20px;
+  color: var(--text);
+}
+
+.mini-panel p {
+  color: var(--soft);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 0 14px;
 }
 
 .mini-panel ul {
