@@ -268,11 +268,11 @@ function usePageMeta(meta) {
     upsertMeta('property', 'og:url', url);
     upsertMeta('property', 'og:title', title);
     upsertMeta('property', 'og:description', description);
-    upsertMeta('property', 'og:image', `${SITE_URL}/images/1.jpg`);
-    upsertMeta('name', 'twitter:card', 'summary_large_image');
+    upsertMeta('property', 'og:image', `${SITE_URL}/images/logo.png`);
+    upsertMeta('name', 'twitter:card', 'summary');
     upsertMeta('name', 'twitter:title', title);
     upsertMeta('name', 'twitter:description', description);
-    upsertMeta('name', 'twitter:image', `${SITE_URL}/images/1.jpg`);
+    upsertMeta('name', 'twitter:image', `${SITE_URL}/images/logo.png`);
     upsertCanonical(url);
     upsertSchema(meta.schema || websiteSchema());
   }, [meta]);
