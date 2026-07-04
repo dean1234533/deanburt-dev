@@ -1248,17 +1248,10 @@ const PORTFOLIO_APPS = [
     img: '/images/2.jpg',
     desc: 'A co-parenting mobile app helping separated parents coordinate schedules, communicate clearly, and keep everything in one place.',
   },
-  {
-    name: 'Smart Life',
-    tag: 'AI App',
-    url: 'https://smart-life-app.pages.dev/',
-    img: '/images/3.jpg',
-    desc: 'An AI-powered lifestyle app that delivers personalised recommendations and insights to help users build better daily habits.',
-  },
-  {
+{
     name: "DB's AI Trainer",
     tag: 'AI App',
-    url: 'https://pt-ai-helper.pages.dev/#/login',
+    url: 'https://dbworkouts.co.uk/ai-plans',
     img: '/images/4.jpg',
     desc: 'A personal AI fitness trainer that generates custom workout plans, tracks progress, and adapts its recommendations to the user over time.',
   },
