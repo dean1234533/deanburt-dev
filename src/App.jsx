@@ -248,6 +248,7 @@ const navItems = [
   ['Portfolio', '/portfolio'],
   ['Pricing', '/pricing'],
   ['Tools', '/tools'],
+  ['Blog', '/blog'],
   ['Resources', '/resources'],
 ];
 
@@ -293,6 +294,353 @@ const siteImages = {
     alt: 'Analytics dashboard with performance charts',
   },
 };
+
+const BLOG_CATEGORIES = ['Web Design', 'Website Speed', 'SEO', 'Small Business', 'Booking Systems', 'Free Tools', 'Website Redesigns', 'Industry Websites'];
+
+const BLOG_POSTS = [
+  blogPost({
+    title: 'How Much Does a Website Cost for a Small Business in the UK?',
+    slug: 'how-much-does-a-small-business-website-cost-uk',
+    category: 'Small Business',
+    keyword: 'small business website cost UK',
+    metaTitle: 'How Much Does a Small Business Website Cost in the UK?',
+    metaDescription: 'Learn what affects the cost of a small business website in the UK, including design, pages, features, booking systems, and ongoing support.',
+    date: '2026-07-05',
+    readTime: '7 min read',
+    image: siteImages.websiteDesignScreen,
+    excerpt: 'A clear guide to what small business website pricing depends on, from page count and design quality to booking systems and ongoing support.',
+    cta: 'Need a professional website for your business? Contact dean-da-dev.',
+    sections: [
+      ['Why website prices vary', 'Website prices vary because no two businesses need exactly the same thing. A one-page brochure site, a five-page service website, and a booking-led website all require different levels of planning, copy, design, testing, and setup. UK small businesses should look beyond the headline price and ask what is included: mobile design, SEO basics, forms, hosting guidance, analytics, launch support, and maintenance.'],
+      ['Basic website vs premium website', 'A basic website can be useful when you need a professional presence quickly. A premium website goes further: clearer messaging, stronger service pages, better visual hierarchy, trust sections, faster loading, and better enquiry routes. The difference is not just how it looks; it is how confidently it explains your offer and helps visitors take the next step.'],
+      ['What affects the cost', 'The biggest cost factors are page count, content support, design depth, custom functionality, forms, integrations, local SEO setup, performance work, and revisions. A trades website may need area pages and quote forms, while a salon may need treatment pages and booking links. A realistic quote should map the price to the actual work, not hide the details behind a vague package.'],
+      ['Booking systems and extra features', 'Booking systems, calendars, payment links, customer forms, galleries, map sections, review feeds, and CMS editing can all add value. They also add planning and testing time. If a feature saves admin time or helps customers enquire more easily, it may be worth the extra investment.'],
+      ['Why cheap websites can cost more long term', 'A very cheap website can become expensive if it is slow, hard to update, weak on mobile, missing basic SEO, or unclear to customers. Rebuilding poor foundations later can cost more than doing the important parts properly from the start.'],
+      ['How dean-da-dev can help', 'dean-da-dev builds mobile-friendly websites with clear scope, practical SEO foundations, fast-loading pages, and enquiry-focused sections. You can start by using the website cost calculator, then discuss the right approach for your business.'],
+    ],
+    faqs: [
+      ['What is a realistic small business website budget in the UK?', 'It depends on scope, but a professional small business website usually costs more when it includes copy support, SEO setup, booking features, and launch support.'],
+      ['Should I choose the cheapest website quote?', 'Not automatically. Compare what is included, how mobile design is handled, whether SEO basics are covered, and how easy the site will be to maintain.'],
+      ['Can I add booking later?', 'Yes, but it is usually better to plan the customer journey early so the website structure supports booking from the start.'],
+    ],
+    toolLinks: ['/free-tools/website-cost-calculator', '/free-tools/freelance-quote-generator'],
+  }),
+  blogPost({
+    title: 'Signs Your Business Website Needs a Redesign',
+    slug: 'signs-your-business-website-needs-redesign',
+    category: 'Website Redesigns',
+    keyword: 'business website redesign',
+    metaTitle: 'Signs Your Business Website Needs a Redesign',
+    metaDescription: 'Find out the common signs that your business website may need a redesign, from poor mobile layout to slow loading and weak enquiries.',
+    date: '2026-07-05',
+    readTime: '6 min read',
+    image: siteImages.wireframes,
+    excerpt: 'Spot the practical signs that your website is holding the business back, including poor mobile layout, slow loading, unclear CTAs, and outdated positioning.',
+    cta: 'If your website feels outdated, dean-da-dev can help redesign it.',
+    sections: [
+      ['Your website looks outdated', 'First impressions matter. If your website looks older than your actual business, visitors may assume the service behind it is also outdated. A redesign can modernise the layout, typography, imagery, and trust signals without losing the core of your brand.'],
+      ['It does not work well on mobile', 'Many local customers check websites on their phone before calling, booking, or visiting. If text is hard to read, buttons are awkward, menus are confusing, or forms are painful to complete, the website is losing opportunities.'],
+      ['It loads slowly', 'Slow pages make people wait, and people rarely wait patiently online. Oversized images, heavy scripts, poor hosting, and old build approaches can all hurt performance. Start by checking image sizes and compressing obvious problem files.'],
+      ['Customers cannot find key information', 'A strong business website answers urgent questions quickly: what you do, where you work, pricing signals, opening hours, reviews, and how to contact you. If visitors have to hunt for these basics, the structure needs attention.'],
+      ['There is no clear call to action', 'Every important page should make the next step obvious. That could be call, book, request a quote, send an enquiry, view services, or use a free tool. Weak calls to action create hesitation.'],
+      ['It does not match your business anymore', 'Businesses evolve. If your website still talks about old services, old pricing, weak visuals, or the wrong audience, it can attract the wrong enquiries and miss the right ones.'],
+      ['How a redesign can improve trust and enquiries', 'A good redesign makes the website clearer, faster, easier to use, and more aligned with what customers need before they contact you. The goal is not decoration; it is confidence and action.'],
+    ],
+    faqs: [
+      ['How often should a business website be redesigned?', 'There is no fixed rule, but if the site is slow, unclear, poor on mobile, or no longer matches the business, it is time to review it.'],
+      ['Can I redesign without changing every page?', 'Yes. A focused redesign can prioritise the homepage, service pages, contact flow, and performance first.'],
+      ['Will a redesign guarantee more enquiries?', 'No redesign can guarantee results, but clearer messaging, faster pages, and stronger CTAs can improve the chances of visitors contacting you.'],
+    ],
+    toolLinks: ['/tools/image-size-checker', '/free-tools/meta-title-generator'],
+  }),
+  blogPost({
+    title: 'How to Make Your Website Load Faster by Compressing Images',
+    slug: 'how-to-make-website-load-faster-compress-images',
+    category: 'Website Speed',
+    keyword: 'compress images for website speed',
+    metaTitle: 'How to Make Your Website Load Faster by Compressing Images',
+    metaDescription: 'Large images can slow down your website. Learn how image compression and WebP conversion can improve website speed.',
+    date: '2026-07-05',
+    readTime: '5 min read',
+    image: siteImages.performance,
+    excerpt: 'Large images are one of the easiest speed problems to fix. Learn how compression, WebP, and size checks can make pages feel faster.',
+    cta: 'Use the free dean-da-dev image compressor or contact dean-da-dev for website speed improvements.',
+    sections: [
+      ['Why large images slow websites down', 'Images often make up most of the weight on a small business website. A beautiful hero image can become a problem if it is several megabytes and loaded on mobile. The visitor sees delay before they see value.'],
+      ['What image compression does', 'Image compression reduces file size while keeping the image visually acceptable. For website use, the aim is not print-level perfection; it is a sharp-looking image that loads quickly on real devices.'],
+      ['Why WebP can help', 'WebP is designed for the web and can often create smaller files than JPG or PNG at similar visual quality. It is especially useful for hero images, service photos, gallery images, and blog graphics.'],
+      ['How to check if your images are too large', 'Use an image size checker before uploading images to your website. As a rough rule, most content images should be far below 500 KB, and many can sit under 200 KB after compression.'],
+      ['When to redesign or optimise your website properly', 'Compression helps, but it will not fix every performance issue. If your website still feels slow after image optimisation, the problem may be layout, scripts, hosting, caching, or the build itself.'],
+    ],
+    faqs: [
+      ['Does compressing images reduce quality?', 'It can, but sensible compression keeps images looking good while making files much smaller for the web.'],
+      ['Should I use WebP for my website?', 'For most modern websites, WebP is a strong choice for photos and graphics because it keeps file sizes lower.'],
+      ['Are the dean-da-dev image tools private?', 'Yes. The image tools process files in your browser, so files are not uploaded to a server.'],
+    ],
+    toolLinks: ['/tools/image-compressor', '/tools/image-size-checker', '/tools/jpg-to-webp', '/tools/png-to-webp'],
+  }),
+  blogPost({
+    title: 'Why Salons and Barbers Need Online Booking Websites',
+    slug: 'why-salons-barbers-need-online-booking-websites',
+    category: 'Booking Systems',
+    keyword: 'online booking website for salons',
+    metaTitle: 'Why Salons and Barbers Need Online Booking Websites',
+    metaDescription: 'Learn why salons, barbers, and beauty businesses can benefit from online booking websites that help customers book more easily.',
+    date: '2026-07-05',
+    readTime: '6 min read',
+    image: siteImages.appPhone,
+    excerpt: 'Online booking helps beauty and grooming businesses reduce missed enquiries, improve convenience, and look more professional on mobile.',
+    cta: 'Need a booking website for your salon or barber shop? Contact dean-da-dev.',
+    sections: [
+      ['Customers want convenience', 'Salon and barber customers often decide quickly. If they can view services, prices, opening hours, and availability without messaging back and forth, they are more likely to book.'],
+      ['Online booking saves time', 'A booking system can reduce repetitive admin, missed calls, and manual appointment sorting. It also gives customers a clear route to action outside opening hours.'],
+      ['Service pages build trust', 'Treatment pages, barbering services, pricing, timings, FAQs, and aftercare notes all help customers choose with confidence. A clear website can answer questions before the appointment.'],
+      ['Mobile booking matters', 'Most appointment searches happen on phones. Booking buttons need to be obvious, forms need to be simple, and pages need to load quickly on mobile data.'],
+      ['Booking systems reduce missed enquiries', 'When the website only says “message us”, enquiries can disappear into busy inboxes. A proper booking journey captures intent at the moment the customer is ready.'],
+      ['A premium website improves first impressions', 'For salons, barbers, and beauty businesses, visual trust matters. A clean, modern website helps the customer feel they are booking with a professional business.'],
+    ],
+    faqs: [
+      ['Do salons need a full booking system?', 'Not always. Some businesses start with strong service pages and booking links, then add deeper calendar features later.'],
+      ['What should a salon website include?', 'Services, prices, opening hours, location, reviews, photos, booking buttons, policies, and mobile-friendly contact options.'],
+      ['Can a booking website reduce admin?', 'Yes, when the booking flow answers common questions and captures the right appointment details upfront.'],
+    ],
+    toolLinks: ['/free-tools/website-cost-calculator', '/tools/image-compressor'],
+  }),
+  blogPost({
+    title: 'What Makes a Good Website for a Local Business?',
+    slug: 'what-makes-a-good-local-business-website',
+    category: 'Small Business',
+    keyword: 'good local business website',
+    metaTitle: 'What Makes a Good Website for a Local Business?',
+    metaDescription: 'A good local business website should be mobile-friendly, clear, trustworthy, fast, and focused on enquiries.',
+    date: '2026-07-05',
+    readTime: '7 min read',
+    image: siteImages.professionalWorkspace,
+    excerpt: 'The essentials of a strong local business website: clear message, mobile layout, contact options, service pages, reviews, speed, and local SEO basics.',
+    cta: 'dean-da-dev builds premium websites for local businesses.',
+    sections: [
+      ['Clear headline', 'A local business website should explain what you do, who you help, and where you operate within seconds. Clever copy is less useful than clarity.'],
+      ['Strong mobile design', 'Mobile design is not just shrinking the desktop page. Buttons, menus, spacing, forms, galleries, and calls to action all need to work comfortably on a phone.'],
+      ['Easy contact options', 'Visitors should not have to search for your phone number, email, booking link, or quote form. Put contact options near the top, in service pages, and near decision points.'],
+      ['Trust signals and reviews', 'Reviews, project photos, accreditations, guarantees, case studies, team photos, and clear business details all reduce doubt. Trust signals should be specific and believable.'],
+      ['Service pages', 'Each important service deserves a page or section that explains the problem, the process, who it is for, and how to enquire. This helps visitors and search engines.'],
+      ['Fast loading', 'Fast websites feel more professional. Compress images, avoid unnecessary clutter, and keep important content visible quickly.'],
+      ['Clear call to action', 'A good website guides the visitor. The action could be call now, book online, request a quote, view pricing, or send a project enquiry.'],
+      ['Local SEO basics', 'Use location signals naturally, keep page titles clear, add service detail, include contact information, and make sure the website is crawlable and well structured.'],
+    ],
+    faqs: [
+      ['What is the most important part of a local business website?', 'Clarity. Visitors need to understand what you do, where you work, and how to contact you quickly.'],
+      ['Do local businesses need SEO?', 'Yes, but it should start with useful service pages, clear metadata, location information, and a technically sound website.'],
+      ['How can I make my website look more trustworthy?', 'Use real photos where possible, show reviews, explain services clearly, and make contact details easy to find.'],
+    ],
+    toolLinks: ['/free-tools/meta-title-generator', '/free-tools/schema-generator'],
+  }),
+  blogPost({
+    title: 'Website Design for Tradespeople: How to Get More Quote Requests',
+    slug: 'website-design-for-tradespeople-quote-requests',
+    category: 'Industry Websites',
+    keyword: 'website design for tradespeople',
+    metaTitle: 'Website Design for Tradespeople: How to Get More Quote Requests',
+    metaDescription: 'Learn how plumbers, electricians, builders, roofers, and other tradespeople can use better websites to generate more quote requests.',
+    date: '2026-07-05',
+    readTime: '6 min read',
+    image: siteImages.techWork,
+    excerpt: 'Trades websites need to build trust quickly, show real work, explain services, and make quote requests easy from any device.',
+    cta: 'Need a trades website that gets more enquiries? Contact dean-da-dev.',
+    sections: [
+      ['Why trust matters', 'Customers invite tradespeople into homes and businesses, so trust is central. Your website should show proof that you are reliable, professional, and clear about the work you do.'],
+      ['Clear service pages', 'Separate pages for plumbing, electrical work, roofing, renovations, emergency callouts, or specialist services can help customers find the exact help they need.'],
+      ['Before and after galleries', 'Project galleries help visitors judge quality. Keep images compressed so the gallery strengthens trust without slowing the website down.'],
+      ['Reviews and proof', 'Use reviews, trade memberships, insurance details, guarantees, and photos of completed work. Specific proof is more convincing than vague claims.'],
+      ['Click-to-call buttons', 'On mobile, calls are often the fastest path to a quote. Click-to-call buttons should be visible, especially for urgent services.'],
+      ['Quote forms', 'A good quote form asks enough to qualify the enquiry without becoming a chore. Ask about service type, location, urgency, photos, and contact details.'],
+      ['Local areas covered', 'Trades websites should clearly state the towns, cities, and areas served. This helps customers and supports local SEO.'],
+    ],
+    faqs: [
+      ['What should a tradesperson website include?', 'Services, areas covered, photos, reviews, contact details, quote forms, and clear emergency or callout information if relevant.'],
+      ['Do trades websites need galleries?', 'They are very useful because customers want to see proof of real work before requesting a quote.'],
+      ['Can a website help get better quote requests?', 'Yes, a clear form and service structure can attract more relevant enquiries and reduce vague messages.'],
+    ],
+    toolLinks: ['/tools/image-compressor', '/free-tools/website-cost-calculator'],
+  }),
+  blogPost({
+    title: 'Website Design for Restaurants: Turning Visitors Into Bookings',
+    slug: 'website-design-for-restaurants-bookings',
+    category: 'Industry Websites',
+    keyword: 'restaurant website design',
+    metaTitle: 'Website Design for Restaurants: Turning Visitors Into Bookings',
+    metaDescription: 'Learn what restaurants, cafés, and takeaways need on their website to increase bookings, orders, calls, and visits.',
+    date: '2026-07-05',
+    readTime: '6 min read',
+    image: siteImages.websiteScreen,
+    excerpt: 'Restaurant websites should make menus, opening hours, booking buttons, location, reviews, and mobile actions effortless to find.',
+    cta: 'dean-da-dev can build a premium website for your restaurant or café.',
+    sections: [
+      ['Menu visibility', 'Visitors should be able to find the menu immediately. Avoid burying menus in hard-to-read PDFs if a clean web page would be faster and easier on mobile.'],
+      ['Booking buttons', 'Booking, ordering, and calling should be obvious. Put the main action in the header, hero section, and near menu or offer sections.'],
+      ['Opening hours', 'Opening hours, special dates, takeaway times, and kitchen closing times should be easy to scan. Outdated hours are a quick way to lose trust.'],
+      ['Location and map', 'Show the address, parking notes, nearby landmarks, and a map link. Local customers often check location immediately before deciding.'],
+      ['Food photography', 'Strong photos help restaurants sell the experience. Compress images so they stay sharp without dragging page speed down.'],
+      ['Reviews', 'Reviews help visitors choose where to eat. Use genuine review highlights and link to trusted profiles where appropriate.'],
+      ['Mobile-first design', 'Restaurant searches often happen while people are out. The website must work quickly on mobile, with tap-friendly buttons and clear navigation.'],
+      ['Online ordering or reservation systems', 'Booking and ordering tools can reduce friction, but they need to be integrated cleanly so the journey feels professional.'],
+    ],
+    faqs: [
+      ['Should a restaurant menu be a PDF?', 'A PDF can be useful as a backup, but a mobile-friendly menu page is often easier to read and better for SEO.'],
+      ['What is the main goal of a restaurant website?', 'Usually bookings, orders, calls, or visits. The website should make those actions obvious.'],
+      ['Do restaurant images slow websites down?', 'They can if they are too large, so compression and WebP conversion are important.'],
+    ],
+    toolLinks: ['/tools/image-compressor', '/tools/jpg-to-webp'],
+  }),
+  blogPost({
+    title: 'Website Design for Gyms and Fitness Businesses',
+    slug: 'website-design-for-gyms-fitness-businesses',
+    category: 'Industry Websites',
+    keyword: 'gym website design',
+    metaTitle: 'Website Design for Gyms and Fitness Businesses',
+    metaDescription: 'Learn how gyms, fitness studios, personal trainers, and boxing clubs can use better websites to drive enquiries and memberships.',
+    date: '2026-07-05',
+    readTime: '6 min read',
+    image: siteImages.appPhone,
+    excerpt: 'Fitness websites need clear memberships, class timetables, trainer profiles, trial CTAs, testimonials, strong visuals, and fast mobile performance.',
+    cta: 'Need a premium gym website? Contact dean-da-dev.',
+    sections: [
+      ['Membership pages', 'Membership options should be easy to compare. Explain what is included, who each plan suits, and what the next step is.'],
+      ['Class timetables', 'A clear timetable helps members and prospects plan quickly. Keep it readable on mobile and avoid images that become tiny on phones.'],
+      ['Trainer profiles', 'Trainer bios build trust, especially for personal training, boxing, coaching, and specialist classes. Include credentials, style, and who they help.'],
+      ['Trial session CTA', 'A trial class, free consultation, or first session CTA gives interested visitors a low-friction way to start. Make it visible throughout the site.'],
+      ['Mobile design', 'Fitness customers often browse between work, travel, and training. A mobile-first website makes timetables, sign-up, calls, and maps easy.'],
+      ['Testimonials', 'Testimonials, transformation stories, and member reviews help prospects picture themselves joining. Keep claims responsible and believable.'],
+      ['Strong fitness visuals', 'Use real photos where possible, but optimise them carefully. Large uncompressed gym images can make an otherwise strong website feel slow.'],
+    ],
+    faqs: [
+      ['What should a gym website include?', 'Memberships, classes, timetable, trainers, trial CTA, location, testimonials, photos, and contact details.'],
+      ['Do personal trainers need a website?', 'A website can help personal trainers explain packages, show proof, and turn social traffic into enquiries.'],
+      ['How can gyms get more trial bookings?', 'Make the trial offer clear, visible, easy to book, and supported by trust signals.'],
+    ],
+    toolLinks: ['/tools/image-size-checker', '/free-tools/website-roi-calculator'],
+  }),
+  blogPost({
+    title: 'Website Design for Law Firms: Building Trust Online',
+    slug: 'website-design-for-law-firms',
+    category: 'Industry Websites',
+    keyword: 'law firm website design',
+    metaTitle: 'Website Design for Law Firms: Building Trust Online',
+    metaDescription: 'Learn what makes a professional law firm website trustworthy, clear, and effective at generating enquiries.',
+    date: '2026-07-05',
+    readTime: '6 min read',
+    image: siteImages.professionalWorkspace,
+    excerpt: 'Law firm websites should feel calm, credible, easy to navigate, and structured around practice areas, trust, and clear enquiry routes.',
+    cta: 'dean-da-dev builds premium websites for professional service businesses.',
+    sections: [
+      ['Professional first impression', 'Legal websites need a calm, professional first impression. The design should feel credible, not flashy, and should make expertise easy to understand.'],
+      ['Practice area pages', 'Separate pages for services such as conveyancing, family law, employment law, commercial work, or wills and probate help visitors find relevant information.'],
+      ['Clear enquiry forms', 'Forms should be simple, secure-feeling, and respectful of sensitive information. Ask for enough context to respond properly without overwhelming the visitor.'],
+      ['Mobile-friendly design', 'Potential clients may search on mobile during stressful moments. The website needs readable text, clear phone links, and fast page loading.'],
+      ['Trust and credibility', 'Use accreditations, team profiles, experience, reviews where appropriate, and transparent process information. Avoid exaggerated claims.'],
+      ['Simple navigation', 'Visitors should not need legal knowledge to navigate. Use plain labels, service groupings, and helpful page introductions.'],
+      ['Strong but calm copy', 'Law firm copy should be clear, reassuring, and precise. The tone should reduce anxiety and explain the next step.'],
+    ],
+    faqs: [
+      ['What makes a law firm website trustworthy?', 'Clear practice areas, professional design, team information, credibility signals, and straightforward contact options.'],
+      ['Should legal websites use plain English?', 'Yes. Plain English helps clients understand services and take action with more confidence.'],
+      ['Can a law firm website be modern without feeling flashy?', 'Yes. Modern design can be restrained, fast, accessible, and professional.'],
+    ],
+    toolLinks: ['/free-tools/meta-description-generator', '/free-tools/schema-generator'],
+  }),
+  blogPost({
+    title: 'Free Website Tools Every Small Business Should Use',
+    slug: 'free-website-tools-for-small-businesses',
+    category: 'Free Tools',
+    keyword: 'free website tools for small businesses',
+    metaTitle: 'Free Website Tools Every Small Business Should Use',
+    metaDescription: 'Explore free tools that help small businesses compress images, check file sizes, convert images, and improve website performance.',
+    date: '2026-07-05',
+    readTime: '5 min read',
+    image: siteImages.businessTools,
+    excerpt: 'A practical list of free dean-da-dev tools for image compression, size checks, WebP conversion, file size conversion, metadata, and planning.',
+    cta: 'Try the free dean-da-dev tools or contact dean-da-dev for a better website.',
+    sections: [
+      ['Image compressor', 'The image compressor helps reduce JPG, PNG, and WebP file sizes before they go on your website. It is one of the easiest ways to improve loading speed.'],
+      ['Image size checker', 'The image size checker helps you spot files that are too large for web use. This is useful before uploading galleries, hero images, menu photos, or service images.'],
+      ['WebP converters', 'JPG to WebP and PNG to WebP converters help prepare modern web images that are often smaller than traditional formats.'],
+      ['File size converter', 'The file size converter helps you understand KB, MB, GB, and file size differences when planning uploads, downloads, and web assets.'],
+      ['Why tools help business owners', 'Free tools help you solve small problems quickly and understand what affects website quality. They also make conversations with a developer clearer.'],
+      ['When to get professional website help', 'Tools are helpful, but they cannot replace a strong website structure, design system, SEO setup, booking flow, or conversion plan. When the website affects revenue, professional help is usually worth considering.'],
+    ],
+    faqs: [
+      ['Are the dean-da-dev tools free?', 'Yes. The listed tools are free to use in the browser.'],
+      ['Do I need technical knowledge to use them?', 'No. They are designed to be simple enough for business owners as well as developers.'],
+      ['When should I contact dean-da-dev instead of using a tool?', 'When the issue affects your whole website, customer journey, performance, SEO, or enquiries.'],
+    ],
+    toolLinks: ['/tools', '/tools/image-compressor', '/tools/image-size-checker', '/tools/file-size-converter'],
+  }),
+  blogPost({
+    title: 'Why Mobile-Friendly Websites Matter for Local Businesses',
+    slug: 'why-mobile-friendly-websites-matter-local-businesses',
+    category: 'Web Design',
+    keyword: 'mobile friendly website for local business',
+    metaTitle: 'Why Mobile-Friendly Websites Matter for Local Businesses',
+    metaDescription: 'Most customers browse on mobile. Learn why local businesses need websites that work properly on phones.',
+    date: '2026-07-05',
+    readTime: '5 min read',
+    image: siteImages.mobileCode,
+    excerpt: 'Local customers often browse on phones. Learn why mobile layout, click-to-call, speed, forms, and trust signals matter.',
+    cta: 'Need a website that works properly on mobile? Contact dean-da-dev.',
+    sections: [
+      ['Customers search on phones', 'Local searches often happen in the moment: someone needs a barber, solicitor, café, gym, clinic, or tradesperson and checks options on a phone. Your website needs to work in that context.'],
+      ['Poor mobile layouts lose enquiries', 'Tiny text, cramped buttons, awkward menus, and broken layouts make people leave. Mobile users need a page that feels designed for their screen.'],
+      ['Click-to-call matters', 'For many local businesses, phone calls are still one of the strongest enquiry routes. Click-to-call buttons reduce friction and help urgent visitors act quickly.'],
+      ['Fast loading matters', 'Mobile visitors may be on slower connections. Compressed images, clean layouts, and lightweight pages help the site feel professional.'],
+      ['Mobile booking forms', 'Booking and enquiry forms should be short, clear, and easy to complete. Long forms with tiny fields create drop-off.'],
+      ['Trust and first impressions', 'A mobile-friendly site tells customers the business is active, professional, and easy to deal with. A poor mobile site creates doubt before the conversation starts.'],
+    ],
+    faqs: [
+      ['How do I know if my website is mobile-friendly?', 'Test it on a real phone. Check text size, button spacing, forms, navigation, speed, and whether the main CTA is easy to use.'],
+      ['Is mobile design important for SEO?', 'Yes. Mobile usability and page experience matter because most users and search engines expect websites to work well on phones.'],
+      ['Can an old website be made mobile-friendly?', 'Sometimes. If the foundations are too dated, a redesign may be more practical than patching.'],
+    ],
+    toolLinks: ['/tools/image-compressor', '/free-tools/css-generator'],
+  }),
+  blogPost({
+    title: 'How a Better Website Can Help You Get More Enquiries',
+    slug: 'how-better-website-gets-more-enquiries',
+    category: 'Web Design',
+    keyword: 'website get more enquiries',
+    metaTitle: 'How a Better Website Can Help You Get More Enquiries',
+    metaDescription: 'Learn how better design, clearer calls to action, faster loading, and trust signals can help your website generate more enquiries.',
+    date: '2026-07-05',
+    readTime: '7 min read',
+    image: siteImages.businessTools,
+    excerpt: 'Better websites do more than look nice. They clarify the message, remove friction, build trust, and make the next step easier.',
+    cta: 'dean-da-dev can help turn your website into a stronger enquiry tool.',
+    sections: [
+      ['Clear message', 'Visitors should quickly understand what you offer, who it is for, why it matters, and what to do next. A clearer message reduces confusion and improves enquiry quality.'],
+      ['Better calls to action', 'Strong calls to action are specific and timely. “Request a quote”, “Book a consultation”, or “Start your website project” is usually stronger than a vague “Learn more”.'],
+      ['Contact forms', 'A good contact form asks the right questions, confirms what happens next, and works smoothly on mobile. It should help the business respond with context.'],
+      ['Reviews and proof', 'People want reassurance before contacting a business. Reviews, project examples, before-and-after images, and clear credentials all support the decision.'],
+      ['Service pages', 'Service pages let you explain each offer properly and link visitors to the most relevant action. They also create better SEO opportunities than one generic page.'],
+      ['Website speed', 'Speed affects trust and patience. If pages feel slow, visitors may leave before reading the offer. Start by compressing images and checking large files.'],
+      ['Mobile design', 'A website that works well on mobile captures enquiries from people searching on the go. Buttons, forms, phone links, and layout all matter.'],
+      ['Easy navigation', 'Navigation should help visitors move with confidence. Keep labels plain, group related pages logically, and make contact routes visible.'],
+    ],
+    faqs: [
+      ['Can a better website guarantee more enquiries?', 'No. It cannot guarantee enquiries, but it can remove friction, build trust, and make conversion more likely.'],
+      ['What is the fastest improvement to make?', 'Clarify the headline, improve the main CTA, add trust signals, and compress large images.'],
+      ['Do service pages help enquiries?', 'Yes. They give visitors more relevant information and clearer reasons to contact you.'],
+    ],
+    toolLinks: ['/free-tools/website-roi-calculator', '/tools/image-size-checker'],
+  }),
+];
+
+function blogPost(config) {
+  return {
+    ...config,
+    path: `/blog/${config.slug}`,
+    author: 'Dean from dean-da-dev',
+    authorBio: 'Dean is a web developer at dean-da-dev, building premium, mobile-friendly websites and free tools for local businesses.',
+  };
+}
 
 function App() {
   const [path, setPath] = useState(normalizePath(window.location.pathname));
@@ -397,14 +745,35 @@ function resolveRoute(path) {
     };
   }
 
+  const blogMatch = BLOG_POSTS.find((post) => post.path === path);
+  if (blogMatch) {
+    return {
+      Component: BlogPostPage,
+      post: blogMatch,
+      meta: metaForBlogPost(blogMatch),
+    };
+  }
+
+  if (path === '/blog') {
+    return {
+      Component: BlogPage,
+      meta: {
+        title: 'Web Design Blog | dean-da-dev',
+        description: 'Helpful web design tips, website speed advice, SEO guidance, and business website ideas from dean-da-dev.',
+        path,
+        schema: blogCollectionSchema(),
+      },
+    };
+  }
+
   const routes = {
     '/': [HomePage, 'Dean Da Dev | Free Developer and Business Tools UK', 'Free developer, SEO, AI, and business tools from Dean Da Dev, a UK app, web, AI tool, and automation developer.'],
     '/about': [AboutPage, 'About Dean Da Dev | UK Web, App and AI Developer', 'Meet Dean Da Dev, a UK full-stack developer building websites, apps, AI tools, and automation for growing businesses.'],
     '/services': [ServicesPage, 'App, Web and AI Development Services UK', 'Professional apps, websites, AI tools, automation, dashboards, and business tool development services for UK businesses.'],
     '/portfolio': [PortfolioPage, 'Portfolio | Live Websites and Apps by Dean Da Dev', 'Explore live web, app, ecommerce, and AI projects built and launched by Dean Da Dev.'],
     '/pricing': [PricingPage, 'Pricing | App, Website and AI Tool Development UK', 'Clear starting prices for apps, websites, AI tools, dashboards, and business automation projects.'],
+    '/contact': [DiscoveryCallPage, 'Contact dean-da-dev | Start Your Website Project', 'Contact dean-da-dev to discuss a premium, mobile-friendly website, booking system, free tool, app, or business automation project.'],
     '/DiscoveryCall': [DiscoveryCallPage, 'Book a Discovery Call | Dean Da Dev', 'Book a discovery call with Dean Da Dev to discuss a website, app, AI tool, dashboard, or automation project.'],
-    '/blog': [ResourcesPage, 'Blog and Resources | Dean Da Dev', 'Practical guides for websites, SEO, app projects, AI tools, and business growth.'],
     '/resources': [ResourcesPage, 'Resources | Website, SEO and Software Guides', 'Helpful guides that support the free tools and help businesses plan better digital projects.'],
     '/free-tools': [ToolsHubPage, 'Free Developer, SEO, AI and Business Tools | Dean Da Dev', 'A premium collection of free online tools for businesses, marketers, designers, and developers.'],
     '/templates': [TemplatesPage, 'Templates | Dean Da Dev', 'Practical website, SEO, project, invoice, and quote templates for growing businesses.'],
@@ -1706,6 +2075,235 @@ function DiscoveryCallPage({ navigate }) {
   );
 }
 
+function BlogPage({ navigate }) {
+  const [activeCategory, setActiveCategory] = useState('All');
+  const featured = BLOG_POSTS.slice(0, 3);
+  const visiblePosts = activeCategory === 'All' ? BLOG_POSTS : BLOG_POSTS.filter((post) => post.category === activeCategory);
+  const popular = [BLOG_POSTS[2], BLOG_POSTS[0], BLOG_POSTS[10], BLOG_POSTS[11]];
+
+  return (
+    <>
+      <section className="blog-hero">
+        <div className="hero-bg" />
+        <div className="blog-hero-inner">
+          <p className="eyebrow">dean-da-dev Blog</p>
+          <h1>Web Design Tips for Small Businesses</h1>
+          <p>Helpful advice on building faster, better, and more professional websites for local businesses.</p>
+          <div className="button-row">
+            <Button href="#latest-posts" navigate={navigate}>View Latest Posts</Button>
+            <Button href="/contact" variant="secondary" navigate={navigate}>Work With dean-da-dev</Button>
+          </div>
+        </div>
+      </section>
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="Featured Posts" title="Start with the decisions that shape a better website." copy="Practical guides for cost, redesigns, speed, bookings, local SEO, and better enquiry journeys." />
+        <div className="featured-post-grid">
+          {featured.map((post) => <FeaturedBlogCard post={post} navigate={navigate} key={post.slug} />)}
+        </div>
+      </Section>
+
+      <Section className="blog-list-section">
+        <div id="latest-posts" className="anchor-target" />
+        <SectionHeader eyebrow="Latest Articles" title="Browse web design guides by topic." copy="Filter the blog by the problem you are trying to solve: speed, SEO, redesigns, booking systems, industry websites, or free tools." />
+        <BlogCategoryFilter activeCategory={activeCategory} onChange={setActiveCategory} />
+        <div className="blog-content-layout">
+          <div className="blog-grid">
+            {visiblePosts.map((post) => <BlogCard post={post} navigate={navigate} key={post.slug} />)}
+          </div>
+          <BlogSidebar popular={popular} navigate={navigate} />
+        </div>
+      </Section>
+
+      <section className="blog-service-cta">
+        <div className="blog-service-cta-inner">
+          <p className="eyebrow">Website Project</p>
+          <h2>Need a better website for your business?</h2>
+          <p>dean-da-dev builds premium, mobile-friendly websites that help local businesses look professional, build trust, and get more enquiries.</p>
+          <Button href="/contact" navigate={navigate}>Start Your Website Project</Button>
+        </div>
+      </section>
+    </>
+  );
+}
+
+function BlogCategoryFilter({ activeCategory, onChange }) {
+  const options = ['All', ...BLOG_CATEGORIES].map((category) => ({
+    category,
+    count: category === 'All' ? BLOG_POSTS.length : BLOG_POSTS.filter((post) => post.category === category).length,
+  }));
+
+  return (
+    <div className="tool-filter blog-filter" aria-label="Filter blog posts by category">
+      {options.map(({ category, count }) => (
+        <button
+          className={activeCategory === category ? 'active' : ''}
+          type="button"
+          onClick={() => onChange(category)}
+          aria-pressed={activeCategory === category}
+          key={category}
+        >
+          <span>{category}</span>
+          <strong>{count}</strong>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function FeaturedBlogCard({ post, navigate }) {
+  return (
+    <article className="featured-post-card">
+      <BlogImage post={post} />
+      <div>
+        <span>{post.category}</span>
+        <h3>{post.title}</h3>
+        <p>{post.excerpt}</p>
+        <small>{post.readTime}</small>
+        <Button href={post.path} variant="secondary" navigate={navigate}>Read Article</Button>
+      </div>
+    </article>
+  );
+}
+
+function BlogCard({ post, navigate }) {
+  return (
+    <article className="blog-card">
+      <a href={post.path} onClick={(event) => handleLink(event, post.path, navigate)} aria-label={`Read ${post.title}`}>
+        <BlogImage post={post} />
+      </a>
+      <div className="blog-card-body">
+        <span>{post.category}</span>
+        <h3><a href={post.path} onClick={(event) => handleLink(event, post.path, navigate)}>{post.title}</a></h3>
+        <p>{post.excerpt}</p>
+        <div className="blog-card-meta">
+          <time dateTime={post.date}>{formatDate(post.date)}</time>
+          <small>{post.readTime}</small>
+        </div>
+        <a className="read-more-link" href={post.path} onClick={(event) => handleLink(event, post.path, navigate)}>Read more</a>
+      </div>
+    </article>
+  );
+}
+
+function BlogSidebar({ popular, navigate }) {
+  return (
+    <aside className="blog-sidebar" aria-label="Blog resources">
+      <div className="blog-sidebar-panel">
+        <h2>Popular articles</h2>
+        {popular.map((post) => (
+          <a href={post.path} onClick={(event) => handleLink(event, post.path, navigate)} key={post.slug}>{post.title}</a>
+        ))}
+      </div>
+      <div className="blog-sidebar-panel">
+        <h2>Free tools</h2>
+        <p>Compress images, check file sizes, convert WebP files, and plan website budgets.</p>
+        <Button href="/tools" navigate={navigate}>Open Free Tools</Button>
+      </div>
+      <div className="blog-sidebar-panel">
+        <h2>Web design services</h2>
+        <p>Need the site reviewed, redesigned, or built properly? Start with a short project conversation.</p>
+        <Button href="/services" variant="secondary" navigate={navigate}>View Services</Button>
+        <a href="/contact" onClick={(event) => handleLink(event, '/contact', navigate)}>Contact dean-da-dev</a>
+      </div>
+    </aside>
+  );
+}
+
+function BlogPostPage({ route, navigate }) {
+  const post = route.post;
+  const related = relatedBlogPosts(post);
+
+  return (
+    <>
+      <section className="blog-post-hero">
+        <div className="blog-post-hero-inner">
+          <Breadcrumbs items={[['Home', '/'], ['Blog', '/blog'], [post.title, post.path]]} navigate={navigate} />
+          <p className="eyebrow">{post.category}</p>
+          <h1>{post.title}</h1>
+          <p>{post.excerpt}</p>
+          <div className="blog-post-meta">
+            <span>{post.author}</span>
+            <time dateTime={post.date}>{formatDate(post.date)}</time>
+            <span>{post.readTime}</span>
+          </div>
+        </div>
+      </section>
+
+      <Section className="blog-article-section">
+        <div className="blog-article-layout">
+          <article className="blog-article">
+            <BlogImage post={post} />
+            <p className="blog-intro">{introForPost(post)}</p>
+            <nav className="table-of-contents" aria-label="Table of contents">
+              <h2>Table of contents</h2>
+              {post.sections.map(([heading]) => <a href={`#${slugify(heading)}`} key={heading}>{heading}</a>)}
+              <a href="#faq">FAQs</a>
+            </nav>
+            {post.sections.map(([heading, copy], index) => (
+              <section id={slugify(heading)} key={heading}>
+                <h2>{heading}</h2>
+                <p>{copy}</p>
+                {index === 2 && (
+                  <div className="article-note">
+                    <h3>Helpful next step</h3>
+                    <p>Use the linked dean-da-dev tools to check the basics, then get professional help when the issue affects enquiries, speed, or trust.</p>
+                  </div>
+                )}
+              </section>
+            ))}
+            <div className="article-links-panel">
+              <h2>Useful links for this topic</h2>
+              <div>
+                {post.toolLinks.map((href) => <ArticleInternalLink href={href} navigate={navigate} key={href} />)}
+                <ArticleInternalLink href="/services" navigate={navigate} label="Web design services" />
+                <ArticleInternalLink href="/contact" navigate={navigate} label="Contact dean-da-dev" />
+              </div>
+            </div>
+            <section className="article-cta">
+              <h2>{post.cta}</h2>
+              <p>Get a website that is clear, fast, mobile-friendly, and connected to the way your customers actually make decisions.</p>
+              <Button href="/contact" navigate={navigate}>Start Your Website Project</Button>
+            </section>
+            <section id="faq" className="article-faq">
+              <h2>FAQs</h2>
+              <FAQList faqs={post.faqs.map(([q, a]) => ({ q, a }))} />
+            </section>
+            <section className="author-box">
+              <img src="/images/dean.png" alt="Dean from dean-da-dev" loading="lazy" />
+              <div>
+                <h2>{post.author}</h2>
+                <p>{post.authorBio}</p>
+              </div>
+            </section>
+          </article>
+          <aside className="related-posts">
+            <h2>Related posts</h2>
+            {related.map((item) => (
+              <a href={item.path} onClick={(event) => handleLink(event, item.path, navigate)} key={item.slug}>
+                <span>{item.category}</span>
+                <strong>{item.title}</strong>
+              </a>
+            ))}
+          </aside>
+        </div>
+      </Section>
+    </>
+  );
+}
+
+function BlogImage({ post }) {
+  return (
+    <figure className="blog-image">
+      <img src={post.image.src} alt={`${post.title} - ${post.image.alt}`} loading="lazy" />
+    </figure>
+  );
+}
+
+function ArticleInternalLink({ href, navigate, label }) {
+  return <a href={href} onClick={(event) => handleLink(event, href, navigate)}>{label || labelForInternalLink(href)}</a>;
+}
+
 function ResourcesPage({ navigate }) {
   const guides = resourceGuides();
   const [activeCategory, setActiveCategory] = useState('business-tools');
@@ -1787,6 +2385,32 @@ function categoryTools(slug) {
 
 function relatedTools(item) {
   return tools.filter((candidate) => candidate.slug !== item.slug && candidate.categories.some((category) => item.categories.includes(category))).slice(0, 3);
+}
+
+function relatedBlogPosts(post) {
+  const categoryMatches = BLOG_POSTS.filter((candidate) => candidate.slug !== post.slug && candidate.category === post.category);
+  const fallback = BLOG_POSTS.filter((candidate) => candidate.slug !== post.slug && !categoryMatches.includes(candidate));
+  return [...categoryMatches, ...fallback].slice(0, 3);
+}
+
+function introForPost(post) {
+  return `If you are a UK small business owner thinking about ${post.keyword}, this guide explains the practical website decisions that matter before you spend time or money. The aim is to help you understand the issue clearly, use the right free tools where they help, and know when a professional website build is the better route.`;
+}
+
+function formatDate(value) {
+  return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(value));
+}
+
+function labelForInternalLink(href) {
+  const named = {
+    '/tools': 'Free website tools',
+    '/services': 'Web design services',
+    '/contact': 'Contact dean-da-dev',
+  };
+  if (named[href]) return named[href];
+  const allTools = [...imageTools, ...tools];
+  const match = allTools.find((item) => item.path === href);
+  return match ? match.name : labelForPath(href);
 }
 
 function resourceGuides() {
@@ -1907,6 +2531,59 @@ function articleSchema(guide) {
     description: guide.description,
     author: { '@type': 'Person', name: 'Dean Burt' },
     mainEntityOfPage: `${SITE_URL}${guide.path}`,
+  };
+}
+
+function blogCollectionSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Web Design Blog | dean-da-dev',
+    url: `${SITE_URL}/blog`,
+    description: 'Helpful web design tips, website speed advice, SEO guidance, and business website ideas from dean-da-dev.',
+    blogPost: BLOG_POSTS.map((post) => ({
+      '@type': 'BlogPosting',
+      headline: post.title,
+      url: `${SITE_URL}${post.path}`,
+      description: post.metaDescription,
+      datePublished: post.date,
+      author: { '@type': 'Person', name: post.author },
+    })),
+  };
+}
+
+function blogPostSchema(post) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      breadcrumbSchema([
+        ['Home', '/'],
+        ['Blog', '/blog'],
+        [post.title, post.path],
+      ]),
+      {
+        '@type': 'Article',
+        headline: post.title,
+        description: post.metaDescription,
+        datePublished: post.date,
+        dateModified: post.date,
+        author: { '@type': 'Person', name: post.author, description: post.authorBio },
+        publisher: { '@type': 'Organization', name: 'dean-da-dev', logo: { '@type': 'ImageObject', url: `${SITE_URL}/images/logo.png` } },
+        image: `${SITE_URL}${post.image.src}`,
+        mainEntityOfPage: `${SITE_URL}${post.path}`,
+        keywords: post.keyword,
+      },
+      faqSchema(post.faqs.map(([q, a]) => ({ q, a }))),
+    ],
+  };
+}
+
+function metaForBlogPost(post) {
+  return {
+    title: post.metaTitle,
+    description: post.metaDescription,
+    path: post.path,
+    schema: blogPostSchema(post),
   };
 }
 
