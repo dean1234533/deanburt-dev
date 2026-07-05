@@ -293,6 +293,34 @@ const siteImages = {
     src: '/images/free/performance-dashboard.jpg',
     alt: 'Analytics dashboard with performance charts',
   },
+  appWebsiteMockup: {
+    src: '/images/free/app-website-mockup.jpg',
+    alt: 'Website and app mockup shown on multiple devices',
+  },
+  businessToolsDesk: {
+    src: '/images/free/business-tools-desk.jpg',
+    alt: 'Business tools and planning materials on a desk',
+  },
+  codeLaptop: {
+    src: '/images/free/code-laptop.jpg',
+    alt: 'Laptop displaying website code',
+  },
+  dashboardAnalytics: {
+    src: '/images/free/dashboard-analytics.jpg',
+    alt: 'Analytics dashboard showing website performance data',
+  },
+  discoveryMeeting: {
+    src: '/images/free/discovery-meeting.jpg',
+    alt: 'Business discovery meeting for a website project',
+  },
+  teamWorkshop: {
+    src: '/images/free/team-workshop.jpg',
+    alt: 'Team workshop planning a digital project',
+  },
+  uxPlanning: {
+    src: '/images/free/ux-planning.jpg',
+    alt: 'UX planning notes for a website structure',
+  },
 };
 
 const BLOG_CATEGORIES = ['Web Design', 'Website Speed', 'SEO', 'Small Business', 'Booking Systems', 'Free Tools', 'Website Redesigns', 'Industry Websites'];
@@ -388,7 +416,7 @@ const BLOG_POSTS = [
     metaDescription: 'Learn why salons, barbers, and beauty businesses can benefit from online booking websites that help customers book more easily.',
     date: '2026-07-05',
     readTime: '6 min read',
-    image: siteImages.appPhone,
+    image: siteImages.appWebsiteMockup,
     excerpt: 'Online booking helps beauty and grooming businesses reduce missed enquiries, improve convenience, and look more professional on mobile.',
     cta: 'Need a booking website for your salon or barber shop? Contact dean-da-dev.',
     sections: [
@@ -415,7 +443,7 @@ const BLOG_POSTS = [
     metaDescription: 'A good local business website should be mobile-friendly, clear, trustworthy, fast, and focused on enquiries.',
     date: '2026-07-05',
     readTime: '7 min read',
-    image: siteImages.professionalWorkspace,
+    image: siteImages.discoveryMeeting,
     excerpt: 'The essentials of a strong local business website: clear message, mobile layout, contact options, service pages, reviews, speed, and local SEO basics.',
     cta: 'dean-da-dev builds premium websites for local businesses.',
     sections: [
@@ -501,7 +529,7 @@ const BLOG_POSTS = [
     metaDescription: 'Learn how gyms, fitness studios, personal trainers, and boxing clubs can use better websites to drive enquiries and memberships.',
     date: '2026-07-05',
     readTime: '6 min read',
-    image: siteImages.appPhone,
+    image: siteImages.dashboardAnalytics,
     excerpt: 'Fitness websites need clear memberships, class timetables, trainer profiles, trial CTAs, testimonials, strong visuals, and fast mobile performance.',
     cta: 'Need a premium gym website? Contact dean-da-dev.',
     sections: [
@@ -557,7 +585,7 @@ const BLOG_POSTS = [
     metaDescription: 'Explore free tools that help small businesses compress images, check file sizes, convert images, and improve website performance.',
     date: '2026-07-05',
     readTime: '5 min read',
-    image: siteImages.businessTools,
+    image: siteImages.teamWorkshop,
     excerpt: 'A practical list of free dean-da-dev tools for image compression, size checks, WebP conversion, file size conversion, metadata, and planning.',
     cta: 'Try the free dean-da-dev tools or contact dean-da-dev for a better website.',
     sections: [
@@ -611,7 +639,7 @@ const BLOG_POSTS = [
     metaDescription: 'Learn how better design, clearer calls to action, faster loading, and trust signals can help your website generate more enquiries.',
     date: '2026-07-05',
     readTime: '7 min read',
-    image: siteImages.businessTools,
+    image: siteImages.uxPlanning,
     excerpt: 'Better websites do more than look nice. They clarify the message, remove friction, build trust, and make the next step easier.',
     cta: 'dean-da-dev can help turn your website into a stronger enquiry tool.',
     sections: [
