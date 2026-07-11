@@ -2000,13 +2000,14 @@ function ServicesPage({ navigate }) {
   return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ImageFeatureSection /><ServicesDetail /><LeadCTA /></>;
 }
 
-const PORTFOLIO_APPS = [
+const MY_PRODUCTS = [
   {
     name: 'Bookrightly',
-    tag: 'Marketplace',
+    tag: 'Booking SaaS',
     url: 'https://www.bookrightly.co.uk/',
     img: '/images/1.jpg',
-    desc: 'A UK booking marketplace connecting customers with local service providers. Real-time availability, provider profiles, and online booking built end to end.',
+    desc: 'A UK booking marketplace for barbers, hairdressers, decorators, and personal trainers. Each business gets a public profile, online booking, Stripe payments, and a full dashboard — all on one platform.',
+    tags: ['React', 'Firebase', 'Stripe', 'PWA', 'Cloudflare Workers'],
   },
   {
     name: 'Js Grw Up',
@@ -2014,14 +2015,19 @@ const PORTFOLIO_APPS = [
     url: 'https://js-grw-up.com/',
     img: '/images/2.jpg',
     desc: 'A co-parenting mobile app helping separated parents coordinate schedules, communicate clearly, and keep everything in one place.',
+    tags: ['React Native', 'Firebase', 'Mobile'],
   },
-{
+  {
     name: "DB's AI Trainer",
     tag: 'AI App',
     url: 'https://dbworkouts.co.uk/ai-plans',
     img: '/images/4.jpg',
-    desc: 'A personal AI fitness trainer that generates custom workout plans, tracks progress, and adapts its recommendations to the user over time.',
+    desc: 'A personal AI fitness trainer that generates custom workout plans, tracks progress, and adapts its recommendations to the user over time. Built for DB\'s Workouts.',
+    tags: ['React', 'AI', 'Firebase'],
   },
+];
+
+const PORTFOLIO_APPS = [
   {
     name: 'Bella Flor Jewellery',
     tag: 'E-Commerce',
@@ -2038,18 +2044,97 @@ const PORTFOLIO_APPS = [
   },
 ];
 
+const DEMO_SITES = [
+  {
+    name: 'The Beauty Studio',
+    tag: 'Salon & Booking System',
+    industry: 'Hair salons · Beauty · Barbers',
+    url: 'https://dean1234533.github.io/The-Beauty-Studio-Premium-Booking-Website-Demo/',
+    adminUrl: 'https://dean1234533.github.io/The-Beauty-Studio-Premium-Booking-Website-Demo/admin',
+    desc: 'Premium salon website with an online booking system and admin panel. Show this to hair salon, beauty, and barber prospects.',
+  },
+  {
+    name: 'Da Gym',
+    tag: 'Fitness Website',
+    industry: 'Gyms · Personal trainers · Fitness centres',
+    url: 'https://dean1234533.github.io/Da-Gym-Premium-Fitness-Website-Mockup/',
+    desc: 'High-impact gym and fitness website with membership sections, class timetable, and trainer profiles. Built for outreach to fitness businesses.',
+  },
+  {
+    name: 'The Law Firm',
+    tag: 'Professional Services',
+    industry: 'Law firms · Solicitors',
+    url: 'https://dean1234533.github.io/Da-Law-Firm-Premium-Law-Firm-Website-Mockup/',
+    desc: 'A calm, credible law firm website with practice area pages, team profiles, and a clear enquiry flow. Built to close legal sector prospects.',
+  },
+  {
+    name: 'Apex Boxing Club',
+    tag: 'Sports & Fitness',
+    industry: 'Boxing clubs · Martial arts · Sports clubs',
+    url: 'https://dean1234533.github.io/Apex-boxing-club-Premium-Website-Mockup/',
+    desc: 'Bold, energetic boxing club website with class schedules, coach bios, and a trial session CTA. Works for any combat sport or sports club.',
+  },
+];
+
 function PortfolioPage({ navigate }) {
   return (
     <>
       <Hero
         eyebrow="Portfolio"
-        title="Live builds, not mockups."
-        copy="6 production apps and websites shipped end to end — from design and development through to App Store submission and deployment."
+        title="Live products, client work, and industry demos."
+        copy="Products I own, websites and apps built for clients, and industry demo sites you can use to close deals in your target sectors."
         primary={['Book a discovery call', BOOKING_URL]}
         secondary={['View pricing', '/pricing']}
         navigate={navigate}
       />
+
+      {/* My Products */}
+      <Section tone="dark">
+        <SectionHeader eyebrow="My Products" title="Apps and platforms I built, own, and run." copy="Not client work. These are live products with real users — built, launched, and maintained by Dean Da Dev." />
+        <div className="my-products-grid">
+          {MY_PRODUCTS.map((product) => (
+            <div className="my-product-card" key={product.name}>
+              <img src={product.img} alt={`${product.name} built by Dean Da Dev`} loading="lazy" />
+              <div className="my-product-body">
+                <span>{product.tag}</span>
+                <h3>{product.name}</h3>
+                <p>{product.desc}</p>
+                <div className="featured-project-tags">
+                  {product.tags.map((tag) => <span key={tag}>{tag}</span>)}
+                </div>
+                <a className="button button-primary button-small" href={product.url} target="_blank" rel="noopener noreferrer">View live site</a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Demo Sites */}
       <Section>
+        <SectionHeader eyebrow="Industry Demos" title="Ready-made demos for outreach." copy="Use these to show prospects exactly what their industry website could look like — before they commit to anything." />
+        <div className="demo-grid">
+          {DEMO_SITES.map((demo) => (
+            <div className="demo-card" key={demo.name}>
+              <div className="demo-card-header">
+                <span>{demo.tag}</span>
+                <p className="demo-industry">{demo.industry}</p>
+              </div>
+              <h3>{demo.name}</h3>
+              <p>{demo.desc}</p>
+              <div className="demo-card-links">
+                <a href={demo.url} target="_blank" rel="noopener noreferrer" className="button button-primary button-small">View demo</a>
+                {demo.adminUrl && (
+                  <a href={demo.adminUrl} target="_blank" rel="noopener noreferrer" className="button button-secondary button-small">Admin demo</a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Client Work */}
+      <Section tone="dark">
+        <SectionHeader eyebrow="Client Work" title="Projects built for real businesses." copy="Each one live, deployed, and in active use by the client." />
         <div className="portfolio-grid">
           {PORTFOLIO_APPS.map((app) => (
             <a className="portfolio-card" href={app.url} target="_blank" rel="noreferrer" key={app.name}>
@@ -2063,6 +2148,7 @@ function PortfolioPage({ navigate }) {
           ))}
         </div>
       </Section>
+
       <SocialProofBanner />
       <LeadCTA />
     </>
