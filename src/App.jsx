@@ -1235,6 +1235,11 @@ function ImageToolsHubPage({ navigate }) {
               <span className="tool-badge" key={b}>{b}</span>
             ))}
           </div>
+          <div className="tools-hub-fazier-badge">
+            <a href="https://fazier.com" target="_blank" rel="noopener noreferrer">
+              <img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light" width="120" alt="Fazier badge" />
+            </a>
+          </div>
         </div>
       </section>
 
