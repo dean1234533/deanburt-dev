@@ -1120,7 +1120,7 @@ function ToolGrid({ tools: items, navigate }) {
   );
 }
 
-function ToolFilter({ activeCategory, onChange, includeAll = true }) {
+function ToolFilter({ activeCategory, onChange, includeAll = true, navigate }) {
   const options = [...(includeAll ? [{ slug: 'all', label: 'All', count: tools.length }] : []), ...categories.map((category) => ({
     ...category,
     count: categoryTools(category.slug).length,
@@ -1132,7 +1132,7 @@ function ToolFilter({ activeCategory, onChange, includeAll = true }) {
         <button
           className={activeCategory === option.slug ? 'active' : ''}
           type="button"
-          onClick={() => onChange(option.slug)}
+          onClick={() => (navigate ? navigate(option.slug === 'all' ? '/free-tools' : `/${option.slug}`) : onChange(option.slug))}
           key={option.slug}
           aria-pressed={activeCategory === option.slug}
           aria-label={`Show ${option.label} tools`}
@@ -1212,11 +1212,40 @@ function ImageToolCard({ tool: item, navigate }) {
   );
 }
 
+const IMAGE_HUB_GROUPS = [
+  { slug: 'all', label: 'All' },
+  { slug: 'image', label: 'Image' },
+  { slug: 'pdf', label: 'PDF & File' },
+];
+
+function ImageHubFilter({ activeGroup, onChange, imageOnlyTools, pdfTools }) {
+  const counts = { all: imageOnlyTools.length + pdfTools.length, image: imageOnlyTools.length, pdf: pdfTools.length };
+  return (
+    <div className="tool-filter" aria-label="Filter tools by type">
+      {IMAGE_HUB_GROUPS.map((group) => (
+        <button
+          className={activeGroup === group.slug ? 'active' : ''}
+          type="button"
+          onClick={() => onChange(group.slug)}
+          key={group.slug}
+          aria-pressed={activeGroup === group.slug}
+          aria-label={`Show ${group.label} tools`}
+        >
+          <span>{group.label}</span>
+          <strong>{counts[group.slug]}</strong>
+        </button>
+      ))}
+    </div>
+  );
+}
+
 function ImageToolsHubPage({ navigate }) {
+  const [activeGroup, setActiveGroup] = useState('all');
   const imageOnlyTools = imageTools.filter((t) =>
     ['image-compressor', 'jpg-to-webp', 'png-to-webp', 'webp-to-png', 'png-to-jpg', 'jpg-to-png', 'image-size-checker'].includes(t.slug)
   );
   const pdfTools = imageTools.filter((t) => ['pdf-compressor', 'image-to-pdf', 'file-size-converter'].includes(t.slug));
+  const filteredTools = activeGroup === 'all' ? imageTools : activeGroup === 'image' ? imageOnlyTools : pdfTools;
 
   return (
     <>
@@ -1245,16 +1274,10 @@ function ImageToolsHubPage({ navigate }) {
 
       <Section tone="dark" className="anchor-section">
         <div id="tools" />
-        <SectionHeader eyebrow="Image Tools" title="Compress, convert, and check images for your website." copy="All image tools run directly in your browser. Your files never leave your device." />
+        <SectionHeader eyebrow="Image & File Tools" title="Compress, convert, and check images and files for your website." copy="Everything runs directly in your browser. Your files never leave your device." />
+        <ImageHubFilter activeGroup={activeGroup} onChange={setActiveGroup} imageOnlyTools={imageOnlyTools} pdfTools={pdfTools} />
         <div className="image-tools-grid">
-          {imageOnlyTools.map((t) => <ImageToolCard key={t.slug} tool={t} navigate={navigate} />)}
-        </div>
-      </Section>
-
-      <Section>
-        <SectionHeader eyebrow="PDF & File Tools" title="Compress PDFs, convert images to PDF, and calculate file sizes." copy="Process PDF files and calculate file sizes, all without uploading anything to a server." />
-        <div className="image-tools-grid">
-          {pdfTools.map((t) => <ImageToolCard key={t.slug} tool={t} navigate={navigate} />)}
+          {filteredTools.map((t) => <ImageToolCard key={t.slug} tool={t} navigate={navigate} />)}
         </div>
       </Section>
 
@@ -1411,6 +1434,7 @@ function CategoryPage({ route, navigate }) {
       <Section className="anchor-section">
         <div id="tools" />
         <SectionHeader eyebrow="Tools" title={`${items.length || 'Selected'} useful ${route.category.label.toLowerCase()} tools.`} copy="Built to solve real tasks and point visitors toward professional help when they need it." />
+        <ToolFilter activeCategory={route.category.slug} includeAll navigate={navigate} />
         {items.length ? <ToolGrid tools={items} navigate={navigate} /> : <UtilityPanel><p>This category is reserved for future complete tools. Current phase-one tools are available in the hub.</p><Button href="/free-tools" navigate={navigate}>Open Tools Hub</Button></UtilityPanel>}
       </Section>
     </>
