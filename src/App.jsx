@@ -2,11 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import './App.css';
 import { ImageToolWorkspace } from './ImageTools';
+import { ContactModalProvider } from './ContactModal';
+import { useContactModal } from './contactModalContext';
 
 const SITE_URL = 'https://dean-da-dev.co.uk';
 const BOOKING_URL = '/DiscoveryCall';
 const BOOKING_EMBED_URL = 'https://coding-leads.vercel.app/book';
-const CONTACT_EMAIL = 'dean@dean-da-dev.co.uk';
 
 const categories = [
   { slug: 'ai-tools', label: 'AI', intro: 'Prompt and content tools for faster launches.' },
@@ -699,13 +700,15 @@ function App() {
   };
 
   return (
-    <div className="app-shell">
-      <Header navigate={navigate} path={path} />
-      <main>
-        <route.Component navigate={navigate} route={route} />
-      </main>
-      <Footer navigate={navigate} />
-    </div>
+    <ContactModalProvider>
+      <div className="app-shell">
+        <Header navigate={navigate} path={path} />
+        <main>
+          <route.Component navigate={navigate} route={route} />
+        </main>
+        <Footer navigate={navigate} />
+      </div>
+    </ContactModalProvider>
   );
 }
 
@@ -888,6 +891,7 @@ function metaForTool(item) {
 
 function Header({ navigate, path }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const openContactModal = useContactModal();
 
   const navigateFromMenu = (event, href) => {
     handleLink(event, href, navigate);
@@ -930,7 +934,7 @@ function Header({ navigate, path }) {
         </nav>
         <div className="mobile-menu-actions">
           <a className="button button-primary" href={BOOKING_URL}>Book a call</a>
-          <a className="button button-secondary" href={`mailto:${CONTACT_EMAIL}`}>Request a quote</a>
+          <button type="button" className="button button-secondary" onClick={openContactModal}>Request a quote</button>
         </div>
       </div>
     </header>
@@ -938,6 +942,7 @@ function Header({ navigate, path }) {
 }
 
 function Footer({ navigate }) {
+  const openContactModal = useContactModal();
   return (
     <footer className="footer">
       <div className="footer-grid">
@@ -960,7 +965,7 @@ function Footer({ navigate }) {
         <div>
           <h3>Hire Dean</h3>
           <a href={BOOKING_URL}>Book a discovery call</a>
-          <a href={`mailto:${CONTACT_EMAIL}`}>Request a quote</a>
+          <button type="button" className="footer-link-button" onClick={openContactModal}>Request a quote</button>
           <a href="/portfolio" onClick={(event) => handleLink(event, '/portfolio', navigate)}>View portfolio</a>
           <a href="https://www.instagram.com/deandadev123" target="_blank" rel="noopener noreferrer" aria-label="Dean Da Dev on Instagram">Instagram @deandadev123</a>
         </div>
@@ -1968,6 +1973,7 @@ function SocialProofBanner() {
 }
 
 function LeadCTA() {
+  const openContactModal = useContactModal();
   return (
     <section className="lead-cta">
       <div>
@@ -1977,7 +1983,7 @@ function LeadCTA() {
       </div>
       <div className="button-row">
         <a className="button button-primary" href={BOOKING_URL}>Book a discovery call</a>
-        <a className="button button-secondary" href={`mailto:${CONTACT_EMAIL}`}>Request a quote</a>
+        <button type="button" className="button button-secondary" onClick={openContactModal}>Request a quote</button>
       </div>
     </section>
   );
@@ -2184,8 +2190,208 @@ function PortfolioPage({ navigate }) {
   );
 }
 
-function PricingPage() {
-  return <><Hero eyebrow="Pricing" title="Clear starting points. Fixed scope before fixed price." copy="Websites can start from £399 and app MVPs from £4,999, undercutting typical UK agency pricing while keeping the scope realistic." primary={['Explore pricing', '#pricing']} secondary={['Use cost calculator', '/free-tools/website-cost-calculator']} /><Section><div id="pricing" className="anchor-target" /><div className="pricing-grid">{[['Essential Website', 'from £399', 'A professional ready-made website setup with your logo, colours, contact details, services, reviews, enquiry form, and mobile optimisation.'], ['Standard Website', 'from £699', 'A tailored business website with custom-written content, SEO titles and descriptions, Google Maps/reviews integration, revisions, and support.'], ['Premium Website', 'from £1,200', 'Extra pages, stronger local SEO, intake forms, conversion sections, and a more complete growth-focused website.'], ['App Prototype', 'from £1,999', 'Clickable app design or lean proof-of-concept for validating the idea, user journey, core screens, and build direction before a full MVP.'], ['Starter App MVP', 'from £4,999', 'A focused app build with UX, core screens, authentication, simple backend/database, testing, and launch-ready foundations.'], ['Growth App', 'from £7,999', 'A more complete app with dashboards, booking, payments, AI features, admin tools, integrations, or launch support.'], ['AI Tool or Dashboard', 'from £2,999', 'A focused AI tool, calculator, dashboard, admin view, intake form, or automation that solves one clear business problem.']].map(([name, price, copy]) => <div className="price-card" key={name}><h3>{name}</h3><strong>{price}</strong><p>{copy}</p></div>)}</div></Section><LeadCTA /></>;
+const WEBSITE_TIERS = [
+  {
+    name: 'Launch Website',
+    price: 'From £249',
+    tagline: 'A clean, professional site to get you online and taking enquiries.',
+    perfectFor: ['Sole traders', 'Startups', 'Freelancers'],
+    features: ['Mobile-friendly design', '1–3 pages', 'Contact form', 'Basic SEO setup', 'Fast loading', 'Hosting guidance'],
+  },
+  {
+    name: 'Core Website',
+    price: 'From £399',
+    tagline: 'A ready-made setup with your branding, built to look credible fast.',
+    perfectFor: ['Electricians', 'Builders', 'Local shops'],
+    features: ['Everything in Launch', 'Up to 5 pages', 'Logo & brand colours', 'Google Maps & reviews', '30 days support'],
+  },
+  {
+    name: 'Business Website',
+    price: 'From £699',
+    tagline: 'Custom-written content and stronger SEO for businesses ready to grow.',
+    perfectFor: ['Personal trainers', 'Restaurants', 'Clinics'],
+    features: ['Everything in Core', 'Custom-written content', 'SEO titles & meta descriptions', 'Analytics setup', 'One revision round'],
+    featured: true,
+  },
+  {
+    name: 'Elite Website',
+    price: 'From £1,200',
+    tagline: 'A complete, conversion-focused site for growing, multi-location businesses.',
+    perfectFor: ['Growing businesses', 'Multi-location brands', 'Booking-led businesses'],
+    features: ['Everything in Business', '8+ pages', 'Conversion-focused sections', 'Booking/intake forms', 'Security hardening', '60 days support'],
+  },
+];
+
+const APP_TIERS = [
+  ['App Prototype', 'from £1,999', 'Clickable app design or lean proof-of-concept for validating the idea, user journey, core screens, and build direction before a full MVP.'],
+  ['Starter App MVP', 'from £4,999', 'A focused app build with UX, core screens, authentication, simple backend/database, testing, and launch-ready foundations.'],
+  ['Growth App', 'from £7,999', 'A more complete app with dashboards, booking, payments, AI features, admin tools, integrations, or launch support.'],
+  ['AI Tool or Dashboard', 'from £2,999', 'A focused AI tool, calculator, dashboard, admin view, intake form, or automation that solves one clear business problem.'],
+];
+
+const MAINTENANCE_PLANS = [
+  { name: 'Basic', price: '£29/mo', features: ['Hosting included', 'Security monitoring', 'Automatic backups', 'Uptime monitoring'] },
+  { name: 'Business', price: '£59/mo', features: ['Everything in Basic', 'Monthly software updates', 'Up to 2 small content edits/mo', 'Priority email support'] },
+  { name: 'Growth', price: '£99/mo', features: ['Everything in Business', 'Unlimited small content edits', 'Same-day priority support', 'Monthly performance report'] },
+];
+
+const PRICING_TRUST_POINTS = [
+  ['🇬🇧', 'UK based', 'Working UK hours, no time zone headaches, no offshore handoffs.'],
+  ['⚙️', 'Custom coded', 'No page-builder bloat unless you specifically want one — clean, fast code by default.'],
+  ['🎯', 'No templates unless requested', 'Every site is designed around your business, not a recycled theme.'],
+  ['💬', 'Direct communication', 'You talk to the developer building your site — no account managers.'],
+  ['🛠️', 'Ongoing support', 'Help after launch is standard, not an upsell.'],
+  ['⚡', 'Fast turnaround', 'Most websites launch in 1–3 weeks depending on scope.'],
+];
+
+const PRICING_COMPARE_ROWS = [
+  ['Pages included', '1–3', 'Up to 5', 'Up to 5', '8+'],
+  ['Mobile-friendly', '✓', '✓', '✓', '✓'],
+  ['Contact/enquiry form', '✓', '✓', '✓', '✓'],
+  ['Google Maps & reviews', '—', '✓', '✓', '✓'],
+  ['Custom-written content', '—', '—', '✓', '✓'],
+  ['SEO setup', 'Basic', 'Basic', 'Titles & meta descriptions', 'Stronger local SEO'],
+  ['Analytics', '—', '—', '✓', '✓'],
+  ['Revisions', '—', '—', '1 round', '2 rounds'],
+  ['Support included', '14 days', '30 days', '30 days', '60 days'],
+  ['Best for', 'Sole traders & startups', 'Local trades', 'Growing service businesses', 'Multi-location & booking-led'],
+];
+
+const PRICING_FAQS = [
+  { q: 'How long does it take?', a: 'Most websites launch within 1–3 weeks depending on scope and how quickly content and feedback come back. App builds typically take 4–8 weeks.' },
+  { q: 'Do I own the website?', a: 'Yes. Once the final invoice is paid, the site, its code, and its content are entirely yours — no ongoing licence fee to keep it live.' },
+  { q: 'Can I pay monthly?', a: 'The build itself is a fixed one-off price, but ongoing hosting, updates, and support are available through a monthly maintenance plan from £29/month.' },
+  { q: 'Can you redesign my current website?', a: 'Yes. Redesigns follow the same process as a new build — I review what you already have, keep what is working, and rebuild the rest around your existing content and branding.' },
+  { q: 'Do you provide hosting?', a: 'Yes. Hosting guidance is included with every package, and fully managed hosting is available as part of a maintenance plan.' },
+  { q: 'Can you help with SEO?', a: 'Yes. Every package includes basic on-page SEO (titles, meta descriptions, structure), and the Business and Elite tiers add deeper, keyword-focused SEO work.' },
+];
+
+function PricingPage({ navigate }) {
+  const openContactModal = useContactModal();
+
+  return (
+    <>
+      <Hero
+        eyebrow="Pricing"
+        title="A fixed price, a free chat first. No surprises either way."
+        copy="Websites start from £249 and app MVPs from £4,999 — pick a starting point below, then book a free 15-minute call to talk through what you actually need before anything is agreed."
+        primary={['Book a free 15-minute call', BOOKING_URL]}
+        secondary={['See what fits', '#pricing']}
+        navigate={navigate}
+      />
+
+      <div className="urgency-banner">🟠 Currently taking on 3 new projects this month.</div>
+
+      <Section>
+        <div id="pricing" className="anchor-target" />
+        <SectionHeader
+          eyebrow="Website Packages"
+          title="Pick a starting point, not a final decision."
+          copy="Every package below is a starting point for a conversation, not a fixed quote — the exact price depends on your pages and features, confirmed on a free call before anything is agreed."
+        />
+        <div className="pricing-grid-v2">
+          {WEBSITE_TIERS.map((tier) => (
+            <div className={`pricing-card-v2${tier.featured ? ' featured' : ''}`} key={tier.name}>
+              {tier.featured && <span className="pricing-card-badge">Most popular</span>}
+              <h3>{tier.name}</h3>
+              <p className="pricing-card-tagline">{tier.tagline}</p>
+              <strong className="pricing-card-price">{tier.price}</strong>
+              <div className="perfect-for">
+                <span className="perfect-for-label">Perfect for:</span>
+                {tier.perfectFor.map((p) => <span className="tool-badge" key={p}>{p}</span>)}
+              </div>
+              <ul className="price-checklist">
+                {tier.features.map((f) => <li key={f}>{f}</li>)}
+              </ul>
+              <Button href={BOOKING_URL} navigate={navigate}>Book a Free 15-Minute Call</Button>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="Compare Packages" title="See exactly what's included at each level." />
+        <div className="compare-table-wrap">
+          <table className="compare-table">
+            <thead>
+              <tr>
+                <th scope="col">Feature</th>
+                {WEBSITE_TIERS.map((tier) => <th scope="col" key={tier.name}>{tier.name}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {PRICING_COMPARE_ROWS.map(([label, ...values]) => (
+                <tr key={label}>
+                  <th scope="row">{label}</th>
+                  {values.map((v, i) => <td key={WEBSITE_TIERS[i].name}>{v}</td>)}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeader eyebrow="Why Choose Dean Da Dev" title="A direct line to the person actually building your site." copy="No account managers, no offshore handoffs, no templates unless you ask for one." />
+        <div className="benefits-grid">
+          {PRICING_TRUST_POINTS.map(([icon, title, copy]) => (
+            <div className="benefit-card" key={title}>
+              <div className="benefit-icon" aria-hidden="true">{icon}</div>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <SocialProofBanner />
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="Ongoing Support" title="Keep your site fast, secure, and up to date." copy="Optional monthly plans, available once your site is live." />
+        <div className="maintenance-grid">
+          {MAINTENANCE_PLANS.map((plan) => (
+            <div className="maintenance-card" key={plan.name}>
+              <h3>{plan.name}</h3>
+              <strong>{plan.price}</strong>
+              <ul className="price-checklist">
+                {plan.features.map((f) => <li key={f}>{f}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <SectionHeader eyebrow="App & AI Development" title="Beyond websites: apps, dashboards, and AI tools." copy="Fixed scope before fixed price, same as every website package above." />
+        <div className="pricing-grid">
+          {APP_TIERS.map(([name, price, copy]) => (
+            <div className="price-card" key={name}>
+              <h3>{name}</h3>
+              <strong>{price}</strong>
+              <p>{copy}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="FAQ" title="Common questions before you get in touch." />
+        <FAQList faqs={PRICING_FAQS} />
+      </Section>
+
+      <section className="lead-cta">
+        <div>
+          <p className="eyebrow">Still deciding?</p>
+          <h2>Get a free website review before you commit to anything.</h2>
+          <p>No pressure, no obligation — just an honest look at what you have and what would actually help.</p>
+        </div>
+        <div className="button-row">
+          <a className="button button-primary" href={BOOKING_URL}>Let's Talk About Your Project</a>
+          <button type="button" className="button button-secondary" onClick={openContactModal}>Get a Free Website Review</button>
+        </div>
+      </section>
+    </>
+  );
 }
 
 function DiscoveryCallPage({ navigate }) {
