@@ -153,7 +153,7 @@ const imageTools = [
       { q: 'Why convert JPG to PNG?', a: 'PNG is a lossless format. Converting from JPG stops further quality loss from future re-saving. PNG also supports transparency, which JPG does not.' },
       { q: 'Are my images private?', a: 'Yes. All conversion happens locally in your browser. No server uploads.' },
       { q: 'Will converting improve image quality?', a: 'Converting from JPG to PNG will not recover quality already lost to JPG compression, but it will prevent further quality loss from any future re-saving.' },
-      { q: 'Can dean-da-dev build my website?', a: 'Yes. dean-da-dev builds fast, modern websites for UK businesses from £399. Book a discovery call to get started.' },
+      { q: 'Can dean-da-dev build my website?', a: 'Yes. dean-da-dev builds fast, modern websites for UK businesses from £249. Book a discovery call to get started.' },
     ]
   ),
   imageTool('Website Image Size Checker', 'image-size-checker',
@@ -1007,7 +1007,7 @@ function HomePage({ navigate }) {
         <SectionHeader eyebrow="What I build" title="A practical build partner for small businesses and founders." copy="Start lean, validate quickly, and ship something real: a website that gets enquiries, an app MVP, or a focused tool that saves time." />
         <div className="value-grid">
           {[
-            ['Websites from £399', 'Professional, mobile-optimised websites with clear messaging, contact flows, and SEO foundations.'],
+            ['Websites from £249', 'Professional, mobile-optimised websites with clear messaging, contact flows, and SEO foundations.'],
             ['App MVPs from £4,999', 'Focused app builds for booking flows, customer portals, marketplaces, AI products, and early-stage ideas.'],
             ['AI tools from £2,999', 'Prompt systems, dashboards, automations, intake forms, and tools that solve one clear business problem.'],
           ].map(([title, copy]) => (
@@ -1583,7 +1583,7 @@ function WebsiteCostCalculator() {
       </div>
       <CheckGroup label="Features" options={[['cms', 'CMS'], ['booking', 'Booking'], ['ecommerce', 'Ecommerce'], ['membership', 'Membership'], ['automation', 'Automation']]} values={features} setValues={setFeatures} />
       <div className="switch-row"><Toggle checked={content} setChecked={setContent} label="Copywriting/content support" /><Toggle checked={seo} setChecked={setSeo} label="Technical SEO setup" /></div>
-      <ResultBox title="Estimated website budget"><p className="big-result">£{money(total)} - £{money(Math.round(total * 1.25))}</p><p>Websites can start from £399 for a focused professional build. Bigger scopes need a fixed plan around pages, integrations, launch date, and support.</p></ResultBox>
+      <ResultBox title="Estimated website budget"><p className="big-result">£{money(total)} - £{money(Math.round(total * 1.25))}</p><p>Websites can start from £249 for a focused professional build. Bigger scopes need a fixed plan around pages, integrations, launch date, and support.</p></ResultBox>
     </div>
   );
 }
