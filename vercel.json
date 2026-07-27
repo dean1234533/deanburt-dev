@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "deanburt-dev.vercel.app" }],
+      "destination": "https://dean-da-dev.co.uk/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!sitemap.xml|robots.txt|favicon.svg|icons.svg|images/.*|assets/.*).*)",
