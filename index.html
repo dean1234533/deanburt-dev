@@ -33,13 +33,26 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
+      "@type": ["ProfessionalService", "LocalBusiness"],
       "name": "Dean Da Dev",
       "description": "UK full-stack developer building mobile apps, websites, AI tools, and automation for local businesses. 6 live apps. Google Play publisher. Fixed price, 4–8 week delivery.",
       "url": "https://dean-da-dev.co.uk/",
       "email": "dean@dean-da-dev.co.uk",
       "telephone": "+447752300937",
-      "areaServed": "GB",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Stratford",
+        "addressRegion": "London",
+        "addressCountry": "GB"
+      },
+      "hasMap": "https://share.google/tm6xClvShNu7cLlYt",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "17:00"
+      },
+      "areaServed": ["GB", "Stratford", "Forest Gate", "Wanstead", "Ilford", "Leyton", "Leytonstone", "East Ham", "West Ham", "Manor Park"],
       "currenciesAccepted": "GBP",
       "priceRange": "££",
       "serviceType": ["Mobile App Development", "Web Development", "AI Tool Development", "E-Commerce Development", "App Store Submission"],
@@ -79,7 +92,8 @@
       "sameAs": [
         "https://github.com/dean1234533",
         "https://www.instagram.com/deandadev123",
-        "https://play.google.com/store/apps/developer?id=Dean+Burt"
+        "https://play.google.com/store/apps/developer?id=Dean+Burt",
+        "https://share.google/tm6xClvShNu7cLlYt"
       ],
       "knowsAbout": ["Mobile App Development", "Web Development", "AI Development", "E-Commerce", "React Native", "React", "Node.js", "App Store Submission", "Google Play Store"]
     }

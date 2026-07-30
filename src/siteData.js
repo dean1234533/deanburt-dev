@@ -1,6 +1,67 @@
 export const SITE_URL = 'https://dean-da-dev.co.uk';
 export const BOOKING_URL = '/DiscoveryCall';
 export const BOOKING_EMBED_URL = 'https://coding-leads.vercel.app/book';
+export const GBP_URL = 'https://share.google/tm6xClvShNu7cLlYt';
+export const BUSINESS_LOCATION = 'Stratford, London';
+export const BUSINESS_HOURS = 'Mon–Fri, 9am–5pm (UK)';
+export const MAP_EMBED_URL = 'https://www.google.com/maps?q=Stratford,+London&output=embed';
+
+export const locationAreas = [
+  {
+    slug: 'stratford',
+    name: 'Stratford',
+    intro: 'Home to the Queen Elizabeth Olympic Park and Westfield Stratford City, Stratford has been one of London\'s fastest-growing business and retail hubs since the 2012 Olympics.',
+    context: 'With the Elizabeth line, Jubilee line, Central line, and DLR all running through it, Stratford is one of the best-connected commercial areas in East London — which means the businesses here compete with a lot more than the shop next door. A website that loads fast, works properly on mobile, and explains the offer clearly matters more here than almost anywhere else in East London.',
+  },
+  {
+    slug: 'forest-gate',
+    name: 'Forest Gate',
+    intro: 'Forest Gate borders Wanstead Flats and has a growing scene of independent cafés, restaurants, and small businesses along Woodgrange Road and Green Street.',
+    context: 'A lot of Forest Gate businesses are still relying on a Google Business Profile and word of mouth alone. A proper website — even a simple one — gives independent shops and service businesses here a way to be found by people searching online, not just people walking past.',
+  },
+  {
+    slug: 'wanstead',
+    name: 'Wanstead',
+    intro: 'Wanstead has a leafy, village feel centred on Wanstead High Street and Wanstead Park, with a strong base of independent shops, clinics, and family-run businesses.',
+    context: 'Wanstead customers tend to research before they buy or book — clinics, salons, and independent retailers here benefit most from a website that builds trust quickly: clear service pages, real photos, reviews, and an easy way to get in touch or book.',
+  },
+  {
+    slug: 'ilford',
+    name: 'Ilford',
+    intro: 'Ilford is a major town centre in the London Borough of Redbridge, with a busy retail and service economy centred on Ilford Lane and the town centre shopping area.',
+    context: 'With so much competition concentrated in one town centre, Ilford businesses need a website that makes the case for choosing them specifically — clear pricing signals, strong service pages, and fast mobile loading, since most local searches here happen on a phone.',
+  },
+  {
+    slug: 'leyton',
+    name: 'Leyton',
+    intro: 'Leyton sits close to the Queen Elizabeth Olympic Park and is home to Leyton Orient FC, with a mix of independent retail, trades, and hospitality businesses along Leyton High Road.',
+    context: 'Trades and hospitality businesses in Leyton often lose enquiries simply because there is no clear way to get a quote or book online outside of opening hours. A website with a proper enquiry form and clear service pages captures that demand instead of losing it.',
+  },
+  {
+    slug: 'leytonstone',
+    name: 'Leytonstone',
+    intro: 'Leytonstone is known for its high road shops and markets, a strong small business community, and good transport links via the Central line.',
+    context: 'Independent businesses on Leytonstone High Road are often up against national chains with much bigger marketing budgets. A clear, fast, well-structured website is one of the few ways a local business can compete on trust and findability without competing on ad spend.',
+  },
+  {
+    slug: 'east-ham',
+    name: 'East Ham',
+    intro: 'East Ham has one of East London\'s busiest high streets, with a dense concentration of independent retailers and service businesses.',
+    context: 'On a high street this competitive, a business without a website is effectively invisible to anyone searching online before they visit. Even a focused, few-page site with clear services and a way to make contact puts a business back in the running.',
+  },
+  {
+    slug: 'west-ham',
+    name: 'West Ham',
+    intro: 'West Ham is close to the Olympic Park and carries strong footballing heritage, alongside a growing mix of local trades and small businesses.',
+    context: 'Trades and service businesses around West Ham often rely entirely on referrals. A simple, professional website gives those referrals somewhere credible to land — and picks up the local searches that referrals alone will always miss.',
+  },
+  {
+    slug: 'manor-park',
+    name: 'Manor Park',
+    intro: 'Manor Park is a residential area with a steadily growing small business and trades community along Romford Road.',
+    context: 'For trades and home-service businesses based in Manor Park, most new enquiries start with a phone search. A mobile-friendly website with click-to-call, clear service areas, and a simple quote form turns more of those searches into actual enquiries.',
+  },
+];
 
 export const categories = [
   { slug: 'ai-tools', label: 'AI', intro: 'Prompt and content tools for faster launches.' },
@@ -750,8 +811,10 @@ export const STATIC_PAGES = [
   { path: '/resources', title: 'Resources | Website, SEO and Software Guides', description: 'Helpful guides that support the free tools and help businesses plan better digital projects.' },
   { path: '/free-tools', title: 'Free Developer, SEO, AI and Business Tools | Dean Da Dev', description: 'A premium collection of free online tools for businesses, marketers, designers, and developers.' },
   { path: '/templates', title: 'Templates | Dean Da Dev', description: 'Practical website, SEO, project, invoice, and quote templates for growing businesses.' },
+  { path: '/privacy-policy', title: 'Privacy Policy | Dean Da Dev', description: 'How Dean Da Dev collects, uses, and protects information submitted through this website.' },
   { path: '/tools', title: 'Free Business & Website Tools | dean-da-dev', description: 'Free tools from dean-da-dev to compress images, convert files, check website assets, and improve your online presence. No sign-up, no watermark, no hidden paywall.' },
   { path: '/blog', title: 'Web Design Blog | dean-da-dev', description: 'Helpful web design tips, website speed advice, SEO guidance, and business website ideas from dean-da-dev.' },
+  { path: '/areas', title: 'Areas Covered | Web Design Near Stratford, London | Dean Da Dev', description: 'Website design and development for businesses in Stratford, Forest Gate, Wanstead, Ilford, Leyton, Leytonstone, East Ham, West Ham, and Manor Park.' },
 ];
 
 export function getAllRoutes() {
@@ -779,6 +842,10 @@ export function getAllRoutes() {
 
   for (const post of BLOG_POSTS) {
     routes.push({ path: post.path, title: post.metaTitle, description: post.metaDescription, lastmod: post.date, changefreq: 'monthly', priority: '0.6' });
+  }
+
+  for (const area of locationAreas) {
+    routes.push({ path: `/areas/${area.slug}`, title: `Web Design in ${area.name} | Dean Da Dev`, description: area.intro, changefreq: 'monthly', priority: '0.7' });
   }
 
   return routes;

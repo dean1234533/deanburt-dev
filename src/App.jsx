@@ -1,14 +1,19 @@
 import { useEffect, useMemo, useState } from 'react';
-import QRCode from 'qrcode';
 import './App.css';
 import { ImageToolWorkspace } from './ImageTools';
 import { ContactModalProvider } from './ContactModal';
 import { useContactModal } from './contactModalContext';
+import { ContactForm } from './ContactForm';
 
 import {
   SITE_URL,
   BOOKING_URL,
   BOOKING_EMBED_URL,
+  GBP_URL,
+  BUSINESS_LOCATION,
+  BUSINESS_HOURS,
+  MAP_EMBED_URL,
+  locationAreas,
   categories,
   tools,
   imageTools,
@@ -122,6 +127,32 @@ function resolveRoute(path) {
     };
   }
 
+  if (path === '/areas') {
+    return {
+      Component: LocationsHubPage,
+      meta: {
+        title: 'Areas Covered | Web Design Near Stratford, London | Dean Da Dev',
+        description: 'Website design and development for businesses in Stratford, Forest Gate, Wanstead, Ilford, Leyton, Leytonstone, East Ham, West Ham, and Manor Park.',
+        path,
+        schema: websiteSchema(),
+      },
+    };
+  }
+
+  const areaMatch = locationAreas.find((area) => `/areas/${area.slug}` === path);
+  if (areaMatch) {
+    return {
+      Component: LocationPage,
+      area: areaMatch,
+      meta: {
+        title: `Web Design in ${areaMatch.name} | Dean Da Dev`,
+        description: areaMatch.intro,
+        path,
+        schema: websiteSchema(),
+      },
+    };
+  }
+
   const guideMatch = resourceGuides().find((guide) => guide.path === path);
   if (guideMatch) {
     return {
@@ -168,6 +199,7 @@ function resolveRoute(path) {
     '/resources': [ResourcesPage, 'Resources | Website, SEO and Software Guides', 'Helpful guides that support the free tools and help businesses plan better digital projects.'],
     '/free-tools': [ToolsHubPage, 'Free Developer, SEO, AI and Business Tools | Dean Da Dev', 'A premium collection of free online tools for businesses, marketers, designers, and developers.'],
     '/templates': [TemplatesPage, 'Templates | Dean Da Dev', 'Practical website, SEO, project, invoice, and quote templates for growing businesses.'],
+    '/privacy-policy': [PrivacyPolicyPage, 'Privacy Policy | Dean Da Dev', 'How Dean Da Dev collects, uses, and protects information submitted through this website.'],
   };
 
   const selected = routes[path] || routes['/'];
@@ -312,7 +344,7 @@ function Footer({ navigate }) {
         </div>
         <div>
           <h3>Platform</h3>
-          {['/free-tools', '/resources', '/services', '/pricing'].map((href) => (
+          {['/free-tools', '/resources', '/services', '/pricing', '/areas'].map((href) => (
             <a href={href} onClick={(event) => handleLink(event, href, navigate)} key={href}>{labelForPath(href)}</a>
           ))}
         </div>
@@ -328,6 +360,13 @@ function Footer({ navigate }) {
           <button type="button" className="footer-link-button" onClick={openContactModal}>Request a quote</button>
           <a href="/portfolio" onClick={(event) => handleLink(event, '/portfolio', navigate)}>View portfolio</a>
           <a href="https://www.instagram.com/deandadev123" target="_blank" rel="noopener noreferrer" aria-label="Dean Da Dev on Instagram">Instagram @deandadev123</a>
+          <a href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <p className="footer-meta-item">{BUSINESS_LOCATION}</p>
+          <p className="footer-meta-item">{BUSINESS_HOURS}</p>
+          <a href="/privacy-policy" onClick={(event) => handleLink(event, '/privacy-policy', navigate)}>Privacy Policy</a>
         </div>
       </div>
       <p className="footer-meta">© {new Date().getFullYear()} Dean Da Dev. UK app development, web development, AI tools, dashboards, and automation.</p>
@@ -1145,7 +1184,11 @@ function LoremGenerator() {
 function QrGenerator() {
   const [value, setValue] = useState(SITE_URL);
   const [dataUrl, setDataUrl] = useState('');
-  useEffect(() => { QRCode.toDataURL(value || ' ', { width: 320, margin: 2, color: { dark: '#020617', light: '#ffffff' } }).then(setDataUrl); }, [value]);
+  useEffect(() => {
+    let cancelled = false;
+    import('qrcode').then(({ default: QRCode }) => QRCode.toDataURL(value || ' ', { width: 320, margin: 2, color: { dark: '#020617', light: '#ffffff' } })).then((url) => { if (!cancelled) setDataUrl(url); });
+    return () => { cancelled = true; };
+  }, [value]);
   return <div className="tool-panel"><Field label="QR code content"><input value={value} onChange={(e) => setValue(e.target.value)} /></Field>{dataUrl && <div className="qr-wrap"><img src={dataUrl} alt="Generated QR code" /><a className="button button-primary" href={dataUrl} download="dean-da-dev-qr.png">Download PNG</a></div>}</div>;
 }
 
@@ -1795,6 +1838,26 @@ function DiscoveryCallPage({ navigate }) {
           <a className="button button-secondary" href={BOOKING_EMBED_URL} target="_blank" rel="noreferrer">Open booking in a new tab</a>
         </div>
       </Section>
+      <Section>
+        <SectionHeader eyebrow="Or send a message" title="Prefer to write instead of booking a call?" copy="Send the details of your project and Dean will reply personally, usually within a day." />
+        <div className="contact-page-layout">
+          <ContactForm title="Send a message" copy="Tell me a bit about what you need — I'll reply personally, usually within a day." />
+          <aside className="mini-panel">
+            <h2>Location & hours</h2>
+            <p>Based in {BUSINESS_LOCATION}, working with businesses across the UK.</p>
+            <p>{BUSINESS_HOURS}</p>
+            <a className="button button-secondary" href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>
+            <div className="map-embed-wrap">
+              <iframe
+                title="Dean Da Dev location map"
+                src={MAP_EMBED_URL}
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+          </aside>
+        </div>
+      </Section>
     </>
   );
 }
@@ -2074,6 +2137,109 @@ function ResourceFilter({ activeCategory, onChange, guides }) {
 function GuidePage({ route, navigate }) {
   const guide = route.guide;
   return <><Hero eyebrow="Resource Guide" title={guide.title} copy={guide.description} primary={['Use related tool', guide.toolPath]} secondary={['Book a call', BOOKING_URL]} navigate={navigate} /><Section><article className="guide-article"><h2>What to know first</h2><p>{guide.body}</p><h2>How to use the tool</h2><p>{guide.howToUse}</p><h2>When to get expert help</h2><p>{guide.expertHelp}</p></article></Section><LeadCTA /></>;
+}
+
+function LocationsHubPage({ navigate }) {
+  return (
+    <>
+      <Hero
+        eyebrow="Areas Covered"
+        title="Website design for businesses near Stratford, London."
+        copy="Based in Stratford, working with businesses across East London — in person where useful, remotely everywhere else."
+        primary={['Book a discovery call', BOOKING_URL]}
+        secondary={['See pricing', '/pricing']}
+        navigate={navigate}
+      />
+      <Section>
+        <SectionHeader eyebrow="Areas" title="Areas near Stratford." copy="Pick your area for a page written about the businesses and high streets nearby." />
+        <div className="resource-grid">
+          {locationAreas.map((area) => (
+            <a className="resource-card" href={`/areas/${area.slug}`} onClick={(event) => handleLink(event, `/areas/${area.slug}`, navigate)} key={area.slug}>
+              <span>Area</span>
+              <h3>{area.name}</h3>
+              <p>{area.intro}</p>
+            </a>
+          ))}
+        </div>
+      </Section>
+      <LeadCTA />
+    </>
+  );
+}
+
+function LocationPage({ route, navigate }) {
+  const area = route.area;
+  const nearby = locationAreas.filter((item) => item.slug !== area.slug).slice(0, 4);
+  return (
+    <>
+      <Hero
+        eyebrow={`Web Design in ${area.name}`}
+        title={`Websites and free tools for ${area.name} businesses.`}
+        copy={area.intro}
+        primary={['Book a discovery call', BOOKING_URL]}
+        secondary={['See pricing', '/pricing']}
+        navigate={navigate}
+      />
+      <Section>
+        <article className="guide-article">
+          <h2>Working with businesses in {area.name}</h2>
+          <p>{area.context}</p>
+          <h2>Location & hours</h2>
+          <p>Based in {BUSINESS_LOCATION}, {BUSINESS_HOURS.toLowerCase()}. <a href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>.</p>
+        </article>
+      </Section>
+      <Section tone="dark">
+        <SectionHeader eyebrow="Nearby areas" title="Also covering these areas." />
+        <div className="resource-grid">
+          {nearby.map((item) => (
+            <a className="resource-card" href={`/areas/${item.slug}`} onClick={(event) => handleLink(event, `/areas/${item.slug}`, navigate)} key={item.slug}>
+              <span>Area</span>
+              <h3>{item.name}</h3>
+              <p>{item.intro}</p>
+            </a>
+          ))}
+        </div>
+      </Section>
+      <LeadCTA />
+    </>
+  );
+}
+
+function PrivacyPolicyPage({ navigate }) {
+  return (
+    <>
+      <Hero
+        eyebrow="Privacy Policy"
+        title="How your information is handled."
+        copy={`Last updated ${formatDate(new Date().toISOString())}. This page explains what Dean Da Dev collects, why, and how to get in touch about it.`}
+        primary={['Back to home', '/']}
+        secondary={['Contact Dean', '/contact']}
+        navigate={navigate}
+      />
+      <Section>
+        <article className="guide-article">
+          <h2>Who this covers</h2>
+          <p>This policy applies to dean-da-dev.co.uk, operated by Dean Burt, a UK-based sole trader ({BUSINESS_LOCATION}). If you have any question about this policy, email dean@dean-da-dev.co.uk.</p>
+
+          <h2>What is collected</h2>
+          <p>When you submit the contact form or request a quote, the name, email, phone number, and message you provide are sent to a contact-handling service (a Cloud Function on Google's infrastructure) so Dean can reply to your enquiry. No account is created and no payment details are collected on this site.</p>
+
+          <h2>The free tools</h2>
+          <p>The free tools on this site (calculators, generators, converters, and formatters) run entirely in your browser. Files, text, and numbers you enter into a tool are processed locally and are never uploaded to a server.</p>
+
+          <h2>Cookies and analytics</h2>
+          <p>This site does not currently run third-party analytics or advertising cookies. Two embedded third-party services are used where relevant: a booking widget for scheduling discovery calls, and a Google Maps embed for location. Each is provided by its own operator and may set its own cookies under its own privacy policy, independent of this site.</p>
+
+          <h2>How long information is kept</h2>
+          <p>Enquiry details are kept only as long as needed to respond to your enquiry and, where a project goes ahead, to deliver it. You can request that your information be deleted at any time by emailing dean@dean-da-dev.co.uk.</p>
+
+          <h2>Your rights</h2>
+          <p>Under UK GDPR you can ask what information is held about you, ask for it to be corrected or deleted, or object to how it is used. To exercise any of these rights, email dean@dean-da-dev.co.uk.</p>
+        </article>
+      </Section>
+      <LeadCTA />
+    </>
+  );
 }
 
 function TemplatesPage({ navigate }) {
