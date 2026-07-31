@@ -77,8 +77,42 @@ function App() {
         </main>
         <Footer navigate={navigate} />
         <StickyMobileCTA />
+        <CookieNotice navigate={navigate} />
       </div>
     </ContactModalProvider>
+  );
+}
+
+const COOKIE_NOTICE_KEY = 'dean-da-dev-cookie-notice-dismissed';
+
+function CookieNotice({ navigate }) {
+  const [dismissed, setDismissed] = useState(() => {
+    try {
+      return window.localStorage.getItem(COOKIE_NOTICE_KEY) === '1';
+    } catch {
+      return false;
+    }
+  });
+
+  if (dismissed) return null;
+
+  const dismiss = () => {
+    try {
+      window.localStorage.setItem(COOKIE_NOTICE_KEY, '1');
+    } catch {
+      // ignore — worst case the notice reappears next visit
+    }
+    setDismissed(true);
+  };
+
+  return (
+    <div className="cookie-notice" role="dialog" aria-label="Cookie notice">
+      <p>
+        This site does not use tracking or advertising cookies. Embedded content (Google Maps, the booking widget) may set its own cookies —
+        see the <a href="/privacy-policy" onClick={(event) => handleLink(event, '/privacy-policy', navigate)}>Privacy Policy</a> for details.
+      </p>
+      <button type="button" className="button button-secondary cookie-notice-dismiss" onClick={dismiss}>Got it</button>
+    </div>
   );
 }
 
@@ -215,12 +249,16 @@ function resolveRoute(path) {
     '/free-tools': [ToolsHubPage, 'Free Developer, SEO, AI and Business Tools | Dean Da Dev', 'A premium collection of free online tools for businesses, marketers, designers, and developers.'],
     '/templates': [TemplatesPage, 'Templates | Dean Da Dev', 'Practical website, SEO, project, invoice, and quote templates for growing businesses.'],
     '/privacy-policy': [PrivacyPolicyPage, 'Privacy Policy | Dean Da Dev', 'How Dean Da Dev collects, uses, and protects information submitted through this website.'],
+    '/terms': [TermsPage, 'Terms & Conditions | Dean Da Dev', 'Terms and conditions for using the free tools and for commissioning project work from Dean Da Dev.'],
   };
 
   const selected = routes[path] || routes['/'];
+  const schema = path === '/'
+    ? { '@context': 'https://schema.org', '@graph': [websiteSchema(), faqSchema(HOME_FAQS)] }
+    : websiteSchema();
   return {
     Component: selected[0],
-    meta: { title: selected[1], description: selected[2], path, schema: websiteSchema() },
+    meta: { title: selected[1], description: selected[2], path, schema },
   };
 }
 
@@ -379,11 +417,13 @@ function Footer({ navigate }) {
         </div>
         <div>
           <h3>Contact</h3>
+          <a href="/contact" onClick={(event) => handleLink(event, '/contact', navigate)}>Contact</a>
           <a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a>
           <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp</a>
           <p className="footer-meta-item">{BUSINESS_LOCATION}</p>
           <p className="footer-meta-item">{BUSINESS_HOURS}</p>
           <a href="/privacy-policy" onClick={(event) => handleLink(event, '/privacy-policy', navigate)}>Privacy Policy</a>
+          <a href="/terms" onClick={(event) => handleLink(event, '/terms', navigate)}>Terms & Conditions</a>
         </div>
       </div>
       <p className="footer-meta">© {new Date().getFullYear()} Dean Da Dev. UK app development, web development, AI tools, dashboards, and automation.</p>
@@ -2314,6 +2354,49 @@ function PrivacyPolicyPage({ navigate }) {
 
           <h2>Your rights</h2>
           <p>Under UK GDPR you can ask what information is held about you, ask for it to be corrected or deleted, or object to how it is used. To exercise any of these rights, email dean@dean-da-dev.co.uk.</p>
+        </article>
+      </Section>
+      <LeadCTA />
+    </>
+  );
+}
+
+function TermsPage({ navigate }) {
+  return (
+    <>
+      <Hero
+        eyebrow="Terms & Conditions"
+        title="The terms behind working with Dean Da Dev."
+        copy={`Last updated ${formatDate(new Date().toISOString())}. Plain-English terms for the free tools and for commissioned project work.`}
+        primary={['Back to home', '/']}
+        secondary={['Contact Dean', '/contact']}
+        navigate={navigate}
+      />
+      <Section>
+        <article className="guide-article">
+          <h2>Who this covers</h2>
+          <p>These terms apply to dean-da-dev.co.uk and to project work carried out by Dean Burt, trading as Dean Da Dev, a UK-based sole trader ({BUSINESS_LOCATION}).</p>
+
+          <h2>The free tools</h2>
+          <p>The calculators, generators, converters, and formatters on this site are provided free of charge, as-is, with no guarantee of uninterrupted availability or fitness for a particular purpose. They are intended as planning aids, not professional, legal, or financial advice.</p>
+
+          <h2>Project work</h2>
+          <p>A discovery call is free and no-obligation. Commissioned work (websites, apps, AI tools, and automation) is quoted at a fixed price agreed in writing before any work begins, based on the scope discussed. Changes to that scope may affect the price and timeline, and will be agreed before extra work starts.</p>
+
+          <h2>Payment</h2>
+          <p>Payment terms (typically a deposit before work begins and a final payment before launch or handover) are confirmed for each project individually before work starts. Specific schedules are set out in the project quote or agreement, not on this page.</p>
+
+          <h2>Ownership</h2>
+          <p>Once a project is paid for in full, the resulting code, design, and any accounts created for it belong to the client. Until final payment is made, ownership remains with Dean Da Dev.</p>
+
+          <h2>Liability</h2>
+          <p>Dean Da Dev takes reasonable care in every build but cannot guarantee specific business outcomes (such as traffic, enquiries, or sales) from a website, app, or tool, since those depend on many factors outside development quality alone.</p>
+
+          <h2>Changes to these terms</h2>
+          <p>These terms may be updated from time to time to reflect how the business operates. The version on this page is always the current one.</p>
+
+          <h2>Questions</h2>
+          <p>For anything not covered here, email dean@dean-da-dev.co.uk.</p>
         </article>
       </Section>
       <LeadCTA />

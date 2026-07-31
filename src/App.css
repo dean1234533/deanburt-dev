@@ -1831,6 +1831,37 @@ pre {
   font-size: 13px;
 }
 
+.cookie-notice {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 50;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+}
+
+.cookie-notice p {
+  flex: 1 1 260px;
+  margin: 0;
+  color: var(--soft);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.cookie-notice-dismiss {
+  flex: 0 0 auto;
+}
+
 .sticky-mobile-cta {
   display: none;
 }
@@ -1869,6 +1900,10 @@ pre {
 
   body {
     padding-bottom: calc(52px + env(safe-area-inset-bottom, 0));
+  }
+
+  .cookie-notice {
+    bottom: calc(52px + env(safe-area-inset-bottom, 0) + 12px);
   }
 }
 

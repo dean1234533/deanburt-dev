@@ -70,6 +70,7 @@ export function ContactForm({ onSent, title = 'Request a quote', copy = "Tell me
       {/* Honeypot — hidden from real visitors via CSS, bots that fill every input still fill this one */}
       <input
         type="text" tabIndex={-1} autoComplete="off" aria-hidden="true"
+        aria-label="Leave this field blank"
         className="contact-modal-honeypot"
         value={form.honeypot} onChange={set('honeypot')}
       />

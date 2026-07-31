@@ -815,6 +815,7 @@ export const STATIC_PAGES = [
   { path: '/free-tools', title: 'Free Developer, SEO, AI and Business Tools | Dean Da Dev', description: 'A premium collection of free online tools for businesses, marketers, designers, and developers.' },
   { path: '/templates', title: 'Templates | Dean Da Dev', description: 'Practical website, SEO, project, invoice, and quote templates for growing businesses.' },
   { path: '/privacy-policy', title: 'Privacy Policy | Dean Da Dev', description: 'How Dean Da Dev collects, uses, and protects information submitted through this website.' },
+  { path: '/terms', title: 'Terms & Conditions | Dean Da Dev', description: 'Terms and conditions for using the free tools and for commissioning project work from Dean Da Dev.' },
   { path: '/tools', title: 'Free Business & Website Tools | dean-da-dev', description: 'Free tools from dean-da-dev to compress images, convert files, check website assets, and improve your online presence. No sign-up, no watermark, no hidden paywall.' },
   { path: '/blog', title: 'Web Design Blog | dean-da-dev', description: 'Helpful web design tips, website speed advice, SEO guidance, and business website ideas from dean-da-dev.' },
   { path: '/areas', title: 'Areas Covered | Web Design Near Stratford, London | Dean Da Dev', description: 'Website design and development for businesses in Stratford, Forest Gate, Wanstead, Ilford, Leyton, Leytonstone, East Ham, West Ham, and Manor Park.' },
