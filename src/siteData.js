@@ -1,9 +1,11 @@
-export const SITE_URL = 'https://dean-da-dev.co.uk';
+export const SITE_URL = 'https://www.dean-da-dev.co.uk';
 export const BOOKING_URL = '/DiscoveryCall';
 export const BOOKING_EMBED_URL = 'https://coding-leads.vercel.app/book';
 export const GBP_URL = 'https://share.google/tm6xClvShNu7cLlYt';
 export const BUSINESS_LOCATION = 'Stratford, London';
 export const BUSINESS_HOURS = 'Mon–Fri, 9am–5pm (UK)';
+export const PHONE_NUMBER = '+447752300937';
+export const PHONE_DISPLAY = '+44 7752 300937';
 export const MAP_EMBED_URL = 'https://www.google.com/maps?q=Stratford,+London&output=embed';
 
 export const locationAreas = [

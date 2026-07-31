@@ -1,6 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
 import './App.css';
-import { ImageToolWorkspace } from './ImageTools';
 import { ContactModalProvider } from './ContactModal';
 import { useContactModal } from './contactModalContext';
 import { ContactForm } from './ContactForm';
@@ -12,6 +11,8 @@ import {
   GBP_URL,
   BUSINESS_LOCATION,
   BUSINESS_HOURS,
+  PHONE_NUMBER,
+  PHONE_DISPLAY,
   MAP_EMBED_URL,
   locationAreas,
   categories,
@@ -24,6 +25,8 @@ import {
   slugify,
   resourceGuides,
 } from './siteData';
+
+const ImageToolWorkspace = lazy(() => import('./ImageTools').then((m) => ({ default: m.ImageToolWorkspace })));
 
 const navItems = [
   ['Home', '/'],
@@ -364,6 +367,7 @@ function Footer({ navigate }) {
         </div>
         <div>
           <h3>Contact</h3>
+          <a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a>
           <p className="footer-meta-item">{BUSINESS_LOCATION}</p>
           <p className="footer-meta-item">{BUSINESS_HOURS}</p>
           <a href="/privacy-policy" onClick={(event) => handleLink(event, '/privacy-policy', navigate)}>Privacy Policy</a>
@@ -779,7 +783,9 @@ function ImageToolPage({ route, navigate }) {
       <Section className="tool-section">
         <div id="tool" />
         <div className="tool-layout">
-          <ImageToolWorkspace slug={item.slug} />
+          <Suspense fallback={<div className="tool-panel">Loading tool…</div>}>
+            <ImageToolWorkspace slug={item.slug} />
+          </Suspense>
           <aside className="tool-aside">
             <div className="mini-panel">
               <h2>Need a faster website?</h2>
@@ -1846,6 +1852,7 @@ function DiscoveryCallPage({ navigate }) {
             <h2>Location & hours</h2>
             <p>Based in {BUSINESS_LOCATION}, working with businesses across the UK.</p>
             <p>{BUSINESS_HOURS}</p>
+            <p><a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a></p>
             <a className="button button-secondary" href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>
             <div className="map-embed-wrap">
               <iframe

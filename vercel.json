@@ -3,7 +3,7 @@
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "deanburt-dev.vercel.app" }],
-      "destination": "https://dean-da-dev.co.uk/:path*",
+      "destination": "https://www.dean-da-dev.co.uk/:path*",
       "permanent": true
     }
   ],
@@ -11,6 +11,19 @@
     {
       "source": "/((?!sitemap.xml|robots.txt|favicon.svg|icons.svg|images/.*|assets/.*).*)",
       "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://us-central1-coding-leads-38d68.cloudfunctions.net; frame-src https://coding-leads.vercel.app https://www.google.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+        },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
     }
   ]
 }
