@@ -108,12 +108,22 @@ const server = await startStaticServer();
 try {
   const browser = await launchBrowser();
   const page = await browser.newPage();
+
+  // The crawl only needs the DOM, not real fonts/maps/booking widgets — block
+  // third-party requests so a slow or hanging external host (Google Fonts,
+  // the Maps embed, the booking iframe) can't stall every single page.
+  await page.setRequestInterception(true);
+  page.on('request', (req) => {
+    if (new URL(req.url()).hostname === 'localhost') req.continue();
+    else req.abort();
+  });
+
   const allRoutes = [{ path: '/' }, ...routes];
 
   for (const route of allRoutes) {
     const url = `http://localhost:${PORT}${route.path}`;
-    await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
-    await page.waitForSelector('footer', { timeout: 10000 }).catch(() => {});
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 15000 });
+    await page.waitForSelector('footer', { timeout: 5000 }).catch(() => {});
     const html = await page.content();
 
     const outPath = route.path === '/'

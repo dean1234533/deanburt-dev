@@ -1,4 +1,9 @@
 {
+  "build": {
+    "env": {
+      "PUPPETEER_SKIP_DOWNLOAD": "true"
+    }
+  },
   "redirects": [
     {
       "source": "/:path*",

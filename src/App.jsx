@@ -399,7 +399,7 @@ function HomePage({ navigate }) {
       <Hero
         eyebrow="Dean Da Dev"
         title="Apps, websites, AI tools, and automations built to win business."
-        copy="UK full-stack developer. 6 live apps shipped. I handle everything — design, build, deployment, and App Store submission — without agency prices."
+        copy="UK full-stack developer. 7 live apps shipped. I handle everything — design, build, deployment, and App Store submission — without agency prices."
         primary={['Book a discovery call', BOOKING_URL]}
         secondary={['View live work', '/portfolio']}
         navigate={navigate}
@@ -432,10 +432,43 @@ function HomePage({ navigate }) {
           <Button href="/free-tools" navigate={navigate}>Open the Tools Hub</Button>
         </div>
       </Section>
+      <Section>
+        <SectionHeader eyebrow="FAQ" title="Questions before you get in touch." />
+        <FAQList faqs={HOME_FAQS} />
+      </Section>
+      <Section tone="dark">
+        <SectionHeader eyebrow="Get in touch" title="Send a message or find Dean Da Dev on Google." copy="Prefer to write instead of booking a call? Send the details below." />
+        <div className="contact-page-layout">
+          <ContactForm title="Send a message" copy="Tell me a bit about what you need — I'll reply personally, usually within a day." />
+          <aside className="mini-panel">
+            <h2>Dean Da Dev</h2>
+            <p>Based in {BUSINESS_LOCATION}, working with businesses across the UK.</p>
+            <p>{BUSINESS_HOURS}</p>
+            <p><a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a></p>
+            <a className="button button-secondary" href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>
+            <div className="map-embed-wrap">
+              <iframe
+                title="Dean Da Dev location map"
+                src={MAP_EMBED_URL}
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+          </aside>
+        </div>
+      </Section>
       <LeadCTA />
     </>
   );
 }
+
+const HOME_FAQS = [
+  { q: 'How much does a website or app cost?', a: 'Websites start from £249, AI tools from £2,999, and app MVPs from £4,999. Every project gets a fixed price agreed up front after a short discovery call — see the pricing page for a full breakdown.' },
+  { q: 'How long does a project take?', a: 'Most website builds take 1-3 weeks. App MVPs and AI tools typically take 4-8 weeks depending on scope, integrations, and revisions.' },
+  { q: 'Do you work with businesses outside London?', a: `Yes. Dean Da Dev is based in ${BUSINESS_LOCATION} but works remotely with businesses across the whole UK — location is never a barrier to starting a project.` },
+  { q: 'What happens on a discovery call?', a: "It's a short, no-obligation conversation about what you're trying to build, your budget, and your timeline. You'll leave with a clear next step, whether that's a quote or just some honest advice." },
+  { q: 'Do I own the finished website, app, or tool?', a: 'Yes. Once a project is paid for, the code, design, and any accounts set up for it belong to you.' },
+];
 
 function Hero({ eyebrow, title, copy, primary, secondary, navigate }) {
   return (
@@ -454,7 +487,7 @@ function Hero({ eyebrow, title, copy, primary, secondary, navigate }) {
           <Button href={secondary[1]} variant="secondary" navigate={navigate}>{secondary[0]}</Button>
         </div>
         <div className="trust-strip" aria-label="Key credentials">
-          {['6 live apps shipped', 'Google Play publisher', 'UK-based developer', '4–8 week delivery'].map((item) => <span key={item}>{item}</span>)}
+          {['7 live apps shipped', 'UK-based developer', '4–8 week delivery'].map((item) => <span key={item}>{item}</span>)}
         </div>
       </div>
     </section>
@@ -1419,7 +1452,7 @@ function AboutPage({ navigate }) {
       <Hero
         eyebrow="About Dean Da Dev"
         title="UK developer who builds and ships real products, not mockups."
-        copy="6 live apps. Google Play publisher. Full-stack from design to deployment — without agency overhead."
+        copy="7 live apps shipped. Full-stack from design to deployment — without agency overhead."
         primary={['Book a discovery call', BOOKING_URL]}
         secondary={['See live work', '/portfolio']}
         navigate={navigate}
@@ -1433,9 +1466,9 @@ function AboutPage({ navigate }) {
             <p className="eyebrow">Dean Burt · Founder</p>
             <h2>Building production-grade apps and websites for UK businesses.</h2>
             <p>Dean Burt is a UK-based full-stack developer who designs, builds, and ships mobile apps, websites, AI tools, and dashboards for local businesses and early-stage founders. Every project is handled end to end — from initial scope and UX through development, App Store submission, and deployment.</p>
-            <p>With 6 live production apps, a Google Play publisher account, and a track record of shipping in 4–8 weeks, Dean Da Dev offers the expertise of an agency at a fraction of the price. No account managers, no handoffs, no delays — just a direct line to the developer building your product.</p>
+            <p>With 7 live production apps and a track record of shipping in 4–8 weeks, Dean Da Dev offers the expertise of an agency at a fraction of the price. No account managers, no handoffs, no delays — just a direct line to the developer building your product.</p>
             <div className="about-stats">
-              {[['6', 'Live apps shipped'], ['4–8 wk', 'Average time to launch'], ['100%', 'Handled end to end'], ['UK', 'Based and built here']].map(([n, l]) => (
+              {[['7', 'Live apps shipped'], ['4–8 wk', 'Average time to launch'], ['100%', 'Handled end to end'], ['UK', 'Based and built here']].map(([n, l]) => (
                 <div key={l} className="about-stat">
                   <strong>{n}</strong>
                   <span>{l}</span>
@@ -1483,6 +1516,22 @@ const MY_PRODUCTS = [
     img: '/images/4.jpg',
     desc: 'A personal AI fitness trainer that generates custom workout plans, tracks progress, and adapts its recommendations to the user over time. Built for DB\'s Workouts.',
     tags: ['React', 'AI', 'Firebase'],
+  },
+  {
+    name: 'Growth Audit',
+    tag: 'AI App',
+    url: 'https://app.dean-da-dev.co.uk/',
+    img: '/images/3.jpg',
+    desc: 'A free, AI-powered website growth audit tool that scans a business website for SEO, speed, and trust issues and returns prioritised, actionable fixes in under 30 seconds.',
+    tags: ['React', 'AI', 'SEO'],
+  },
+  {
+    name: 'AI Growth Platform',
+    tag: 'AI App',
+    url: 'https://ai-business-growth-platform.pages.dev/',
+    img: '/images/7.jpg',
+    desc: 'An AI-driven lead discovery platform that scans the web for businesses matching a target profile and helps sales teams find and reach prospective customers faster.',
+    tags: ['React', 'AI', 'Cloudflare'],
   },
 ];
 
