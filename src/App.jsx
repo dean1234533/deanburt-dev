@@ -13,6 +13,7 @@ import {
   BUSINESS_HOURS,
   PHONE_NUMBER,
   PHONE_DISPLAY,
+  WHATSAPP_URL,
   MAP_EMBED_URL,
   locationAreas,
   categories,
@@ -75,8 +76,19 @@ function App() {
           <route.Component navigate={navigate} route={route} />
         </main>
         <Footer navigate={navigate} />
+        <StickyMobileCTA />
       </div>
     </ContactModalProvider>
+  );
+}
+
+function StickyMobileCTA() {
+  return (
+    <div className="sticky-mobile-cta" aria-label="Quick contact">
+      <a className="sticky-mobile-cta-link" href={`tel:${PHONE_NUMBER}`}>Call</a>
+      <a className="sticky-mobile-cta-link" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a className="sticky-mobile-cta-link primary" href={BOOKING_URL}>Book a call</a>
+    </div>
   );
 }
 
@@ -368,6 +380,7 @@ function Footer({ navigate }) {
         <div>
           <h3>Contact</h3>
           <a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a>
+          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp</a>
           <p className="footer-meta-item">{BUSINESS_LOCATION}</p>
           <p className="footer-meta-item">{BUSINESS_HOURS}</p>
           <a href="/privacy-policy" onClick={(event) => handleLink(event, '/privacy-policy', navigate)}>Privacy Policy</a>
@@ -454,7 +467,7 @@ function HomePage({ navigate }) {
               ))}
               .
             </p>
-            <p><a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a></p>
+            <p><a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a> · <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
             <a className="button button-secondary" href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>
             <div className="map-embed-wrap">
               <iframe
@@ -497,7 +510,7 @@ function Hero({ eyebrow, title, copy, primary, secondary, navigate }) {
           <Button href={secondary[1]} variant="secondary" navigate={navigate}>{secondary[0]}</Button>
         </div>
         <div className="trust-strip" aria-label="Key credentials">
-          {['7 live apps shipped', 'UK-based developer', '4–8 week delivery'].map((item) => <span key={item}>{item}</span>)}
+          {['7 live apps shipped', 'UK-based developer', 'Fixed-price guarantee', 'Free, no-obligation consultation', '4–8 week delivery'].map((item) => <span key={item}>{item}</span>)}
         </div>
       </div>
     </section>
@@ -1911,7 +1924,7 @@ function DiscoveryCallPage({ navigate }) {
             <h2>Location & hours</h2>
             <p>Based in {BUSINESS_LOCATION}, working with businesses across the UK.</p>
             <p>{BUSINESS_HOURS}</p>
-            <p><a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a></p>
+            <p><a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a> · <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">WhatsApp</a></p>
             <a className="button button-secondary" href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>
             <div className="map-embed-wrap">
               <iframe

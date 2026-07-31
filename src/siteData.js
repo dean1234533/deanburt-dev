@@ -6,6 +6,7 @@ export const BUSINESS_LOCATION = 'Stratford, London E15';
 export const BUSINESS_HOURS = 'Mon–Fri, 9am–5pm (UK)';
 export const PHONE_NUMBER = '+447752300937';
 export const PHONE_DISPLAY = '+44 7752 300937';
+export const WHATSAPP_URL = 'https://wa.me/447752300937';
 export const MAP_EMBED_URL = 'https://www.google.com/maps?q=Stratford,+London&output=embed';
 
 export const locationAreas = [
