@@ -362,7 +362,7 @@ function Footer({ navigate }) {
           <a href={BOOKING_URL}>Book a discovery call</a>
           <button type="button" className="footer-link-button" onClick={openContactModal}>Request a quote</button>
           <a href="/portfolio" onClick={(event) => handleLink(event, '/portfolio', navigate)}>View portfolio</a>
-          <a href="https://www.instagram.com/deandadev123" target="_blank" rel="noopener noreferrer" aria-label="Dean Da Dev on Instagram">Instagram @deandadev123</a>
+          <a href="https://www.instagram.com/deanda.dev" target="_blank" rel="noopener noreferrer" aria-label="Dean Da Dev on Instagram">Instagram @deanda.dev</a>
           <a href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>
         </div>
         <div>
@@ -444,6 +444,16 @@ function HomePage({ navigate }) {
             <h2>Dean Da Dev</h2>
             <p>Based in {BUSINESS_LOCATION}, working with businesses across the UK.</p>
             <p>{BUSINESS_HOURS}</p>
+            <p>
+              Also serving{' '}
+              {locationAreas.filter((a) => a.slug !== 'stratford').map((area, index, arr) => (
+                <span key={area.slug}>
+                  <a href={`/areas/${area.slug}`} onClick={(event) => handleLink(event, `/areas/${area.slug}`, navigate)}>{area.name}</a>
+                  {index < arr.length - 1 ? ', ' : ''}
+                </span>
+              ))}
+              .
+            </p>
             <p><a href={`tel:${PHONE_NUMBER}`}>{PHONE_DISPLAY}</a></p>
             <a className="button button-secondary" href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>
             <div className="map-embed-wrap">
@@ -476,7 +486,7 @@ function Hero({ eyebrow, title, copy, primary, secondary, navigate }) {
       <div className="hero-bg" />
       <div className="hero-content">
         <div className="founder-chip">
-          <img src="/images/dean.png" alt="Dean Burt, founder of Dean Da Dev" />
+          <img src="/images/dean.webp" alt="Dean Burt, founder of Dean Da Dev" />
           <span>Built by Dean Burt</span>
         </div>
         <p className="eyebrow">{eyebrow}</p>
@@ -1460,7 +1470,7 @@ function AboutPage({ navigate }) {
       <Section>
         <div className="about-layout">
           <div className="about-photo">
-            <img src="/images/dean.png" alt="Dean Burt, founder of Dean Da Dev, UK full-stack developer" />
+            <img src="/images/dean.webp" alt="Dean Burt, founder of Dean Da Dev, UK full-stack developer" />
           </div>
           <div className="about-bio">
             <p className="eyebrow">Dean Burt · Founder</p>
@@ -2113,7 +2123,7 @@ function BlogPostPage({ route, navigate }) {
               <FAQList faqs={post.faqs.map(([q, a]) => ({ q, a }))} />
             </section>
             <section className="author-box">
-              <img src="/images/dean.png" alt="Dean from dean-da-dev" loading="lazy" />
+              <img src="/images/dean.webp" alt="Dean from dean-da-dev" loading="lazy" />
               <div>
                 <h2>{post.author}</h2>
                 <p>{post.authorBio}</p>
