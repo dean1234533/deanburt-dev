@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dean Da Dev - Luxury Instagram Studio & Exporter</title>
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <!-- HTML to Image CDN for High-Res PNG Export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
+  <!-- Lucide Icons for UI -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-studio: #0e0e11;
+      --bg-card-studio: #16161c;
+      --gold-primary: #D4AF37;
+      --gold-bright: #FBE698;
+      --gold-dark: #8C6F1E;
+      --gold-gradient: linear-gradient(135deg, #FFFFFF 0%, #D4AF37 50%, #A8791B 100%);
+      --gold-shimmer: linear-gradient(90deg, #D4AF37 0%, #FFF3B8 50%, #D4AF37 100%);
+      --gold-subtle: rgba(212, 175, 55, 0.15);
+      --glass-border: rgba(212, 175, 55, 0.28);
+      --glass-bg: rgba(20, 20, 24, 0.65);
+      --text-white: #FFFFFF;
+      --text-muted: rgba(255, 255, 255, 0.65);
+      --text-dim: rgba(255, 255, 255, 0.45);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-studio);
+      color: var(--text-white);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 80px;
+    }
+
+    /* --- STUDIO CONTROLS NAV --- */
+    .studio-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(14, 14, 17, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .studio-brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .studio-brand h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .studio-badge {
+      background: var(--gold-subtle);
+      border: 1px solid var(--glass-border);
+      color: var(--gold-primary);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .studio-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      cursor: pointer;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 12px;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #E6C158 0%, #B89128 100%);
+      border: 1px solid #FFE494;
+      color: #000;
+      box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+    }
+
+    /* --- GALLERY GRID & PREVIEW CONTAINER --- */
+    .gallery-container {
+      max-width: 1700px;
+      margin: 40px auto 0;
+      padding: 0 40px;
+    }
+
+    .gallery-info {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .gallery-info h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .gallery-info p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .view-mode-toggle {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+      gap: 10px;
+    }
+
+    .toggle-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.6);
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .toggle-btn.active {
+      background: var(--gold-subtle);
+      border-color: var(--gold-primary);
+      color: var(--gold-primary);
+    }
+
+    /* Grid view scale */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 50px;
+      justify-items: center;
+    }
+
+    .posts-grid.zoom-mode {
+      grid-template-columns: 1fr;
+      gap: 80px;
+    }
+
+    .post-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      position: relative;
+    }
+
+    .post-meta-bar {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .post-title-tag {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--gold-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .post-num-badge {
+      background: var(--gold-subtle);
+      color: #fff;
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+
+    /* SCALE LOGIC FOR SCREEN vs EXPORT */
+    .canvas-container {
+      width: 1080px;
+      height: 1350px;
+      transform-origin: top center;
+      transition: transform 0.3s ease;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(212, 175, 55, 0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #000;
+      position: relative;
+    }
+
+    .posts-grid:not(.zoom-mode) .canvas-container {
+      transform: scale(0.35);
+      margin-bottom: -877.5px; /* 1350 * (1 - 0.35) = 877.5 */
+    }
+
+    .posts-grid.zoom-mode .canvas-container {
+      transform: scale(0.85);
+      margin-bottom: -202.5px;
+    }
+
+    /* =========================================================================
+       UNIVERSAL INSTAGRAM POST 1080x1350 STYLES
+       ========================================================================= */
+    .post-canvas {
+      width: 1080px;
+      height: 1350px;
+      background-color: #040406;
+      background-image:
+        radial-gradient(circle at 90% 10%, rgba(212, 175, 55, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 10% 90%, rgba(212, 175, 55, 0.08) 0%, transparent 45%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 48px 48px, 48px 48px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 70px 70px 65px 70px;
+      box-sizing: border-box;
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Ambient Luxury Light Orb */
+    .orb-glow {
+      position: absolute;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.09) 0%, transparent 70%);
+      pointer-events: none;
+      top: 30%;
+      left: 20%;
+    }
+
+    /* --- BRANDING HEADER --- */
+    .post-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 28px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-mark {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #1A1A22 0%, #0A0A0E 100%);
+      border: 1px solid var(--gold-primary);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.35), inset 0 0 10px rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 28px;
+      color: var(--gold-primary);
+      letter-spacing: -1px;
+    }
+
+    .logo-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #ffffff;
+    }
+
+    .logo-text span {
+      color: var(--gold-primary);
+    }
+
+    .tagline-badge {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 22px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* --- MAIN CONTENT CENTER AREA --- */
+    .post-body {
+      position: relative;
+      z-index: 10;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 35px 0;
+      gap: 35px;
+    }
+
+    .post-title-section {
+      max-width: 900px;
+    }
+
+    .post-h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 60px;
+      font-weight: 900;
+      line-height: 1.12;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .gold-highlight {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .post-subtitle {
+      font-size: 21px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 850px;
+      font-weight: 500;
+    }
+
+    /* --- BENEFITS LIST --- */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .benefits-grid.single-col {
+      grid-template-columns: 1fr;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      padding: 18px 24px;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.2s;
+    }
+
+    .benefit-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--gold-subtle);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold-primary);
+      flex-shrink: 0;
+    }
+
+    .benefit-text {
+      font-size: 19px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.3px;
+    }
+
+    /* --- BRANDING FOOTER CTA BAR --- */
+    .post-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+      background: rgba(18, 18, 24, 0.85);
+      border: 1px solid var(--glass-border);
+      padding: 24px 34px;
+      border-radius: 22px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(212, 175, 55, 0.08);
+      backdrop-filter: blur(20px);
+    }
+
+    .cta-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .pulse-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--gold-primary);
+      box-shadow: 0 0 15px var(--gold-primary);
+    }
+
+    .cta-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 23px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .cta-website {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold-primary);
+      color: #000000;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      padding: 12px 26px;
+      border-radius: 14px;
+      text-transform: lowercase;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    }
+
+    /* =========================================================================
+       CUSTOM HIGH-END CSS VISUAL MOCKUPS FOR EACH POST
+       ========================================================================= */
+
+    /* Laptop Frame Mockup */
+    .mockup-laptop {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .laptop-screen {
+      background: #0D0D11;
+      border-radius: 16px 16px 0 0;
+      border: 3px solid #2B2B36;
+      border-bottom: none;
+      padding: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 35px rgba(212, 175, 55, 0.12);
+    }
+
+    .laptop-top-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .mac-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #3A3A46;
+    }
+    .mac-dot.red { background: #FF5F56; }
+    .mac-dot.yellow { background: #FFBD2E; }
+    .mac-dot.green { background: #27C93F; }
+
+    .laptop-content {
+      background: #15151C;
+      border-radius: 10px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      padding: 20px;
+      height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .laptop-base {
+      height: 18px;
+      background: linear-gradient(180deg, #2D2D38 0%, #1A1A22 100%);
+      border-radius: 0 0 16px 16px;
+      border-top: 2px solid #3E3E4C;
+      position: relative;
+    }
+    .laptop-base::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 6px;
+      background: #141419;
+      border-radius: 0 0 6px 6px;
+    }
+
+    /* Phone Frame Mockup */
+    .mockup-phone {
+      width: 260px;
+      height: 480px;
+      background: #0E0E13;
+      border-radius: 40px;
+      border: 4px solid #2E2E3A;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.9), 0 0 30px rgba(212, 175, 55, 0.2);
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .phone-notch {
+      width: 110px;
+      height: 24px;
+      background: #000;
+      border-radius: 0 0 14px 14px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .phone-screen {
+      background: #14141C;
+      height: 100%;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 26px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+
+    /* Glass Cards */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 18px;
+      padding: 24px;
+      backdrop-filter: blur(16px);
+    }
+
+    /* Custom layout for Post 1 (Laptop + Phone overlap) */
+    .post1-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 330px;
+    }
+
+    .post1-phone {
+      position: absolute;
+      right: 30px;
+      bottom: -10px;
+      transform: rotate(-4deg);
+      z-index: 5;
+    }
+
+    /* Split Screen Before / After (Post 3) */
+    .split-screen {
+      display: flex;
+      gap: 20px;
+      height: 320px;
+    }
+    .split-panel {
+      flex: 1;
+      border-radius: 18px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .panel-old {
+      background: #111113;
+      border: 1px dashed rgba(255, 85, 85, 0.4);
+      opacity: 0.7;
+    }
+    .panel-new {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(18, 18, 24, 0.9) 100%);
+      border: 1px solid var(--gold-primary);
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
+    }
+    .status-tag {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 100px;
+      width: fit-content;
+      text-transform: uppercase;
+    }
+    .tag-old { background: rgba(255,85,85,0.2); color: #FF5555; border: 1px solid #FF5555; }
+    .tag-new { background: var(--gold-primary); color: #000; font-weight: 900; }
+
+    /* Workflow diagram (Post 7) */
+    .workflow-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      padding: 20px 10px;
+    }
+    .workflow-node {
+      background: #14141C;
+      border: 1px solid var(--gold-primary);
+      border-radius: 16px;
+      padding: 20px 24px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(212,175,55,0.15);
+      z-index: 2;
+    }
+    .workflow-line {
+      flex-grow: 1;
+      height: 2px;
+      background: linear-gradient(90deg, #333, var(--gold-primary), #333);
+      position: relative;
+      z-index: 1;
+    }
+    .workflow-line::after {
+      content: '►';
+      color: var(--gold-primary);
+      position: absolute;
+      right: -6px;
+      top: -8px;
+    }
+
+    /* Process timeline (Post 12) */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .timeline-step {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid rgba(212, 175, 55, 0.25);
+      border-radius: 16px;
+      padding: 22px;
+      position: relative;
+    }
+    .step-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--gold-primary);
+      opacity: 0.4;
+      position: absolute;
+      top: 15px;
+      right: 20px;
+    }
+
+    /* FAQ accordion styling (Post 13) */
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .faq-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    /* Analytics Dashboard (Post 14 & 9) */
+    .chart-box {
+      background: #121218;
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    }
+
+    .metric-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(46, 213, 115, 0.12);
+      border: 1px solid rgba(46, 213, 115, 0.3);
+      color: #2ED573;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    /* Code Terminal (Post 10) */
+    .terminal-box {
+      background: #0B0B0F;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    }
+    .code-key { color: var(--gold-primary); font-weight: 700; }
+    .code-val { color: #50E3C2; }
+    .code-comment { color: rgba(255,255,255,0.4); }
+  </style>
+</head>
+<body>
+
+  <!-- STUDIO CONTROLS HEADER -->
+  <header class="studio-header">
+    <div class="studio-brand">
+      <h1>DEAN DA DEV</h1>
+      <span class="studio-badge">Luxury Social Studio · 14 Posts</span>
+    </div>
+    <div class="studio-actions">
+      <button class="btn btn-secondary" onclick="exportAll()">
+        <i data-lucide="download-cloud"></i> Export All 14 Posts (PNGs)
+      </button>
+      <a href="https://dean-da-dev.co.uk" target="_blank" class="btn btn-primary">
+        <i data-lucide="external-link"></i> dean-da-dev.co.uk
+      </a>
+    </div>
+  </header>
+
+  <!-- GALLERY SECTION -->
+  <main class="gallery-container">
+    <div class="gallery-info">
+      <h2>1080 × 1350 High-Resolution Agency Feed</h2>
+      <p>Click "Download PNG" on any post to generate pixel-perfect Instagram Portrait graphics in pure 100% vector resolution.</p>
+    </div>
+
+    <div class="view-mode-toggle">
+      <button class="toggle-btn active" id="btn-grid" onclick="setViewMode('grid')">Gallery Grid View (Scaled)</button>
+      <button class="toggle-btn" id="btn-zoom" onclick="setViewMode('zoom')">100% Full Inspection Mode (1080×1350)</button>
+    </div>
+
+    <!-- POSTS GRID -->
+    <div class="posts-grid" id="grid">
+
+      <!-- ==========================================
+           POST 1: SERVICES
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">01</span> Services Feed Cover</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-1', '01_Services_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-1">
+            <div class="orb-glow" style="top:20%; left:30%;"></div>
+            <!-- HEADER -->
+            <div class="post-header">
+              <div class="brand-logo">
+                <div class="logo-mark">D</div>
+                <div class="logo-text">DEAN DA <span>DEV</span></div>
+              </div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <!-- BODY -->
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Everything Your Business Needs To <span class="gold-highlight">Grow Online</span></h1>
+                <p class="post-subtitle">End-to-end custom digital architecture designed to elevate your brand, automate workflows, and maximize local revenue.</p>
+              </div>
+
+              <!-- Visual: Laptop + Phone Overlap -->
+              <div class="post1-visual">
+                <div class="mockup-laptop" style="width: 580px; margin-left: -180px;">
+                  <div class="laptop-screen">
+                    <div class="laptop-top-bar"><div class="mac-dot red"></div><div class="mac-dot yellow"></div><div class="mac-dot green"></div></div>
+                    <div class="laptop-content">
+                      <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                        <span style="font-weight:800; color:#D4AF37;">PORTAL v3.0</span>
+                        <span style="font-size:12px; background:rgba(212,175,55,0.2); color:#D4AF37; padding:4px 10px; border-radius:10px;">Live Server 99.9%</span>
+                      </div>
+                      <div style="font-size:24px; font-weight:800; color:#fff;">High-Converting Custom Web Applications</div>
+                      <div style="display:flex; gap:10px;">
+                        <div style="flex:1; height:40px; background:rgba(255,255,255,0.05); border-radius:6px; border:1px solid rgba(255,255,255,0.1);"></div>
+                        <div style="flex:1; height:40px; background:var(--gold-subtle); border-radius:6px; border:1px solid var(--gold-primary);"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="laptop-base"></div>
+                </div>
+
+                <div class="mockup-phone post1-phone" style="width: 280px; height: 360px;">
+                  <div class="phone-notch"></div>
+                  <div class="phone-screen" style="justify-content: center;">
+                    <div style="font-weight:800; font-size:16px; color:#D4AF37; text-align:center; margin-bottom:10px;">BOOKING SOFTWARE</div>
+                    <div style="background:#22222E; padding:12px; border-radius:12px; border:1px solid #3A3A4A;">
+                      <div style="font-size:14px; font-weight:700;">New Appointment! 🔒</div>
+                      <div style="font-size:12px; color:#aaa;">VIP Consultation · £75.00 Paid</div>
+                    </div>
+                    <div style="background:var(--gold-primary); color:#000; font-weight:800; text-align:center; padding:12px; border-radius:12px;">Confirm Slot →</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 8 Benefits Grid -->
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="layout-grid"></i></div><span class="benefit-text">Custom Websites</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="refresh-cw"></i></div><span class="benefit-text">Website Redesigns</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="calendar"></i></div><span class="benefit-text">Booking Systems</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="users"></i></div><span class="benefit-text">Live Queue Systems</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="credit-card"></i></div><span class="benefit-text">Deposit Systems</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="cpu"></i></div><span class="benefit-text">Business Automation</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="shield-check"></i></div><span class="benefit-text">Website Maintenance</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="search"></i></div><span class="benefit-text">SEO & Google Visibility</span></div>
+              </div>
+            </div>
+            <!-- FOOTER CTA -->
+            <div class="post-footer">
+              <div class="cta-left">
+                <div class="pulse-dot"></div>
+                <span class="cta-text">Book your FREE consultation today.</span>
+              </div>
+              <div class="cta-website">
+                <i data-lucide="globe"></i> dean-da-dev.co.uk
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 2: CUSTOM WEBSITES
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">02</span> Custom Websites</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-2', '02_Custom_Websites_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-2">
+            <div class="orb-glow" style="top:50%; right:10%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Custom Websites That Turn <span class="gold-highlight">Visitors Into Customers</span></h1>
+                <p class="post-subtitle">Bespoke, hand-crafted web solutions built to outperform competitors, load instantaneously, and convert visitors seamlessly.</p>
+              </div>
+
+              <!-- Visual: Laptop with Responsive Phone Mock -->
+              <div style="display:flex; align-items:center; justify-content:center; gap:25px; margin: 10px 0;">
+                <div class="mockup-laptop" style="max-width:550px; margin:0;">
+                  <div class="laptop-screen">
+                    <div class="laptop-top-bar"><div class="mac-dot red"></div><div class="mac-dot yellow"></div><div class="mac-dot green"></div></div>
+                    <div class="laptop-content" style="background:linear-gradient(135deg, #181820 0%, #0D0D12 100%);">
+                      <div style="color:#D4AF37; font-weight:800; font-size:18px;">PREMIUM AGENCY UI</div>
+                      <div style="font-size:26px; font-weight:900;">Built For Speed & Conversions</div>
+                      <div style="display:flex; gap:8px;"><div style="background:#D4AF37; padding:8px 16px; border-radius:8px; font-weight:800; color:#000;">Get Started</div></div>
+                    </div>
+                  </div>
+                  <div class="laptop-base"></div>
+                </div>
+                <div class="mockup-phone" style="width:230px; height:310px; flex-shrink:0;">
+                  <div class="phone-notch"></div>
+                  <div class="phone-screen" style="justify-content:center; text-align:center;">
+                    <i data-lucide="smartphone" style="color:#D4AF37; margin:0 auto; width:36px; height:36px;"></i>
+                    <div style="font-weight:800; color:#fff;">Responsive UI</div>
+                    <div style="font-size:12px; color:#aaa;">Flawless across all iOS & Android devices.</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="smartphone"></i></div><span class="benefit-text">Mobile Friendly</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="zap"></i></div><span class="benefit-text">Lightning Fast</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="search"></i></div><span class="benefit-text">SEO Ready</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="trending-up"></i></div><span class="benefit-text">Built To Convert</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="lock"></i></div><span class="benefit-text">Secure & SSL Encrypted</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="palette"></i></div><span class="benefit-text">Designed Around Your Brand</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 3: WEBSITE REDESIGNS
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">03</span> Website Redesigns</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-3', '03_Website_Redesigns_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-3">
+            <div class="orb-glow" style="top:40%; left:10%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Your Website Deserves <span class="gold-highlight">An Upgrade</span></h1>
+                <p class="post-subtitle">Transform outdated, slow, and low-converting websites into state-of-the-art digital powerhouses that demand authority and build trust.</p>
+              </div>
+
+              <!-- Split Screen Before vs After -->
+              <div class="split-screen">
+                <div class="split-panel panel-old">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="status-tag tag-old">BEFORE REDESIGN</span>
+                    <i data-lucide="alert-triangle" style="color:#FF5555;"></i>
+                  </div>
+                  <div style="text-align:center; padding:15px 0;">
+                    <div style="font-weight:700; font-size:24px; color:#aaa; text-decoration:line-through;">Cluttered Layout</div>
+                    <div style="color:#FF5555; font-size:16px; margin-top:8px;">Slow Load Times (4.2s) · High Bounce Rate</div>
+                  </div>
+                  <div style="background:#202025; padding:12px; border-radius:8px; color:#888; font-size:13px; text-align:center;">Unresponsive Mobile Display ❌</div>
+                </div>
+                <div class="split-panel panel-new">
+                  <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span class="status-tag tag-new">DEAN DA DEV REDESIGN ✨</span>
+                    <span style="color:var(--gold-primary); font-weight:800; font-size:14px;">Score 100/100</span>
+                  </div>
+                  <div style="text-align:center; padding:15px 0;">
+                    <div style="font-weight:900; font-size:26px; color:#fff;">Modern Glassmorphism</div>
+                    <div style="color:#2ED573; font-weight:700; font-size:16px; margin-top:8px;">Instant Speed (0.3s) · Higher Conversions</div>
+                  </div>
+                  <div style="background:var(--gold-primary); padding:12px; border-radius:8px; color:#000; font-weight:800; font-size:14px; text-align:center;">Flawless Responsive Experience 🚀</div>
+                </div>
+              </div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="sparkles"></i></div><span class="benefit-text">Modern Design</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="thumbs-up"></i></div><span class="benefit-text">Better User Experience</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="smartphone"></i></div><span class="benefit-text">Mobile Optimised</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="fast-forward"></i></div><span class="benefit-text">Faster Speed</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="trending-up"></i></div><span class="benefit-text">More Leads</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="award"></i></div><span class="benefit-text">Higher Trust</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 4: BOOKING SYSTEMS
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">04</span> Booking Systems</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-4', '04_Booking_Systems_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-4">
+            <div class="orb-glow" style="top:20%; right:25%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Let Customers <span class="gold-highlight">Book 24/7</span></h1>
+                <p class="post-subtitle">Stop playing telephone tag. Automate your appointments with a luxury booking engine that syncs directly with your schedule and sends instant SMS reminders.</p>
+              </div>
+
+              <!-- Luxury Appointment Booking Interface Mockup -->
+              <div class="glass-card" style="max-width: 760px; margin: 10px auto; width:100%; border:1px solid var(--gold-primary); background:rgba(18,18,25,0.85);">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:16px; margin-bottom:18px;">
+                  <div>
+                    <div style="font-size:22px; font-weight:800; color:#fff;">Select Your Appointment Slot</div>
+                    <div style="font-size:14px; color:var(--gold-primary);">Real-time live calendar availability</div>
+                  </div>
+                  <div style="background:rgba(212,175,55,0.2); color:var(--gold-primary); padding:6px 14px; border-radius:10px; font-weight:700;">OCTOBER 2026</div>
+                </div>
+                <div style="display:flex; gap:12px; margin-bottom:20px;">
+                  <div style="flex:1; padding:14px; background:rgba(255,255,255,0.04); border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.1);"><div style="font-size:13px; color:#aaa;">THU</div><div style="font-size:22px; font-weight:800;">14</div></div>
+                  <div style="flex:1; padding:14px; background:var(--gold-subtle); border-radius:12px; text-align:center; border:2px solid var(--gold-primary);"><div style="font-size:13px; color:var(--gold-primary); font-weight:800;">FRI (ACTIVE)</div><div style="font-size:22px; font-weight:900; color:#fff;">15</div></div>
+                  <div style="flex:1; padding:14px; background:rgba(255,255,255,0.04); border-radius:12px; text-align:center; border:1px solid rgba(255,255,255,0.1);"><div style="font-size:13px; color:#aaa;">SAT</div><div style="font-size:22px; font-weight:800;">16</div></div>
+                </div>
+                <div style="display:flex; gap:12px;">
+                  <div style="flex:2; display:flex; align-items:center; justify-content:center; gap:10px; background:rgba(255,255,255,0.05); border-radius:12px; font-weight:700;"><i data-lucide="clock" style="color:var(--gold-primary);"></i> 11:30 AM Slot Selected</div>
+                  <div style="flex:1; background:var(--gold-primary); color:#000; padding:16px; border-radius:12px; font-weight:900; text-align:center;">Confirm Slot 🔒</div>
+                </div>
+              </div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="calendar"></i></div><span class="benefit-text">Online Booking</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="bell"></i></div><span class="benefit-text">Automatic Reminders</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="refresh-cw"></i></div><span class="benefit-text">Calendar Sync</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="user-check"></i></div><span class="benefit-text">Reduce No Shows</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="sliders"></i></div><span class="benefit-text">Easy Management</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="clock"></i></div><span class="benefit-text">Save Hours of Admin Time</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 5: LIVE QUEUE SYSTEMS
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">05</span> Live Queue Systems</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-5', '05_Live_Queue_Systems_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-5">
+            <div class="orb-glow" style="top:45%; left:35%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Real-Time <span class="gold-highlight">Queue Management</span></h1>
+                <p class="post-subtitle">Eliminate crowded waiting rooms and frustated walk-ins. Give your customers instant live updates right on their mobile phones.</p>
+              </div>
+
+              <!-- Phone Showing Queue Position -->
+              <div style="display:flex; justify-content:center; margin: 5px 0;">
+                <div class="mockup-phone" style="width: 300px; height: 430px; background:#0B0B0E;">
+                  <div class="phone-notch"></div>
+                  <div class="phone-screen" style="justify-content: space-around;">
+                    <div style="text-align:center;">
+                      <span style="background:var(--gold-subtle); color:var(--gold-primary); padding:6px 16px; border-radius:20px; font-size:12px; font-weight:800; border:1px solid var(--gold-primary);">LIVE QUEUE TRACKER</span>
+                    </div>
+                    <div style="text-align:center;">
+                      <div style="font-size:14px; color:#aaa; margin-bottom:4px;">YOUR TICKET NUMBER</div>
+                      <div style="font-size:46px; font-weight:900; color:#fff; line-height:1;">#14</div>
+                      <div style="color:var(--gold-primary); font-weight:700; margin-top:8px; font-size:16px;">Currently Serving: #12</div>
+                    </div>
+                    <div style="background:#1B1B24; padding:14px; border-radius:14px; border:1px solid rgba(255,255,255,0.1); text-align:center;">
+                      <div style="font-size:13px; color:#2ED573; font-weight:800;">● EST. WAIT: 6 MINUTES</div>
+                      <div style="font-size:12px; color:#888; margin-top:4px;">We will notify you via SMS when ready.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="list-ordered"></i></div><span class="benefit-text">Live Queue Updates</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="smile"></i></div><span class="benefit-text">Better Customer Experience</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="clock"></i></div><span class="benefit-text">Less Waiting In Store</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="message-square"></i></div><span class="benefit-text">Real Time Notifications</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="smartphone"></i></div><span class="benefit-text">Works On Mobile</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="trending-up"></i></div><span class="benefit-text">Improve Efficiency</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 6: DEPOSIT SYSTEMS
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">06</span> Deposit Systems</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-6', '06_Deposit_Systems_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-6">
+            <div class="orb-glow" style="top:30%; right:20%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Reduce No Shows With <span class="gold-highlight">Deposit Systems</span></h1>
+                <p class="post-subtitle">Protect your valuable time and guaranteed revenue by collecting instant online deposits at the time of booking.</p>
+              </div>
+
+              <!-- Luxury Payment Interface -->
+              <div class="glass-card" style="max-width:680px; margin:10px auto; background:linear-gradient(135deg, #16161D 0%, #0E0E12 100%); border:1px solid var(--gold-primary); box-shadow:0 20px 60px rgba(0,0,0,0.8);">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:16px; margin-bottom:18px;">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <i data-lucide="shield-check" style="color:var(--gold-primary);"></i>
+                    <span style="font-weight:800; font-size:18px;">Stripe Secure Deposit Checkout</span>
+                  </div>
+                  <span style="color:#2ED573; font-weight:800; font-size:13px; background:rgba(46,213,115,0.15); padding:4px 12px; border-radius:20px;">🔒 256-Bit SSL</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); padding:18px; border-radius:12px; margin-bottom:20px;">
+                  <div>
+                    <div style="font-size:18px; font-weight:700;">Booking Deposit Commitment</div>
+                    <div style="color:#aaa; font-size:13px;">Deducted from final bill upon completion</div>
+                  </div>
+                  <div style="font-size:32px; font-weight:900; color:var(--gold-primary);">£25.00</div>
+                </div>
+                <div style="background:var(--gold-primary); color:#000; font-weight:900; font-size:20px; padding:16px; border-radius:14px; text-align:center; box-shadow:0 10px 25px rgba(212,175,55,0.3);">
+                  Authorize Deposit & Lock Appointment →
+                </div>
+              </div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="shield"></i></div><span class="benefit-text">Secure Deposits</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="credit-card"></i></div><span class="benefit-text">Online Payments</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="lock"></i></div><span class="benefit-text">Protect Revenue</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="check-circle-2"></i></div><span class="benefit-text">Appointment Commitment</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="zap"></i></div><span class="benefit-text">Stripe Integration</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="smile"></i></div><span class="benefit-text">Simple Fast Checkout</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 7: BUSINESS AUTOMATION
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">07</span> Business Automation</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-7', '07_Business_Automation_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-7">
+            <div class="orb-glow" style="top:50%; left:20%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Work Smarter With <span class="gold-highlight">Business Automation</span></h1>
+                <p class="post-subtitle">Put repetitive manual tasks on autopilot. We connect your website, CRM, email marketing, and SMS notifications into a seamless machine.</p>
+              </div>
+
+              <!-- Modern Workflow Diagram -->
+              <div class="workflow-container" style="margin: 15px 0;">
+                <div class="workflow-node">
+                  <i data-lucide="user-plus" style="color:var(--gold-primary); width:32px; height:32px; margin-bottom:10px;"></i>
+                  <div style="font-weight:800; font-size:16px;">1. Lead Capture</div>
+                  <div style="font-size:13px; color:#aaa;">Website Form Submit</div>
+                </div>
+                <div class="workflow-line"></div>
+                <div class="workflow-node" style="border-color:#2ED573; background:#111818;">
+                  <i data-lucide="cpu" style="color:#2ED573; width:32px; height:32px; margin-bottom:10px;"></i>
+                  <div style="font-weight:800; font-size:16px; color:#fff;">2. Automation AI</div>
+                  <div style="font-size:13px; color:#2ED573;">Instant Data Parsing</div>
+                </div>
+                <div class="workflow-line"></div>
+                <div class="workflow-node" style="border-color:var(--gold-primary);">
+                  <i data-lucide="mail" style="color:var(--gold-primary); width:32px; height:32px; margin-bottom:10px;"></i>
+                  <div style="font-weight:800; font-size:16px;">3. Instant Booking</div>
+                  <div style="font-size:13px; color:#aaa;">SMS & Email Sent ⚡</div>
+                </div>
+              </div>
+              <div style="text-align:center; color:var(--gold-primary); font-weight:800; font-size:16px;">✨ TIME SAVED: OVER 15 HOURS PER WEEK</div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="mail"></i></div><span class="benefit-text">Automated Emails</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="repeat"></i></div><span class="benefit-text">Customer Follow Ups</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="calendar-check"></i></div><span class="benefit-text">Booking Automation</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="git-branch"></i></div><span class="benefit-text">Workflow Automation</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="user-check"></i></div><span class="benefit-text">Lead Capture</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="clock"></i></div><span class="benefit-text">Massive Time Saving</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 8: WEBSITE MAINTENANCE
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">08</span> Website Maintenance</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-8', '08_Website_Maintenance_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-8">
+            <div class="orb-glow" style="top:25%; left:40%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Your Website <span class="gold-highlight">Never Sleeps</span></h1>
+                <p class="post-subtitle">Total peace of mind. We manage your hosting, security patches, daily backups, and speed optimizations so you can focus on running your business.</p>
+              </div>
+
+              <!-- Visual: Laptop with Shield Icon & Status -->
+              <div class="mockup-laptop" style="max-width:580px; margin: 5px auto;">
+                <div class="laptop-screen">
+                  <div class="laptop-top-bar"><div class="mac-dot red"></div><div class="mac-dot yellow"></div><div class="mac-dot green"></div></div>
+                  <div class="laptop-content" style="background:#0F1015; text-align:center; justify-content:center; gap:12px;">
+                    <div style="width:70px; height:70px; margin:0 auto; background:var(--gold-subtle); border:2px solid var(--gold-primary); border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 0 30px rgba(212,175,55,0.3);">
+                      <i data-lucide="shield-check" style="width:38px; height:38px; color:var(--gold-primary);"></i>
+                    </div>
+                    <div style="font-size:24px; font-weight:900; color:#fff;">SYSTEM ARMOR ACTIVE</div>
+                    <div style="display:flex; justify-content:center; gap:15px;">
+                      <span style="background:rgba(46,213,115,0.15); color:#2ED573; font-size:12px; font-weight:800; padding:4px 12px; border-radius:20px;">● Uptime: 99.99%</span>
+                      <span style="background:rgba(212,175,55,0.2); color:var(--gold-primary); font-size:12px; font-weight:800; padding:4px 12px; border-radius:20px;">✓ Daily Backup Complete</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="laptop-base"></div>
+              </div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="database"></i></div><span class="benefit-text">Daily Backups</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="lock"></i></div><span class="benefit-text">Security Updates</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="activity"></i></div><span class="benefit-text">24/7 Monitoring</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="gauge"></i></div><span class="benefit-text">Performance Checks</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="tool"></i></div><span class="benefit-text">Instant Bug Fixes</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="headphones"></i></div><span class="benefit-text">Ongoing UK Support</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 9: SEO & GOOGLE VISIBILITY
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">09</span> SEO & Google Visibility</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-9', '09_SEO_Google_Visibility_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-9">
+            <div class="orb-glow" style="top:25%; left:15%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Get Found On <span class="gold-highlight">Google Search</span></h1>
+                <p class="post-subtitle">Dominate your local search results. We implement technical SEO and high-intent keyword mastery so clients find you before your competitors.</p>
+              </div>
+
+              <!-- Google Search Results & Analytics Bar Chart -->
+              <div style="display:flex; flex-direction:column; gap:16px; margin: 5px 0;">
+                <div class="glass-card" style="background:#13131A; padding:18px; border:1px solid var(--gold-primary);">
+                  <div style="font-size:13px; color:var(--gold-primary); font-weight:700;">Sponsored / Featured Snippet #1</div>
+                  <div style="font-size:22px; font-weight:800; color:#fff; margin-top:4px;">Top Rated Local Web Services · Fast & Reliable</div>
+                  <div style="color:#2ED573; font-size:14px; font-weight:600;">https://your-local-business.co.uk</div>
+                  <div style="display:flex; align-items:center; gap:5px; margin-top:8px; color:var(--gold-primary); font-size:15px; font-weight:700;">
+                    ★★★★★ 5.0 Rating · 100+ Verified Local Reviews
+                  </div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; background:#0B0B0F; padding:15px 25px; border-radius:14px; border:1px solid rgba(255,255,255,0.08);">
+                  <span style="font-weight:700; font-size:16px;"><i data-lucide="trending-up" style="color:#2ED573;"></i> Organic Google Traffic Growth</span>
+                  <span style="font-size:20px; font-weight:900; color:#2ED573;">+340% THIS MONTH</span>
+                </div>
+              </div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="map-pin"></i></div><span class="benefit-text">Local SEO Authority</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="target"></i></div><span class="benefit-text">Keyword Optimisation</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="star"></i></div><span class="benefit-text">Google Business Profile</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="code"></i></div><span class="benefit-text">Technical SEO Mastery</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="bar-chart-2"></i></div><span class="benefit-text">More Targeted Traffic</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="users"></i></div><span class="benefit-text">More Qualified Leads</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 10: ABOUT DEAN DA DEV
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">10</span> About Dean Da Dev</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-10', '10_About_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-10">
+            <div class="orb-glow" style="top:20%; right:20%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Helping Local Businesses <span class="gold-highlight">Grow Online</span></h1>
+              </div>
+
+              <!-- Professional Paragraph -->
+              <div class="glass-card" style="background:rgba(212,175,55,0.05); border-color:var(--gold-primary);">
+                <p style="font-size:24px; line-height:1.6; font-weight:600; color:#fff;">
+                  Dean Da Dev creates high-performing websites and custom business systems that help local businesses generate more enquiries, bookings, and sales. We combine state-of-the-art digital engineering with luxury aesthetics to deliver real, quantifiable commercial results.
+                </p>
+              </div>
+
+              <!-- Visual: Abstract Tech / Coding Workspace -->
+              <div class="terminal-box">
+                <div><span class="code-comment">// Dean Da Dev · UK Built Custom Web Architecture</span></div>
+                <div><span class="code-key">const</span> agency = {</div>
+                <div>&nbsp;&nbsp;<span class="code-val">name</span>: <span style="color:#FFE494;">'Dean Da Dev'</span>,</div>
+                <div>&nbsp;&nbsp;<span class="code-val">focus</span>: <span style="color:#FFE494;">'High-Converting Bespoke Applications'</span>,</div>
+                <div>&nbsp;&nbsp;<span class="code-val">ai_faces_or_templates</span>: <span style="color:#FF5555;">false</span>,</div>
+                <div>&nbsp;&nbsp;<span class="code-val">client_results</span>: <span style="color:#2ED573;">'Guaranteed ROI & Scalable Growth 📈'</span></div>
+                <div>};</div>
+                <div style="margin-top:8px; color:var(--gold-primary);">► System Check: All systems compiled at lightning speed (100% Performance)</div>
+              </div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="shield-check"></i></div><span class="benefit-text">100% UK Built & Managed</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="zap"></i></div><span class="benefit-text">High-Performing Architecture</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 11: CLIENT REVIEWS
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">11</span> Client Reviews</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-11', '11_Client_Reviews_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-11">
+            <div class="orb-glow" style="top:40%; left:30%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Trusted By <span class="gold-highlight">Local Businesses</span></h1>
+                <p class="post-subtitle">Don't just take our word for it. See how our bespoke web applications and booking systems have transformed operations for local business owners.</p>
+              </div>
+
+              <!-- 3 Luxury Review Cards -->
+              <div style="display:flex; flex-direction:column; gap:22px;">
+                <div class="glass-card" style="background:rgba(255,255,255,0.03);">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <div style="color:var(--gold-primary); letter-spacing:3px; font-size:20px;">★★★★★</div>
+                    <span style="font-size:13px; color:var(--text-muted); font-weight:700;">SALON OWNER · MANCHESTER</span>
+                  </div>
+                  <p style="font-size:19px; font-weight:600; line-height:1.5;">"Dean Da Dev built our 24/7 online deposit system and our no-shows dropped by 95% literally overnight! Best business investment we've ever made."</p>
+                </div>
+
+                <div class="glass-card" style="background:rgba(212,175,55,0.06); border-color:var(--gold-primary);">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <div style="color:var(--gold-primary); letter-spacing:3px; font-size:20px;">★★★★★</div>
+                    <span style="font-size:13px; color:var(--text-muted); font-weight:700;">AUTO DETailing CLINIC · LONDON</span>
+                  </div>
+                  <p style="font-size:19px; font-weight:600; line-height:1.5;">"Our old website was slow and embarrassing. The redesign blew us away. We jumped to #1 on Google and enquiries have more than tripled!"</p>
+                </div>
+
+                <div class="glass-card" style="background:rgba(255,255,255,0.03);">
+                  <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <div style="color:var(--gold-primary); letter-spacing:3px; font-size:20px;">★★★★★</div>
+                    <span style="font-size:13px; color:var(--text-muted); font-weight:700;">SPECIALTY CLINIC · BIRMINGHAM</span>
+                  </div>
+                  <p style="font-size:19px; font-weight:600; line-height:1.5;">"The real-time queue tracker works flawlessly on mobile. Patients love it and our receptionist saves hours every single day. 10/10 service."</p>
+                </div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 12: OUR PROCESS
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">12</span> Our Process</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-12', '12_Our_Process_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-12">
+            <div class="orb-glow" style="top:25%; right:15%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">A Simple, Transparent <span class="gold-highlight">Agency Process</span></h1>
+                <p class="post-subtitle">From initial vision to high-converting reality. We manage every single technical detail so your launch is smooth and stress-free.</p>
+              </div>
+
+              <!-- 6 Step Timeline Grid -->
+              <div class="timeline-grid" style="margin-top:15px;">
+                <div class="timeline-step">
+                  <span class="step-num">01</span>
+                  <div class="benefit-icon" style="margin-bottom:14px;"><i data-lucide="compass"></i></div>
+                  <div style="font-size:20px; font-weight:800; color:#fff; margin-bottom:6px;">Discovery</div>
+                  <div style="font-size:14px; color:var(--text-muted);">We analyze your goals, competitors, and growth opportunities.</div>
+                </div>
+
+                <div class="timeline-step">
+                  <span class="step-num">02</span>
+                  <div class="benefit-icon" style="margin-bottom:14px;"><i data-lucide="map"></i></div>
+                  <div style="font-size:20px; font-weight:800; color:#fff; margin-bottom:6px;">Planning</div>
+                  <div style="font-size:14px; color:var(--text-muted);">Architecting user flows, database schema, and conversion paths.</div>
+                </div>
+
+                <div class="timeline-step" style="border-color:var(--gold-primary); background:rgba(212,175,55,0.05);">
+                  <span class="step-num" style="opacity:1;">03</span>
+                  <div class="benefit-icon" style="margin-bottom:14px;"><i data-lucide="palette"></i></div>
+                  <div style="font-size:20px; font-weight:800; color:var(--gold-primary); margin-bottom:6px;">Design</div>
+                  <div style="font-size:14px; color:var(--text-white);">Crafting luxury, modern UI mockups tailored to your brand identity.</div>
+                </div>
+
+                <div class="timeline-step">
+                  <span class="step-num">04</span>
+                  <div class="benefit-icon" style="margin-bottom:14px;"><i data-lucide="code"></i></div>
+                  <div style="font-size:20px; font-weight:800; color:#fff; margin-bottom:6px;">Development</div>
+                  <div style="font-size:14px; color:var(--text-muted);">Clean, ultra-fast custom code built for performance and SEO.</div>
+                </div>
+
+                <div class="timeline-step" style="border-color:#2ED573;">
+                  <span class="step-num" style="color:#2ED573; opacity:0.8;">05</span>
+                  <div class="benefit-icon" style="margin-bottom:14px; background:rgba(46,213,115,0.15); border-color:#2ED573;"><i data-lucide="rocket" style="color:#2ED573;"></i></div>
+                  <div style="font-size:20px; font-weight:800; color:#fff; margin-bottom:6px;">Launch</div>
+                  <div style="font-size:14px; color:var(--text-muted);">Rigorous testing, SSL encryption, and instant live deployment.</div>
+                </div>
+
+                <div class="timeline-step">
+                  <span class="step-num">06</span>
+                  <div class="benefit-icon" style="margin-bottom:14px;"><i data-lucide="headphones"></i></div>
+                  <div style="font-size:20px; font-weight:800; color:#fff; margin-bottom:6px;">Support</div>
+                  <div style="font-size:14px; color:var(--text-muted);">Ongoing 24/7 security monitoring, updates, and daily backups.</div>
+                </div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 13: FAQ
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">13</span> Frequently Asked Questions</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-13', '13_FAQ_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-13">
+            <div class="orb-glow" style="top:50%; left:25%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Frequently Asked <span class="gold-highlight">Questions</span></h1>
+                <p class="post-subtitle">Everything you need to know about partnering with Dean Da Dev to transform your digital presence.</p>
+              </div>
+
+              <!-- 6 FAQ Cards -->
+              <div class="faq-grid">
+                <div class="faq-card">
+                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                    <i data-lucide="help-circle" style="color:var(--gold-primary); flex-shrink:0;"></i>
+                    <h3 style="font-size:20px; font-weight:800;">How much does it cost?</h3>
+                  </div>
+                  <p style="font-size:15px; color:var(--text-muted); line-height:1.5;">We offer transparent, fixed-price packages tailored to your exact business needs—from standalone high-converting websites to full custom booking engines.</p>
+                </div>
+
+                <div class="faq-card">
+                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                    <i data-lucide="clock" style="color:var(--gold-primary); flex-shrink:0;"></i>
+                    <h3 style="font-size:20px; font-weight:800;">How long does it take?</h3>
+                  </div>
+                  <p style="font-size:15px; color:var(--text-muted); line-height:1.5;">Most bespoke website redesigns and booking systems go from initial concept to full live deployment within 2 to 4 weeks.</p>
+                </div>
+
+                <div class="faq-card">
+                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                    <i data-lucide="server" style="color:var(--gold-primary); flex-shrink:0;"></i>
+                    <h3 style="font-size:20px; font-weight:800;">What about hosting?</h3>
+                  </div>
+                  <p style="font-size:15px; color:var(--text-muted); line-height:1.5;">We handle 100% of premium cloud hosting, SSL certificates, custom domain configuration, and CDN speed routing for zero stress.</p>
+                </div>
+
+                <div class="faq-card">
+                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                    <i data-lucide="search" style="color:var(--gold-primary); flex-shrink:0;"></i>
+                    <h3 style="font-size:20px; font-weight:800;">Is SEO included?</h3>
+                  </div>
+                  <p style="font-size:15px; color:var(--text-muted); line-height:1.5;">Yes! Every project is built from the ground up with structured semantic HTML, lightning speed, and keyword optimization to rank high on Google.</p>
+                </div>
+
+                <div class="faq-card">
+                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                    <i data-lucide="headphones" style="color:var(--gold-primary); flex-shrink:0;"></i>
+                    <h3 style="font-size:20px; font-weight:800;">Do you provide ongoing support?</h3>
+                  </div>
+                  <p style="font-size:15px; color:var(--text-muted); line-height:1.5;">Absolutely. We offer dedicated UK-based maintenance packages covering daily backups, security monitoring, and content updates.</p>
+                </div>
+
+                <div class="faq-card">
+                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                    <i data-lucide="smartphone" style="color:var(--gold-primary); flex-shrink:0;"></i>
+                    <h3 style="font-size:20px; font-weight:800;">Will it be mobile friendly?</h3>
+                  </div>
+                  <p style="font-size:15px; color:var(--text-muted); line-height:1.5;">100%. We practice mobile-first architecture, ensuring your site looks and performs magnificently across all iPhones, Androids, and tablets.</p>
+                </div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           POST 14: RESULTS
+           ========================================== -->
+      <div class="post-wrapper">
+        <div class="post-meta-bar">
+          <div class="post-title-tag"><span class="post-num-badge">14</span> Websites That Deliver Results</div>
+          <button class="btn btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="exportPost('post-14', '14_Results_DeanDaDev')">
+            <i data-lucide="download"></i> Download PNG
+          </button>
+        </div>
+        <div class="canvas-container">
+          <div class="post-canvas" id="post-14">
+            <div class="orb-glow" style="top:35%; right:20%;"></div>
+            <div class="post-header">
+              <div class="brand-logo"><div class="logo-mark">D</div><div class="logo-text">DEAN DA <span>DEV</span></div></div>
+              <div class="tagline-badge">Web Solutions That Drive Real Results</div>
+            </div>
+            <div class="post-body">
+              <div class="post-title-section">
+                <h1 class="post-h1">Websites That Deliver <span class="gold-highlight">Real Results</span></h1>
+                <p class="post-subtitle">We build systems engineered for commercial dominance. See the quantifiable impact our bespoke solutions deliver for local business clients.</p>
+              </div>
+
+              <!-- Analytics Chart & Conversion Dashboard -->
+              <div class="chart-box">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:16px; margin-bottom:20px;">
+                  <div>
+                    <span style="font-size:22px; font-weight:800; color:#fff;">Client Commercial Performance</span>
+                    <div style="font-size:13px; color:var(--gold-primary);">Average metrics 60 days post-launch</div>
+                  </div>
+                  <span class="metric-badge"><i data-lucide="trending-up"></i> OVERALL ROI ↑</span>
+                </div>
+
+                <!-- Bar Stats -->
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                  <div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-weight:700; font-size:17px;">
+                      <span>Website Speed Score</span><span style="color:var(--gold-primary);">100 / 100 ↑</span>
+                    </div>
+                    <div style="height:12px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden;"><div style="width:100%; height:100%; background:var(--gold-primary);"></div></div>
+                  </div>
+
+                  <div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-weight:700; font-size:17px;">
+                      <span>Qualified Inbound Leads</span><span style="color:#2ED573;">+280% ↑</span>
+                    </div>
+                    <div style="height:12px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden;"><div style="width:85%; height:100%; background:#2ED573;"></div></div>
+                  </div>
+
+                  <div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-weight:700; font-size:17px;">
+                      <span>Automated 24/7 Bookings</span><span style="color:var(--gold-primary);">+190% ↑</span>
+                    </div>
+                    <div style="height:12px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden;"><div style="width:75%; height:100%; background:var(--gold-gradient);"></div></div>
+                  </div>
+
+                  <div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px; font-weight:700; font-size:17px;">
+                      <span>Monthly Revenue Growth</span><span style="color:#2ED573;">+315% ↑</span>
+                    </div>
+                    <div style="height:12px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden;"><div style="width:92%; height:100%; background:#2ED573;"></div></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="benefits-grid">
+                <div class="benefit-item" style="background:rgba(212,175,55,0.06); border-color:var(--gold-primary);"><div class="benefit-icon"><i data-lucide="zap"></i></div><span class="benefit-text">Website Speed ↑</span></div>
+                <div class="benefit-item" style="background:rgba(46,213,115,0.06); border-color:#2ED573;"><div class="benefit-icon" style="background:rgba(46,213,115,0.15); border-color:#2ED573;"><i data-lucide="users" style="color:#2ED573;"></i></div><span class="benefit-text" style="color:#2ED573;">Leads & Bookings ↑</span></div>
+                <div class="benefit-item"><div class="benefit-icon"><i data-lucide="search"></i></div><span class="benefit-text">Google Rankings ↑</span></div>
+                <div class="benefit-item" style="background:rgba(212,175,55,0.06); border-color:var(--gold-primary);"><div class="benefit-icon"><i data-lucide="pound-sterling"></i></div><span class="benefit-text">Monthly Revenue ↑</span></div>
+              </div>
+            </div>
+            <div class="post-footer">
+              <div class="cta-left"><div class="pulse-dot"></div><span class="cta-text">Book your FREE consultation today.</span></div>
+              <div class="cta-website"><i data-lucide="globe"></i> dean-da-dev.co.uk</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Toggle Studio View Mode (Scaled Grid vs 100% Zoom)
+    function setViewMode(mode) {
+      const grid = document.getElementById('grid');
+      const btnGrid = document.getElementById('btn-grid');
+      const btnZoom = document.getElementById('btn-zoom');
+      
+      if (mode === 'zoom') {
+        grid.classList.add('zoom-mode');
+        btnZoom.classList.add('active');
+        btnGrid.classList.remove('active');
+      } else {
+        grid.classList.remove('zoom-mode');
+        btnGrid.classList.add('active');
+        btnZoom.classList.remove('active');
+      }
+    }
+
+    // Export single post as 1080x1350 PNG
+    async function exportPost(elementId, fileName) {
+      const el = document.getElementById(elementId);
+      const btn = event.currentTarget;
+      const originalText = btn.innerHTML;
+      
+      btn.innerHTML = 'Rendering 1080p...';
+      btn.disabled = true;
+
+      try {
+        const dataUrl = await htmlToImage.toPng(el, {
+          width: 1080,
+          height: 1350,
+          pixelRatio: 2, // Ultra high resolution export (2160x2700 effective quality)
+          style: {
+            transform: 'none',
+            margin: '0'
+          }
+        });
+
+        const link = document.createElement('a');
+        link.download = fileName + '.png';
+        link.href = dataUrl;
+        link.click();
+      </label>
+
+      } catch (err) {
+        console.error('Error exporting PNG:', err);
+        alert('Failed to export image. Please try in Google Chrome or Firefox.');
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+
+    // Batch Export All 14 Posts sequentially
+    async function exportAll() {
+      const btn = event.currentTarget;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = 'Exporting 1 / 14...';
+      btn.disabled = true;
+
+      const posts = [
+        { id: 'post-1', name: '01_Services_DeanDaDev' },
+        { id: 'post-2', name: '02_Custom_Websites_DeanDaDev' },
+        { id: 'post-3', name: '03_Website_Redesigns_DeanDaDev' },
+        { id: 'post-4', name: '04_Booking_Systems_DeanDaDev' },
+        { id: 'post-5', name: '05_Live_Queue_Systems_DeanDaDev' },
+        { id: 'post-6', name: '06_Deposit_Systems_DeanDaDev' },
+        { id: 'post-7', name: '07_Business_Automation_DeanDaDev' },
+        { id: 'post-8', name: '08_Website_Maintenance_DeanDaDev' },
+        { id: 'post-9', name: '09_SEO_Google_Visibility_DeanDaDev' },
+        { id: 'post-10', name: '10_About_DeanDaDev' },
+        { id: 'post-11', name: '11_Client_Reviews_DeanDaDev' },
+        { id: 'post-12', name: '12_Our_Process_DeanDaDev' },
+        { id: 'post-13', name: '13_FAQ_DeanDaDev' },
+        { id: 'post-14', name: '14_Results_DeanDaDev' }
+      ];
+
+      try {
+        for (let i = 0; i < posts.length; i++) {
+          btn.innerHTML = `Rendering Post ${i + 1} of 14...`;
+          const el = document.getElementById(posts[i].id);
+          
+          const dataUrl = await htmlToImage.toPng(el, {
+            width: 1080,
+            height: 1350,
+            pixelRatio: 2,
+            style: { transform: 'none', margin: '0' }
+          });
+
+          const link = document.createElement('a');
+          link.download = posts[i].name + '.png';
+          link.href = dataUrl;
+          link.click();
+          
+          // Brief pause between downloads so browser doesn't block batch saves
+          await new Promise(r => setTimeout(r, 600));
+        }
+      } catch (err) {
+        console.error('Batch export failed:', err);
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        lucide.createIcons();
+      }
+    }
+  </script>
+</body>
+</html>
