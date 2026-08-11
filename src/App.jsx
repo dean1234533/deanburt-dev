@@ -34,10 +34,7 @@ const navItems = [
   ['Services', '/services'],
   ['Portfolio', '/portfolio'],
   ['Pricing', '/pricing'],
-  ['Tools', '/tools'],
   ['Free Tools', '/free-tools'],
-  ['Blog', '/blog'],
-  ['Resources', '/resources'],
 ];
 
 function App() {
@@ -238,7 +235,7 @@ function resolveRoute(path) {
   }
 
   const routes = {
-    '/': [HomePage, 'Dean Da Dev | Free Developer and Business Tools UK', 'Free developer, SEO, AI, and business tools from Dean Da Dev, a UK app, web, AI tool, and automation developer.'],
+    '/': [HomePage, 'Affordable Web App Developer UK | Dean Da Dev', 'Custom web apps from £699 and professional websites from £249. Work directly with a UK developer for fixed-scope design, development and launch.'],
     '/about': [AboutPage, 'About Dean Da Dev | UK Web, App and AI Developer', 'Meet Dean Da Dev, a UK full-stack developer building websites, apps, AI tools, and automation for growing businesses.'],
     '/services': [ServicesPage, 'App, Web and AI Development Services UK', 'Professional apps, websites, AI tools, automation, dashboards, and business tool development services for UK businesses.'],
     '/portfolio': [PortfolioPage, 'Portfolio | Live Websites and Apps by Dean Da Dev', 'Explore live web, app, ecommerce, and AI projects built and launched by Dean Da Dev.'],
@@ -358,7 +355,7 @@ function Header({ navigate, path }) {
           </a>
         ))}
       </nav>
-      <a className="button button-primary button-small header-cta" href={BOOKING_URL}>Book a call</a>
+      <button className="button button-primary button-small header-cta" type="button" onClick={openContactModal}>Get a quote</button>
       <button
         className={`mobile-menu-button ${menuOpen ? 'is-open' : ''}`}
         type="button"
@@ -380,8 +377,8 @@ function Header({ navigate, path }) {
           ))}
         </nav>
         <div className="mobile-menu-actions">
-          <a className="button button-primary" href={BOOKING_URL}>Book a call</a>
-          <button type="button" className="button button-secondary" onClick={openContactModal}>Request a quote</button>
+          <button type="button" className="button button-primary" onClick={openContactModal}>Get an honest scope estimate</button>
+          <a className="button button-secondary" href={BOOKING_URL}>Book a call</a>
         </div>
       </div>
     </header>
@@ -449,14 +446,17 @@ function labelForPath(path) {
 }
 
 function HomePage({ navigate }) {
+  const openContactModal = useContactModal();
+
   return (
     <>
       <Hero
         eyebrow="Dean Da Dev"
-        title="Apps, websites, AI tools, and automations built to win business."
-        copy="UK full-stack developer. 7 live apps shipped. I handle everything — design, build, deployment, and App Store submission — without agency prices."
-        primary={['Book a discovery call', BOOKING_URL]}
+        title="Affordable custom apps and websites for real businesses."
+        copy="Websites from £249 and working web apps from £699. Work directly with a UK developer who handles the design, build, testing and launch."
+        primary={['Get an honest scope estimate', '#project-enquiry']}
         secondary={['View live work', '/portfolio']}
+        primaryAction={openContactModal}
         navigate={navigate}
       />
       <SocialProofBanner />
@@ -480,11 +480,10 @@ function HomePage({ navigate }) {
         </div>
       </Section>
       <ServicesSnapshot />
-      <Section tone="dark">
-        <SectionHeader eyebrow="Free Tools" title="Use the tools. Hire me when you need it built properly." copy="The tools hub is there to help you plan better projects. The portfolio shows what happens when the real build is commissioned." />
-        <HomeToolsPreview navigate={navigate} />
+      <Section tone="dark" className="home-tools-bridge">
+        <SectionHeader eyebrow="Free Tools" title="Planning something yourself first?" copy="Use the free tools to shape your idea, then come back when you need the production version built properly." />
         <div className="center-gap">
-          <Button href="/free-tools" navigate={navigate}>Open the Tools Hub</Button>
+          <Button href="/free-tools" navigate={navigate}>Browse free tools</Button>
         </div>
       </Section>
       <Section>
@@ -492,6 +491,7 @@ function HomePage({ navigate }) {
         <FAQList faqs={HOME_FAQS} />
       </Section>
       <Section tone="dark">
+        <div id="project-enquiry" className="anchor-target" />
         <SectionHeader eyebrow="Get in touch" title="Send a message or find Dean Da Dev on Google." copy="Prefer to write instead of booking a call? Send the details below." />
         <div className="contact-page-layout">
           <ContactForm title="Send a message" copy="Tell me a bit about what you need — I'll reply personally, usually within a day." />
@@ -535,9 +535,9 @@ const HOME_FAQS = [
   { q: 'Do I own the finished website, app, or tool?', a: 'Yes. Once a project is paid for, the code, design, and any accounts set up for it belong to you.' },
 ];
 
-function Hero({ eyebrow, title, copy, primary, secondary, navigate }) {
+function Hero({ eyebrow, title, copy, primary, secondary, navigate, primaryAction, compact = false }) {
   return (
-    <section className="hero">
+    <section className={`hero${compact ? ' hero-compact' : ''}`}>
       <div className="hero-bg" />
       <div className="hero-content">
         <div className="founder-chip">
@@ -548,7 +548,9 @@ function Hero({ eyebrow, title, copy, primary, secondary, navigate }) {
         <h1>{title}</h1>
         <p className="hero-copy">{copy}</p>
         <div className="button-row">
-          <Button href={primary[1]} navigate={navigate}>{primary[0]}</Button>
+          {primaryAction
+            ? <button type="button" className="button button-primary" onClick={primaryAction}>{primary[0]}</button>
+            : <Button href={primary[1]} navigate={navigate}>{primary[0]}</Button>}
           <Button href={secondary[1]} variant="secondary" navigate={navigate}>{secondary[0]}</Button>
         </div>
         <div className="trust-strip" aria-label="Key credentials">
@@ -648,18 +650,6 @@ function ToolFilter({ activeCategory, onChange, includeAll = true, navigate }) {
         </button>
       ))}
     </div>
-  );
-}
-
-function HomeToolsPreview({ navigate }) {
-  const [activeCategory, setActiveCategory] = useState('ai-tools');
-  const previewTools = categoryTools(activeCategory).slice(0, 3);
-
-  return (
-    <>
-      <ToolFilter activeCategory={activeCategory} onChange={setActiveCategory} includeAll={false} />
-      <ToolGrid tools={previewTools} navigate={navigate} />
-    </>
   );
 }
 
@@ -1501,11 +1491,11 @@ function LeadCTA() {
       <div>
         <p className="eyebrow">Need this built professionally?</p>
         <h2>Hire Dean Da Dev to turn the idea into a real product.</h2>
-        <p>Book a short discovery call, request a quote, or review live work before deciding.</p>
+        <p>Tell me what you want to build and get an honest view of the likely scope, price and next step.</p>
       </div>
       <div className="button-row">
-        <a className="button button-primary" href={BOOKING_URL}>Book a discovery call</a>
-        <button type="button" className="button button-secondary" onClick={openContactModal}>Request a quote</button>
+        <button type="button" className="button button-primary" onClick={openContactModal}>Get an honest scope estimate</button>
+        <a className="button button-secondary" href={BOOKING_URL}>Book a call</a>
       </div>
     </section>
   );
@@ -1559,20 +1549,21 @@ function ServicesPage({ navigate }) {
 
 const MY_PRODUCTS = [
   {
+    name: 'Show2Build',
+    tag: 'Developer Marketplace',
+    url: 'https://www.show2build.uk/',
+    img: '/images/show2build.jpg',
+    imageFit: 'contain',
+    desc: 'A proof-first developer marketplace where clients give three developers the same brief, compare real working builds after a 24-hour challenge, and hire with confidence.',
+    tags: ['Marketplace', 'SaaS', 'Web App', 'Project Workflow'],
+  },
+  {
     name: 'Bookrightly',
     tag: 'Booking SaaS',
     url: 'https://www.bookrightly.co.uk/',
     img: '/images/1.jpg',
     desc: 'A UK booking marketplace for barbers, hairdressers, decorators, and personal trainers. Each business gets a public profile, online booking, Stripe payments, and a full dashboard — all on one platform.',
     tags: ['React', 'Firebase', 'Stripe', 'PWA', 'Cloudflare Workers'],
-  },
-  {
-    name: 'Js Grw Up',
-    tag: 'Mobile App',
-    url: 'https://js-grw-up.com/',
-    img: '/images/2.jpg',
-    desc: 'A co-parenting mobile app helping separated parents coordinate schedules, communicate clearly, and keep everything in one place.',
-    tags: ['React Native', 'Firebase', 'Mobile'],
   },
   {
     name: "DB's AI Trainer",
@@ -1667,7 +1658,12 @@ function PortfolioPage({ navigate }) {
         <div className="my-products-grid">
           {MY_PRODUCTS.map((product) => (
             <div className="my-product-card" key={product.name}>
-              <img src={product.img} alt={`${product.name} built by Dean Da Dev`} loading="lazy" />
+              <img
+                src={product.img}
+                alt={`${product.name} built by Dean Da Dev`}
+                loading="lazy"
+                className={product.imageFit === 'contain' ? 'product-image-contain' : undefined}
+              />
               <div className="my-product-body">
                 <span>{product.tag}</span>
                 <h3>{product.name}</h3>
@@ -1833,15 +1829,17 @@ function PricingPage({ navigate }) {
         eyebrow="Pricing"
         title="Custom software shouldn't cost £10,000."
         copy="Websites from £249. Working web apps from £699. Professional websites and custom apps without agency overhead — built, deployed, and ready to use in weeks, not months."
-        primary={['Book a free 15-minute call', BOOKING_URL]}
-        secondary={['See what fits', '#pricing']}
+        primary={['Get an honest scope estimate', '#pricing']}
+        secondary={['Book a free 15-minute call', BOOKING_URL]}
+        primaryAction={openContactModal}
+        compact
         navigate={navigate}
       />
 
-      <div className="urgency-banner">🟠 Currently taking on 3 new projects this month.</div>
+      <div className="availability-banner">Currently booking new projects · Fixed scope agreed before work begins</div>
 
       <Section tone="dark">
-        <SectionHeader eyebrow="Affordable Custom Software" title="Turn your idea into a real working app from £699." copy="A modern, AI-assisted development workflow reduces build time and keeps costs realistic for sole traders, small businesses, side-hustlers and first-time founders. I remain responsible for every line of the finished product." />
+        <SectionHeader eyebrow="Affordable Custom Software" title="Turn your idea into a real working app from £699." copy="A lean modern development process keeps costs realistic for sole traders, small businesses, side-hustlers and first-time founders—without compromising professional delivery." />
         <div className="pricing-highlights" aria-label="Key pricing highlights">
           <div><strong>£249</strong><span>Websites from</span></div>
           <div><strong>£699</strong><span>Working web apps from</span></div>
@@ -1852,6 +1850,26 @@ function PricingPage({ navigate }) {
 
       <Section>
         <div id="pricing" className="anchor-target" />
+        <SectionHeader eyebrow="Web App Development" title="Professional apps at realistic starting prices." copy="Each package is designed for a defined type of project. Your exact functionality, final price, and delivery window are agreed before development begins." />
+        <div className="app-pricing-grid">
+          {APP_TIERS.map((tier) => (
+            <div className={`pricing-card-v2 app-pricing-card${tier.featured ? ' featured' : ''}`} key={tier.name}>
+              {tier.featured && <span className="pricing-card-badge">Most popular</span>}
+              <h3>{tier.name}</h3>
+              <p className="pricing-card-tagline">{tier.tagline}</p>
+              <strong className="pricing-card-price">{tier.price}</strong>
+              <p className="delivery-line"><span>Typical delivery</span>{tier.delivery}</p>
+              <ul className="price-checklist">{tier.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
+              <button type="button" className="button button-primary" onClick={openContactModal}>Get My Scope &amp; Price</button>
+            </div>
+          ))}
+        </div>
+        <p className="scope-note"><strong>Prices depend on scope and complexity.</strong> Larger or more complex platforms are individually scoped.</p>
+      </Section>
+
+      <SocialProofBanner />
+
+      <Section>
         <SectionHeader
           eyebrow="Website Packages"
           title="Pick a starting point, not a final decision."
@@ -1871,7 +1889,7 @@ function PricingPage({ navigate }) {
               <ul className="price-checklist">
                 {tier.features.map((f) => <li key={f}>{f}</li>)}
               </ul>
-              <Button href={BOOKING_URL} navigate={navigate}>Book a Free 15-Minute Call</Button>
+              <button type="button" className="button button-primary" onClick={openContactModal}>Get My Scope &amp; Price</button>
             </div>
           ))}
         </div>
@@ -1910,26 +1928,6 @@ function PricingPage({ navigate }) {
             </div>
           ))}
         </div>
-      </Section>
-
-      <SocialProofBanner />
-
-      <Section>
-        <SectionHeader eyebrow="Web App Development" title="Professional apps at realistic starting prices." copy="Each package is designed for a defined type of project. Your exact functionality, final price, and delivery window are agreed before development begins." />
-        <div className="app-pricing-grid">
-          {APP_TIERS.map((tier) => (
-            <div className={`pricing-card-v2 app-pricing-card${tier.featured ? ' featured' : ''}`} key={tier.name}>
-              {tier.featured && <span className="pricing-card-badge">Most popular</span>}
-              <h3>{tier.name}</h3>
-              <p className="pricing-card-tagline">{tier.tagline}</p>
-              <strong className="pricing-card-price">{tier.price}</strong>
-              <p className="delivery-line"><span>Typical delivery</span>{tier.delivery}</p>
-              <ul className="price-checklist">{tier.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
-              <Button href={BOOKING_URL} navigate={navigate}>{tier.cta}</Button>
-            </div>
-          ))}
-        </div>
-        <p className="scope-note"><strong>Prices depend on scope and complexity.</strong> Larger or more complex platforms are individually scoped.</p>
       </Section>
 
       <Section tone="dark">
@@ -1985,12 +1983,12 @@ function PricingPage({ navigate }) {
       <section className="lead-cta">
         <div>
           <p className="eyebrow">Still deciding?</p>
-          <h2>Get a free website review before you commit to anything.</h2>
-          <p>No pressure, no obligation — just an honest look at what you have and what would actually help.</p>
+          <h2>Get an honest scope and price before you commit.</h2>
+          <p>Tell me your idea and I’ll explain the sensible first version, likely cost and next step—without pressure.</p>
         </div>
         <div className="button-row">
-          <a className="button button-primary" href={BOOKING_URL}>Let's Talk About Your Project</a>
-          <button type="button" className="button button-secondary" onClick={openContactModal}>Get a Free Website Review</button>
+          <button type="button" className="button button-primary" onClick={openContactModal}>Get My Scope &amp; Price</button>
+          <a className="button button-secondary" href={BOOKING_URL}>Book a call</a>
         </div>
       </section>
     </>

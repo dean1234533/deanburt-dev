@@ -7,7 +7,7 @@ const CONTACT_FORM_ENDPOINT = 'https://us-central1-coding-leads-38d68.cloudfunct
 
 const EMPTY_FORM = { name: '', email: '', phone: '', message: '', honeypot: '' };
 
-export function ContactForm({ onSent, title = 'Request a quote', copy = "Tell me a bit about what you need — I'll reply personally, usually within a day." }) {
+export function ContactForm({ onSent, title = 'Get an honest scope estimate', copy = "Tell me what you want to build. I'll reply personally with the most sensible next step—usually within one working day." }) {
   const [form, setForm] = useState(EMPTY_FORM);
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error
   const [error, setError] = useState(null);
@@ -64,8 +64,8 @@ export function ContactForm({ onSent, title = 'Request a quote', copy = "Tell me
         </label>
       </div>
       <label className="field" style={{ marginTop: 14 }}>
-        What do you need?
-        <textarea required value={form.message} onChange={set('message')} placeholder="e.g. I need a new website for my salon, ideally with online booking." />
+        What would you like to build?
+        <textarea required value={form.message} onChange={set('message')} placeholder="Briefly describe your idea, who it is for, and the main thing it needs to do." />
       </label>
       {/* Honeypot — hidden from real visitors via CSS, bots that fill every input still fill this one */}
       <input
@@ -77,7 +77,7 @@ export function ContactForm({ onSent, title = 'Request a quote', copy = "Tell me
       {error && <p className="contact-modal-error">{error}</p>}
       <div className="button-row" style={{ marginTop: 16 }}>
         <button type="submit" className="button button-primary" disabled={status === 'sending'}>
-          {status === 'sending' ? 'Sending…' : 'Send message'}
+          {status === 'sending' ? 'Sending…' : 'Send my project idea'}
         </button>
       </div>
     </form>
