@@ -808,7 +808,7 @@ export const STATIC_PAGES = [
   { path: '/about', title: 'About Dean Da Dev | UK Web, App and AI Developer', description: 'Meet Dean Da Dev, a UK full-stack developer building websites, apps, AI tools, and automation for growing businesses.' },
   { path: '/services', title: 'App, Web and AI Development Services UK', description: 'Professional apps, websites, AI tools, automation, dashboards, and business tool development services for UK businesses.' },
   { path: '/portfolio', title: 'Portfolio | Live Websites and Apps by Dean Da Dev', description: 'Explore live web, app, ecommerce, and AI projects built and launched by Dean Da Dev.' },
-  { path: '/pricing', title: 'Pricing | App, Website and AI Tool Development UK', description: 'Clear starting prices for apps, websites, AI tools, dashboards, and business automation projects.' },
+  { path: '/pricing', title: 'Affordable Web App Development Pricing UK | From £699', description: 'Custom web apps from £699 and websites from £249. Fixed, transparent starting prices, milestone payments and fast UK development for small businesses and founders.' },
   { path: '/contact', title: 'Contact dean-da-dev | Start Your Website Project', description: 'Contact dean-da-dev to discuss a premium, mobile-friendly website, booking system, free tool, app, or business automation project.' },
   { path: '/DiscoveryCall', title: 'Book a Discovery Call | Dean Da Dev', description: 'Book a discovery call with Dean Da Dev to discuss a website, app, AI tool, dashboard, or automation project.' },
   { path: '/resources', title: 'Resources | Website, SEO and Software Guides', description: 'Helpful guides that support the free tools and help businesses plan better digital projects.' },

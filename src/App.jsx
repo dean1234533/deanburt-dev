@@ -242,7 +242,7 @@ function resolveRoute(path) {
     '/about': [AboutPage, 'About Dean Da Dev | UK Web, App and AI Developer', 'Meet Dean Da Dev, a UK full-stack developer building websites, apps, AI tools, and automation for growing businesses.'],
     '/services': [ServicesPage, 'App, Web and AI Development Services UK', 'Professional apps, websites, AI tools, automation, dashboards, and business tool development services for UK businesses.'],
     '/portfolio': [PortfolioPage, 'Portfolio | Live Websites and Apps by Dean Da Dev', 'Explore live web, app, ecommerce, and AI projects built and launched by Dean Da Dev.'],
-    '/pricing': [PricingPage, 'Pricing | App, Website and AI Tool Development UK', 'Clear starting prices for apps, websites, AI tools, dashboards, and business automation projects.'],
+    '/pricing': [PricingPage, 'Affordable Web App Development Pricing UK | From £699', 'Custom web apps from £699 and websites from £249. Fixed, transparent starting prices, milestone payments and fast UK development for small businesses and founders.'],
     '/contact': [DiscoveryCallPage, 'Contact dean-da-dev | Start Your Website Project', 'Contact dean-da-dev to discuss a premium, mobile-friendly website, booking system, free tool, app, or business automation project.'],
     '/DiscoveryCall': [DiscoveryCallPage, 'Book a Discovery Call | Dean Da Dev', 'Book a discovery call with Dean Da Dev to discuss a website, app, AI tool, dashboard, or automation project.'],
     '/resources': [ResourcesPage, 'Resources | Website, SEO and Software Guides', 'Helpful guides that support the free tools and help businesses plan better digital projects.'],
@@ -255,7 +255,9 @@ function resolveRoute(path) {
   const selected = routes[path] || routes['/'];
   const schema = path === '/'
     ? { '@context': 'https://schema.org', '@graph': [websiteSchema(), faqSchema(HOME_FAQS)] }
-    : websiteSchema();
+    : path === '/pricing'
+      ? pricingSchema()
+      : websiteSchema();
   return {
     Component: selected[0],
     meta: { title: selected[1], description: selected[2], path, schema },
@@ -464,8 +466,8 @@ function HomePage({ navigate }) {
         <div className="value-grid">
           {[
             ['Websites from £249', 'Professional, mobile-optimised websites with clear messaging, contact flows, and SEO foundations.'],
-            ['App MVPs from £4,999', 'Focused app builds for booking flows, customer portals, marketplaces, AI products, and early-stage ideas.'],
-            ['AI tools from £2,999', 'Prompt systems, dashboards, automations, intake forms, and tools that solve one clear business problem.'],
+            ['Working web apps from £699', 'Production-ready apps for booking flows, customer portals, dashboards, AI products, and early-stage ideas.'],
+            ['Simple tools from £399', 'Calculators, generators, dashboards, automations, intake forms, and focused tools that solve one clear business problem.'],
           ].map(([title, copy]) => (
             <div className="value-card" key={title}>
               <h3>{title}</h3>
@@ -526,8 +528,8 @@ function HomePage({ navigate }) {
 }
 
 const HOME_FAQS = [
-  { q: 'How much does a website or app cost?', a: 'Websites start from £249, AI tools from £2,999, and app MVPs from £4,999. Every project gets a fixed price agreed up front after a short discovery call — see the pricing page for a full breakdown.' },
-  { q: 'How long does a project take?', a: 'Most website builds take 1-3 weeks. App MVPs and AI tools typically take 4-8 weeks depending on scope, integrations, and revisions.' },
+  { q: 'How much does a website or app cost?', a: 'Websites start from £249, simple tools from £399, and working web apps from £699. Every project gets a fixed price and scope agreed up front — see the pricing page for a full breakdown.' },
+  { q: 'How long does a project take?', a: 'Most website builds take 1–3 weeks. Focused tools can take 3–7 days, and many properly scoped starter web apps launch in 1–2 weeks. Larger platforms take longer depending on integrations and complexity.' },
   { q: 'Do you work with businesses outside London?', a: `Yes. Dean Da Dev is based in ${BUSINESS_LOCATION} but works remotely with businesses across the whole UK — location is never a barrier to starting a project.` },
   { q: 'What happens on a discovery call?', a: "It's a short, no-obligation conversation about what you're trying to build, your budget, and your timeline. You'll leave with a clear next step, whether that's a quote or just some honest advice." },
   { q: 'Do I own the finished website, app, or tool?', a: 'Yes. Once a project is paid for, the code, design, and any accounts set up for it belong to you.' },
@@ -550,7 +552,7 @@ function Hero({ eyebrow, title, copy, primary, secondary, navigate }) {
           <Button href={secondary[1]} variant="secondary" navigate={navigate}>{secondary[0]}</Button>
         </div>
         <div className="trust-strip" aria-label="Key credentials">
-          {['7 live apps shipped', 'UK-based developer', 'Fixed-price guarantee', 'Free, no-obligation consultation', '4–8 week delivery'].map((item) => <span key={item}>{item}</span>)}
+          {['7 live apps shipped', 'UK-based developer', 'Fixed-price guarantee', 'Free, no-obligation consultation', 'Fast, scope-based delivery'].map((item) => <span key={item}>{item}</span>)}
         </div>
       </div>
     </section>
@@ -1529,7 +1531,7 @@ function AboutPage({ navigate }) {
             <p className="eyebrow">Dean Burt · Founder</p>
             <h2>Building production-grade apps and websites for UK businesses.</h2>
             <p>Dean Burt is a UK-based full-stack developer who designs, builds, and ships mobile apps, websites, AI tools, and dashboards for local businesses and early-stage founders. Every project is handled end to end — from initial scope and UX through development, App Store submission, and deployment.</p>
-            <p>With 7 live production apps and a track record of shipping in 4–8 weeks, Dean Da Dev offers the expertise of an agency at a fraction of the price. No account managers, no handoffs, no delays — just a direct line to the developer building your product.</p>
+            <p>With 7 live production apps and a track record of shipping properly scoped projects in weeks, Dean Da Dev offers professional development without traditional agency overhead. No account managers or handoffs — just a direct line to the developer building your product.</p>
             <div className="about-stats">
               {[['7', 'Live apps shipped'], ['4–8 wk', 'Average time to launch'], ['100%', 'Handled end to end'], ['UK', 'Based and built here']].map(([n, l]) => (
                 <div key={l} className="about-stat">
@@ -1759,16 +1761,36 @@ const WEBSITE_TIERS = [
 ];
 
 const APP_TIERS = [
-  ['App Prototype', 'from £1,999', 'Clickable app design or lean proof-of-concept for validating the idea, user journey, core screens, and build direction before a full MVP.'],
-  ['Starter App MVP', 'from £4,999', 'A focused app build with UX, core screens, authentication, simple backend/database, testing, and launch-ready foundations.'],
-  ['Growth App', 'from £7,999', 'A more complete app with dashboards, booking, payments, AI features, admin tools, integrations, or launch support.'],
-  ['AI Tool or Dashboard', 'from £2,999', 'A focused AI tool, calculator, dashboard, admin view, intake form, or automation that solves one clear business problem.'],
+  {
+    name: 'Simple App / Tool', price: 'From £399', delivery: '3–7 days',
+    tagline: 'For one focused idea, workflow, or proof of concept.',
+    features: ['Calculators and quote generators', 'Simple dashboards', 'Internal business tools', 'Forms and workflows', 'AI-powered utilities', 'Simple customer portals'],
+    cta: 'Discuss Your App',
+  },
+  {
+    name: 'Starter Web App', price: 'From £699', delivery: '1–2 weeks', featured: true,
+    tagline: 'For startups, small businesses, and first-time founders turning an idea into a real application.',
+    features: ['Responsive custom UI', 'User signup, login and Firebase authentication', 'Database and user dashboard', 'Basic admin dashboard', 'Forms and data management', 'One main app workflow', 'Basic email notifications', 'Deployment and domain setup', 'Mobile-friendly design and basic security', '30 days bug-fix support'],
+    cta: 'Build My App',
+  },
+  {
+    name: 'Business Web App', price: 'From £999', delivery: '1–3 weeks',
+    tagline: 'For more capable applications with multiple workflows or integrations.',
+    features: ['Everything in Starter', 'Multiple dashboards or user roles', 'Booking functionality', 'Stripe and payments', 'File or image uploads', 'API integrations', 'Advanced admin controls', 'Email automation and analytics', 'More advanced database logic'],
+    cta: 'Get a Quote',
+  },
+  {
+    name: 'Advanced App / SaaS', price: 'From £1,499', delivery: 'Individually scoped',
+    tagline: 'For larger platforms, SaaS products, and more advanced application ideas.',
+    features: ['Subscription billing', 'Multiple user types and advanced permissions', 'Messaging or complex booking systems', 'AI integrations and automation', 'Third-party APIs', 'Larger admin systems', 'Advanced workflows', 'Complex Firebase or Cloudflare backends'],
+    cta: 'Discuss Your Project',
+  },
 ];
 
 const MAINTENANCE_PLANS = [
-  { name: 'Basic', price: '£29/mo', features: ['Hosting included', 'Security monitoring', 'Automatic backups', 'Uptime monitoring'] },
-  { name: 'Business', price: '£59/mo', features: ['Everything in Basic', 'Monthly software updates', 'Up to 2 small content edits/mo', 'Priority email support'] },
-  { name: 'Growth', price: '£99/mo', features: ['Everything in Business', 'Unlimited small content edits', 'Same-day priority support', 'Monthly performance report'] },
+  { name: 'Essential Care', price: '£29/month', features: ['Hosting oversight', 'Basic uptime monitoring', 'Dependency and security updates', 'Bug fixes for existing functionality', 'Backup and configuration checks', 'Email support'] },
+  { name: 'Care+', price: '£49/month', featured: true, features: ['Everything in Essential', 'Up to 30 minutes of minor changes monthly', 'Priority support', 'Minor text and content changes', 'Small UI adjustments', 'Monthly application health check'] },
+  { name: 'Growth Support', price: '£99/month', features: ['Everything in Care+', 'Up to 1.5 hours of improvements monthly', 'Priority development queue', 'Analytics review', 'Performance checks', 'Small feature improvements', 'Monthly recommendations'] },
 ];
 
 const PRICING_TRUST_POINTS = [
@@ -1794,9 +1816,9 @@ const PRICING_COMPARE_ROWS = [
 ];
 
 const PRICING_FAQS = [
-  { q: 'How long does it take?', a: 'Most websites launch within 1–3 weeks depending on scope and how quickly content and feedback come back. App builds typically take 4–8 weeks.' },
+  { q: 'How long does it take?', a: 'Most websites launch within 1–3 weeks. Focused app tools often take 3–7 days and many starter web apps take 1–2 weeks. Timings depend on the agreed scope and how quickly content and feedback arrive.' },
   { q: 'Do I own the website?', a: 'Yes. Once the final invoice is paid, the site, its code, and its content are entirely yours — no ongoing licence fee to keep it live.' },
-  { q: 'Can I pay monthly?', a: 'The build itself is a fixed one-off price, but ongoing hosting, updates, and support are available through a monthly maintenance plan from £29/month.' },
+  { q: 'Do I need to pay everything upfront?', a: 'Not necessarily. Projects over £500 can use milestone payments. The exact stages and amounts are agreed before work begins.' },
   { q: 'Can you redesign my current website?', a: 'Yes. Redesigns follow the same process as a new build — I review what you already have, keep what is working, and rebuild the rest around your existing content and branding.' },
   { q: 'Do you provide hosting?', a: 'Yes. Hosting guidance is included with every package, and fully managed hosting is available as part of a maintenance plan.' },
   { q: 'Can you help with SEO?', a: 'Yes. Every package includes basic on-page SEO (titles, meta descriptions, structure), and the Business and Elite tiers add deeper, keyword-focused SEO work.' },
@@ -1809,14 +1831,24 @@ function PricingPage({ navigate }) {
     <>
       <Hero
         eyebrow="Pricing"
-        title="A fixed price, a free chat first. No surprises either way."
-        copy="Websites start from £249 and app MVPs from £4,999 — pick a starting point below, then book a free 15-minute call to talk through what you actually need before anything is agreed."
+        title="Custom software shouldn't cost £10,000."
+        copy="Websites from £249. Working web apps from £699. Professional websites and custom apps without agency overhead — built, deployed, and ready to use in weeks, not months."
         primary={['Book a free 15-minute call', BOOKING_URL]}
         secondary={['See what fits', '#pricing']}
         navigate={navigate}
       />
 
       <div className="urgency-banner">🟠 Currently taking on 3 new projects this month.</div>
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="Affordable Custom Software" title="Turn your idea into a real working app from £699." copy="A modern, AI-assisted development workflow reduces build time and keeps costs realistic for sole traders, small businesses, side-hustlers and first-time founders. I remain responsible for every line of the finished product." />
+        <div className="pricing-highlights" aria-label="Key pricing highlights">
+          <div><strong>£249</strong><span>Websites from</span></div>
+          <div><strong>£699</strong><span>Working web apps from</span></div>
+          <div><strong>1–2 weeks</strong><span>Typical starter app delivery</span></div>
+          <div><strong>Direct</strong><span>Work with the developer</span></div>
+        </div>
+      </Section>
 
       <Section>
         <div id="pricing" className="anchor-target" />
@@ -1882,32 +1914,67 @@ function PricingPage({ navigate }) {
 
       <SocialProofBanner />
 
-      <Section tone="dark">
-        <SectionHeader eyebrow="Ongoing Support" title="Keep your site fast, secure, and up to date." copy="Optional monthly plans, available once your site is live." />
-        <div className="maintenance-grid">
-          {MAINTENANCE_PLANS.map((plan) => (
-            <div className="maintenance-card" key={plan.name}>
-              <h3>{plan.name}</h3>
-              <strong>{plan.price}</strong>
-              <ul className="price-checklist">
-                {plan.features.map((f) => <li key={f}>{f}</li>)}
-              </ul>
+      <Section>
+        <SectionHeader eyebrow="Web App Development" title="Professional apps at realistic starting prices." copy="Each package is designed for a defined type of project. Your exact functionality, final price, and delivery window are agreed before development begins." />
+        <div className="app-pricing-grid">
+          {APP_TIERS.map((tier) => (
+            <div className={`pricing-card-v2 app-pricing-card${tier.featured ? ' featured' : ''}`} key={tier.name}>
+              {tier.featured && <span className="pricing-card-badge">Most popular</span>}
+              <h3>{tier.name}</h3>
+              <p className="pricing-card-tagline">{tier.tagline}</p>
+              <strong className="pricing-card-price">{tier.price}</strong>
+              <p className="delivery-line"><span>Typical delivery</span>{tier.delivery}</p>
+              <ul className="price-checklist">{tier.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
+              <Button href={BOOKING_URL} navigate={navigate}>{tier.cta}</Button>
             </div>
           ))}
         </div>
+        <p className="scope-note"><strong>Prices depend on scope and complexity.</strong> Larger or more complex platforms are individually scoped.</p>
+      </Section>
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="A Simple, Protected Process" title="Clear scope before any development begins." copy="Simple starting prices do not mean unlimited features. You will always know what is included before committing." />
+        <ol className="scope-steps">
+          <li><span>1</span><strong>You explain the idea.</strong></li>
+          <li><span>2</span><strong>We agree the required functionality.</strong></li>
+          <li><span>3</span><strong>I provide the final scope and price.</strong></li>
+          <li><span>4</span><strong>Development starts after approval.</strong></li>
+        </ol>
+        <p className="scope-callout">Need something outside the package? No problem. I'll quote it before any additional work begins.</p>
       </Section>
 
       <Section>
-        <SectionHeader eyebrow="App & AI Development" title="Beyond websites: apps, dashboards, and AI tools." copy="Fixed scope before fixed price, same as every website package above." />
-        <div className="pricing-grid">
-          {APP_TIERS.map(([name, price, copy]) => (
-            <div className="price-card" key={name}>
-              <h3>{name}</h3>
-              <strong>{price}</strong>
-              <p>{copy}</p>
+        <SectionHeader eyebrow="Flexible Payments" title="Start your app without paying everything upfront." copy="For projects over £500, milestone payments can spread the build cost across clear stages." />
+        <div className="milestone-card">
+          <div><span>To begin</span><strong>£249</strong></div><div><span>Working preview</span><strong>£225</strong></div><div><span>At launch</span><strong>£225</strong></div>
+        </div>
+        <p className="scope-note">Example for a £699 project. Actual milestone amounts may vary depending on the project and are agreed in advance.</p>
+      </Section>
+
+      <Section tone="dark">
+        <SectionHeader eyebrow="Modern, Lean Development" title="Why does it cost less?" copy="Traditional software projects often involve several people, lengthy processes, and substantial overhead. I use a modern development stack and AI-assisted tools to move faster. You pay for the finished result — not unnecessary development hours." />
+        <div className="responsibility-grid">
+          {['Architect the application', 'Review the code', 'Build the frontend and backend', 'Configure infrastructure', 'Test functionality', 'Handle deployment and remain responsible'].map((item) => <div key={item}>✓ {item}</div>)}
+        </div>
+        <div className="value-comparison">
+          <article><span>Traditional agency</span><strong>£5,000–£20,000+</strong><p>4–12+ weeks<br />Multiple layers of management<br />Higher overhead</p></article>
+          <article className="value-comparison-featured"><span>Dean Da Dev</span><strong>Apps from £699</strong><p>Often 1–2 weeks<br />Work directly with the developer<br />Lean modern development process</p></article>
+        </div>
+        <p className="scope-note scope-note-dark">Prices and timelines depend on scope and complexity. Not every app can be built for £699.</p>
+      </Section>
+
+      <Section>
+        <SectionHeader eyebrow="Optional Ongoing Support" title="Keep Your App Running" copy="Launching is only the beginning. Choose ongoing care if you want me to keep looking after your application — or manage it yourself. You retain ownership either way." />
+        <div className="maintenance-grid">
+          {MAINTENANCE_PLANS.map((plan) => (
+            <div className={`maintenance-card light${plan.featured ? ' featured' : ''}`} key={plan.name}>
+              {plan.featured && <span className="pricing-card-badge">Most popular</span>}
+              <h3>{plan.name}</h3><strong>{plan.price}</strong>
+              <ul className="price-checklist">{plan.features.map((f) => <li key={f}>{f}</li>)}</ul>
             </div>
           ))}
         </div>
+        <p className="scope-note">Maintenance plans cover existing functionality, maintenance, and minor improvements. Significant new features or major changes are quoted separately. All plans are optional.</p>
       </Section>
 
       <Section tone="dark">
@@ -2515,6 +2582,38 @@ function websiteSchema() {
     name: 'Dean Da Dev',
     url: SITE_URL,
     description: 'Free developer, SEO, AI, and business tools plus professional UK app, web, AI tool, dashboard, and automation development services.',
+  };
+}
+
+function pricingSchema() {
+  const offers = [
+    ['Launch Website', '249', 'Professional small-business website development'],
+    ['Simple App or Tool', '399', 'Focused calculators, dashboards, workflows and business tools'],
+    ['Starter Web App', '699', 'Production-ready custom web app development'],
+    ['Business Web App', '999', 'Custom applications with multiple workflows or integrations'],
+    ['Advanced App or SaaS', '1499', 'Individually scoped SaaS and advanced application development'],
+  ];
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      websiteSchema(),
+      breadcrumbSchema([['Home', '/'], ['Pricing', '/pricing']]),
+      {
+        '@type': 'Service',
+        '@id': `${SITE_URL}/pricing#web-app-development`,
+        name: 'Affordable Custom Web App Development',
+        serviceType: 'Web Application Development',
+        provider: { '@type': 'ProfessionalService', name: 'Dean Da Dev', url: SITE_URL },
+        areaServed: { '@type': 'Country', name: 'United Kingdom' },
+        description: 'Professional custom websites and web applications with fixed, transparent starting prices for UK small businesses, sole traders and founders.',
+        offers: offers.map(([name, price, description]) => ({
+          '@type': 'Offer', name, price, priceCurrency: 'GBP', url: `${SITE_URL}/pricing`, description,
+          availability: 'https://schema.org/InStock',
+        })),
+      },
+      faqSchema(PRICING_FAQS),
+    ],
   };
 }
 
