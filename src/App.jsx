@@ -1593,6 +1593,13 @@ const MY_PRODUCTS = [
 
 const PORTFOLIO_APPS = [
   {
+    name: 'Perennia',
+    tag: 'Dating App',
+    url: 'https://perennia-coral.vercel.app/',
+    img: '/images/perennia.jpg',
+    desc: 'A star-sign-based dating app that pairs a structured compatibility system with astrological insight to introduce users with genuine long-term potential.',
+  },
+  {
     name: 'Bella Flor Jewellery',
     tag: 'E-Commerce',
     url: 'https://www.bellaflorjewellery.co.uk/',
