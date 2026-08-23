@@ -11,6 +11,8 @@ import {
   GBP_URL,
   BUSINESS_LOCATION,
   BUSINESS_HOURS,
+  BUSINESS_ADDRESS,
+  BUSINESS_GEO,
   PHONE_NUMBER,
   PHONE_DISPLAY,
   WHATSAPP_URL,
@@ -180,7 +182,7 @@ function resolveRoute(path) {
         title: 'Areas Covered | Web Design Near Stratford, London | Dean Da Dev',
         description: 'Website design and development for businesses in Stratford, Forest Gate, Wanstead, Ilford, Leyton, Leytonstone, East Ham, West Ham, and Manor Park.',
         path,
-        schema: websiteSchema(),
+        schema: { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema(locationAreas.map((area) => area.name))] },
       },
     };
   }
@@ -194,7 +196,7 @@ function resolveRoute(path) {
         title: `Web Design in ${areaMatch.name} | Dean Da Dev`,
         description: areaMatch.intro,
         path,
-        schema: websiteSchema(),
+        schema: { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema([areaMatch.name])] },
       },
     };
   }
@@ -251,7 +253,7 @@ function resolveRoute(path) {
 
   const selected = routes[path] || routes['/'];
   const schema = path === '/'
-    ? { '@context': 'https://schema.org', '@graph': [websiteSchema(), faqSchema(HOME_FAQS)] }
+    ? { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema(locationAreas.map((area) => area.name)), faqSchema(HOME_FAQS)] }
     : path === '/pricing'
       ? pricingSchema()
       : websiteSchema();
@@ -2590,6 +2592,21 @@ function websiteSchema() {
   };
 }
 
+function localBusinessSchema(areaServed) {
+  return {
+    '@type': 'ProfessionalService',
+    '@id': `${SITE_URL}/#business`,
+    name: 'Dean Da Dev',
+    url: SITE_URL,
+    telephone: PHONE_NUMBER,
+    image: `${SITE_URL}/images/logo.png`,
+    priceRange: '££',
+    address: { '@type': 'PostalAddress', ...BUSINESS_ADDRESS },
+    geo: { '@type': 'GeoCoordinates', ...BUSINESS_GEO },
+    areaServed: areaServed.map((name) => ({ '@type': 'City', name })),
+  };
+}
+
 function pricingSchema() {
   const offers = [
     ['Launch Website', '249', 'Professional small-business website development'],
@@ -2609,7 +2626,7 @@ function pricingSchema() {
         '@id': `${SITE_URL}/pricing#web-app-development`,
         name: 'Affordable Custom Web App Development',
         serviceType: 'Web Application Development',
-        provider: { '@type': 'ProfessionalService', name: 'Dean Da Dev', url: SITE_URL },
+        provider: localBusinessSchema(locationAreas.map((area) => area.name)),
         areaServed: { '@type': 'Country', name: 'United Kingdom' },
         description: 'Professional custom websites and web applications with fixed, transparent starting prices for UK small businesses, sole traders and founders.',
         offers: offers.map(([name, price, description]) => ({

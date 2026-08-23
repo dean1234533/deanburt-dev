@@ -4,6 +4,8 @@ export const BOOKING_EMBED_URL = 'https://coding-leads.vercel.app/book';
 export const GBP_URL = 'https://www.google.com/maps/search/?api=1&query=Dean+Da+Dev+Stratford+London';
 export const BUSINESS_LOCATION = 'Stratford, London E15';
 export const BUSINESS_HOURS = 'Mon–Fri, 9am–5pm (UK)';
+export const BUSINESS_ADDRESS = { addressLocality: 'London', addressRegion: 'London', postalCode: 'E15', addressCountry: 'GB' };
+export const BUSINESS_GEO = { latitude: 51.5416, longitude: -0.0042 };
 export const PHONE_NUMBER = '+447752300937';
 export const PHONE_DISPLAY = '+44 7752 300937';
 export const WHATSAPP_URL = 'https://wa.me/447752300937';
