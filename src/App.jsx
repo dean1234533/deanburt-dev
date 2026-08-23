@@ -1555,7 +1555,6 @@ const MY_PRODUCTS = [
     tag: 'Developer Marketplace',
     url: 'https://www.show2build.uk/',
     img: '/images/show2build.jpg',
-    imageFit: 'contain',
     desc: 'A proof-first developer marketplace where clients give three developers the same brief, compare real working builds after a 24-hour challenge, and hire with confidence.',
     tags: ['Marketplace', 'SaaS', 'Web App', 'Project Workflow'],
   },
