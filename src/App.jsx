@@ -1792,9 +1792,9 @@ const APP_TIERS = [
 ];
 
 const MAINTENANCE_PLANS = [
-  { name: 'Essential Care', price: '£29/month', features: ['Hosting oversight', 'Basic uptime monitoring', 'Dependency and security updates', 'Bug fixes for existing functionality', 'Backup and configuration checks', 'Email support'] },
-  { name: 'Care+', price: '£49/month', featured: true, features: ['Everything in Essential', 'Up to 30 minutes of minor changes monthly', 'Priority support', 'Minor text and content changes', 'Small UI adjustments', 'Monthly application health check'] },
-  { name: 'Growth Support', price: '£99/month', features: ['Everything in Care+', 'Up to 1.5 hours of improvements monthly', 'Priority development queue', 'Analytics review', 'Performance checks', 'Small feature improvements', 'Monthly recommendations'] },
+  { name: 'Hosting Basics', price: '£10/month', features: ['Managed hosting', 'SSL certificate oversight', 'Basic uptime monitoring', 'Backup and configuration checks', 'Email support for hosting issues', 'No content changes included'] },
+  { name: 'Website Care', price: '£20/month', features: ['Everything in Hosting Basics', 'Dependency and security updates', 'Bug fixes for existing functionality', 'Monthly website health check', 'Standard email support', 'Content changes quoted separately'] },
+  { name: 'Website Care+', price: '£29/month', featured: true, features: ['Everything in Website Care', 'Up to 30 minutes of minor changes monthly', 'Text and image updates', 'Small design adjustments', 'Priority support', 'Basic performance checks'] },
 ];
 
 const PRICING_TRUST_POINTS = [
@@ -1970,7 +1970,7 @@ function PricingPage({ navigate }) {
       </Section>
 
       <Section>
-        <SectionHeader eyebrow="Optional Ongoing Support" title="Keep Your App Running" copy="Launching is only the beginning. Choose ongoing care if you want me to keep looking after your application — or manage it yourself. You retain ownership either way." />
+        <SectionHeader eyebrow="Optional Ongoing Support" title="Keep Your Website or App Running" copy="Launching is only the beginning. Choose ongoing care if you want me to keep looking after your website or application — or manage it yourself. You retain ownership either way." />
         <div className="maintenance-grid">
           {MAINTENANCE_PLANS.map((plan) => (
             <div className={`maintenance-card light${plan.featured ? ' featured' : ''}`} key={plan.name}>
@@ -1980,7 +1980,7 @@ function PricingPage({ navigate }) {
             </div>
           ))}
         </div>
-        <p className="scope-note">Maintenance plans cover existing functionality, maintenance, and minor improvements. Significant new features or major changes are quoted separately. All plans are optional.</p>
+        <p className="scope-note">Unused change time does not roll over. Maintenance plans cover existing functionality and the work listed above. New pages, significant features, redesigns, and major changes are quoted separately. All plans are optional.</p>
       </Section>
 
       <Section tone="dark">
