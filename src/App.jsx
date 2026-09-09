@@ -1551,6 +1551,14 @@ function ServicesPage({ navigate }) {
 
 const MY_PRODUCTS = [
   {
+    name: 'BackTheVibes',
+    tag: 'Music Streaming',
+    url: 'https://www.backthevibes.com/',
+    img: '/images/backthevibes.jpg',
+    desc: 'An independent music listening platform where discovery feels human, artists keep control of their work, and every subscription directly supports the artists behind it.',
+    tags: ['React', 'Streaming', 'SaaS', 'Artist Payouts'],
+  },
+  {
     name: 'Show2Build',
     tag: 'Developer Marketplace',
     url: 'https://www.show2build.uk/',
