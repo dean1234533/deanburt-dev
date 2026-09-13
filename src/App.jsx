@@ -1551,6 +1551,14 @@ function ServicesPage({ navigate }) {
 
 const MY_PRODUCTS = [
   {
+    name: 'First We Plan',
+    tag: 'Mortgage Planner',
+    url: 'https://first-we-plan.pages.dev/',
+    img: '/images/first-we-plan.jpg',
+    desc: 'A free mortgage and household affordability planner — deposit, monthly payments, and total interest, plus a full essential vs optional expense breakdown and a PDF report, all calculated in the browser.',
+    tags: ['React', 'Finance', 'Calculator', 'WordPress Plugin'],
+  },
+  {
     name: 'BackTheVibes',
     tag: 'Music Streaming',
     url: 'https://www.backthevibes.com/',

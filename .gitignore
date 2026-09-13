@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Standalone side project, deployed separately — not part of this site's build
+/first we plan/
