@@ -1174,7 +1174,7 @@ function OpenGraphGenerator() {
   const [title, setTitle] = useState('Dean Da Dev - Free Developer Tools');
   const [description, setDescription] = useState('Free AI, SEO, developer, and business tools for better websites and software projects.');
   const [url, setUrl] = useState(SITE_URL);
-  const [image, setImage] = useState(`${SITE_URL}/images/1.jpg`);
+  const [image, setImage] = useState(`${SITE_URL}/images/bookrightly.jpg`);
   const output = `<meta property="og:type" content="website">\n<meta property="og:title" content="${escapeHtml(title)}">\n<meta property="og:description" content="${escapeHtml(description)}">\n<meta property="og:url" content="${url}">\n<meta property="og:image" content="${image}">\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="${escapeHtml(title)}">\n<meta name="twitter:description" content="${escapeHtml(description)}">\n<meta name="twitter:image" content="${image}">`;
   return <GeneratorPanel fields={[['Title', title, setTitle], ['Description', description, setDescription], ['URL', url, setUrl], ['Image URL', image, setImage]]} title="Social metadata" output={output} />;
 }
@@ -1578,7 +1578,7 @@ const MY_PRODUCTS = [
     name: 'Bookrightly',
     tag: 'Booking SaaS',
     url: 'https://www.bookrightly.co.uk/',
-    img: '/images/1.jpg',
+    img: '/images/bookrightly.jpg',
     desc: 'A UK booking marketplace for barbers, hairdressers, decorators, and personal trainers. Each business gets a public profile, online booking, Stripe payments, and a full dashboard — all on one platform.',
     tags: ['React', 'Firebase', 'Stripe', 'PWA', 'Cloudflare Workers'],
   },
