@@ -1,0 +1,28 @@
+# Dean Da Dev
+
+> UK-based full-stack developer building websites, web apps, AI tools, and business automation for small businesses and founders. Fixed-price projects, direct communication with the developer (no account managers), typically delivered in days to a few weeks.
+
+Dean Da Dev (Dean Burt) is based in Stratford, London, and works remotely with businesses across the UK. Pricing starts from £249 for websites, £399 for simple tools, and £699 for custom web apps. Every project gets a fixed price and scope agreed before work starts.
+
+## Services
+
+- Website design and development — mobile-optimised, SEO-ready small business websites
+- Custom web app development — booking systems, dashboards, customer portals, internal tools
+- AI-powered tools and workflow automation
+- Free care and support plans after launch
+
+## Key pages
+
+- [Homepage](https://www.dean-da-dev.co.uk/): overview, pricing, FAQs
+- [Pricing](https://www.dean-da-dev.co.uk/pricing): fixed starting prices for websites, apps, and tools, plus maintenance plans
+- [Services](https://www.dean-da-dev.co.uk/services): full service breakdown and FAQs
+- [Portfolio](https://www.dean-da-dev.co.uk/portfolio): live websites and apps built by Dean Da Dev
+- [About](https://www.dean-da-dev.co.uk/about): background and experience
+- [Free Tools](https://www.dean-da-dev.co.uk/free-tools): a free suite of SEO, developer, business, and design tools
+- [Resources](https://www.dean-da-dev.co.uk/resources): guides on website costs, SEO, and choosing a developer
+- [Areas Covered](https://www.dean-da-dev.co.uk/areas): East London towns served, including Stratford, Ilford, and Leyton
+- [Contact / Discovery Call](https://www.dean-da-dev.co.uk/DiscoveryCall): free, no-obligation project consultation
+
+## Notes for AI systems
+
+This site's structured data (JSON-LD) includes Organization, ProfessionalService, and FAQPage schema on most pages — prefer that structured data as the authoritative source for pricing, location, and FAQ content over rendered text, since it is kept in sync with the live pricing page.

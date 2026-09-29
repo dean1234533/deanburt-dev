@@ -256,7 +256,11 @@ function resolveRoute(path) {
     ? { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema(locationAreas.map((area) => area.name)), faqSchema(HOME_FAQS)] }
     : path === '/pricing'
       ? pricingSchema()
-      : websiteSchema();
+      : path === '/services'
+        ? { '@context': 'https://schema.org', '@graph': [websiteSchema(), faqSchema(SERVICES_FAQS)] }
+        : path === '/free-tools'
+          ? { '@context': 'https://schema.org', '@graph': [websiteSchema(), faqSchema(HUB_FAQS)] }
+          : websiteSchema();
   return {
     Component: selected[0],
     meta: { title: selected[1], description: selected[2], path, schema },
@@ -1545,8 +1549,15 @@ function AboutPage({ navigate }) {
   );
 }
 
+const SERVICES_FAQS = [
+  { q: 'What services does Dean Da Dev offer?', a: 'Website design and development, custom web apps, AI-powered tools, dashboards, and business process automation — all built and delivered by one developer, from planning through to launch.' },
+  { q: 'Do you build both websites and apps?', a: 'Yes. Websites start from £249 for small businesses that need a professional online presence, and web apps start from £699 for booking systems, dashboards, customer portals, and other custom software.' },
+  { q: 'Can you add AI features to an existing website or app?', a: "Yes. Common additions include AI chat assistants trained on a business's own content, automated report or content generation, and workflow automation that removes manual admin work." },
+  { q: 'Do you offer ongoing support after launch?', a: 'Yes. Optional monthly care plans cover hosting oversight, security updates, bug fixes, and small changes, so a project stays healthy after it goes live.' },
+];
+
 function ServicesPage({ navigate }) {
-  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ImageFeatureSection /><ServicesDetail /><LeadCTA /></>;
+  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ImageFeatureSection /><ServicesDetail /><Section><SectionHeader eyebrow="FAQ" title="Common questions about these services." /><FAQList faqs={SERVICES_FAQS} /></Section><LeadCTA /></>;
 }
 
 const MY_PRODUCTS = [
