@@ -5,6 +5,7 @@
     }
   },
   "redirects": [
+    { "source": "/launch-check", "destination": "/launch-check/", "permanent": true },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "deanburt-dev.vercel.app" }],
@@ -14,7 +15,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!sitemap.xml|robots.txt|favicon.svg|icons.svg|images/.*|assets/.*).*)",
+      "source": "/((?!sitemap.xml|robots.txt|favicon.svg|icons.svg|images/.*|assets/.*|launch-check/.*).*)",
       "destination": "/index.html"
     }
   ],

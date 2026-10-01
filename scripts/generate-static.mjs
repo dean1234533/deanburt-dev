@@ -23,8 +23,11 @@ const MIME_TYPES = {
   '.txt': 'text/plain',
 };
 
+// Static pages that live in public/ and are not part of the React app's routes.
+const STATIC_FILE_PAGES = ['/launch-check/', '/launch-check/privacy.html'];
+
 function buildSitemap(routes) {
-  const urls = routes.map((route) => {
+  const urls = [...routes, ...STATIC_FILE_PAGES.map((path) => ({ path, changefreq: 'monthly', priority: '0.8' }))].map((route) => {
     const loc = `${SITE_URL}${route.path === '/' ? '/' : route.path}`;
     const lastmod = route.lastmod || new Date().toISOString().slice(0, 10);
     return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod><changefreq>${route.changefreq}</changefreq><priority>${route.priority}</priority></url>`;
