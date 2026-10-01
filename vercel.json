@@ -5,7 +5,9 @@
     }
   },
   "redirects": [
-    { "source": "/launch-check", "destination": "/launch-check/", "permanent": true },
+    { "source": "/launch-check", "destination": "/quick-scan-first/", "permanent": true },
+    { "source": "/launch-check/:path*", "destination": "/quick-scan-first/:path*", "permanent": true },
+    { "source": "/quick-scan-first", "destination": "/quick-scan-first/", "permanent": true },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "deanburt-dev.vercel.app" }],
@@ -15,7 +17,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!sitemap.xml|robots.txt|favicon.svg|icons.svg|images/.*|assets/.*|launch-check/.*).*)",
+      "source": "/((?!sitemap.xml|robots.txt|favicon.svg|icons.svg|images/.*|assets/.*|quick-scan-first/.*).*)",
       "destination": "/index.html"
     }
   ],

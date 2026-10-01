@@ -24,7 +24,7 @@ const MIME_TYPES = {
 };
 
 // Static pages that live in public/ and are not part of the React app's routes.
-const STATIC_FILE_PAGES = ['/launch-check/', '/launch-check/privacy.html'];
+const STATIC_FILE_PAGES = ['/quick-scan-first/', '/quick-scan-first/privacy.html'];
 
 function buildSitemap(routes) {
   const urls = [...routes, ...STATIC_FILE_PAGES.map((path) => ({ path, changefreq: 'monthly', priority: '0.8' }))].map((route) => {
