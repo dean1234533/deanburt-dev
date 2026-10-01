@@ -6,6 +6,7 @@
   },
   "redirects": [
     { "source": "/launch-check", "destination": "/quick-scan-first/", "permanent": true },
+    { "source": "/launch-check/", "destination": "/quick-scan-first/", "permanent": true },
     { "source": "/launch-check/:path*", "destination": "/quick-scan-first/:path*", "permanent": true },
     { "source": "/quick-scan-first", "destination": "/quick-scan-first/", "permanent": true },
     {
