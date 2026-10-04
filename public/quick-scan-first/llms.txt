@@ -1,0 +1,18 @@
+# Quick Scan First
+
+> Quick Scan First is a Chrome extension for pre-launch GitHub repository review. It checks for exposed secrets, unsafe database access, vulnerable dependencies, missing authentication and ownership checks, payment risks and production configuration problems.
+
+## Product
+- [Quick Scan First](https://www.dean-da-dev.co.uk/quick-scan-first/)
+- [GitHub repository security scanner](https://www.dean-da-dev.co.uk/quick-scan-first/github-repository-security-scanner/)
+- [Pre-launch code review](https://www.dean-da-dev.co.uk/quick-scan-first/pre-launch-code-review/)
+- [Exposed API key scanner](https://www.dean-da-dev.co.uk/quick-scan-first/exposed-api-key-scanner/)
+- [Privacy policy](https://www.dean-da-dev.co.uk/quick-scan-first/privacy.html)
+
+## Guides
+- [GitHub security checklist before launching a web app](https://www.dean-da-dev.co.uk/quick-scan-first/blog/github-security-checklist-before-launch/)
+- [How to remove an exposed API key from GitHub safely](https://www.dean-da-dev.co.uk/quick-scan-first/blog/remove-exposed-api-keys-from-github/)
+- [Firebase and Supabase security rules to check before launch](https://www.dean-da-dev.co.uk/quick-scan-first/blog/firebase-supabase-security-rules/)
+
+## Important limitations
+Quick Scan First is a second pair of eyes, not a penetration test, formal security audit or security guarantee. AI findings and generated pull requests require human review.

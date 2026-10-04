@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.dean-da-dev.co.uk/sitemap.xml
 Sitemap: https://www.dean-da-dev.co.uk/quick-scan-first/sitemap.xml
