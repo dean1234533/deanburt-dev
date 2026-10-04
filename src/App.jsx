@@ -1562,12 +1562,31 @@ function ServicesPage({ navigate }) {
 
 const MY_PRODUCTS = [
   {
+    name: 'Nerd Multiverse',
+    tag: 'Collector Marketplace',
+    url: 'https://nerd-multiverse.deanburt1308.workers.dev',
+    img: '/images/nerd-multiverse.jpg',
+    desc: 'A cinematic second-hand marketplace for nerd, geek, and collector goods. The platform combines real-time listings, seller and admin dashboards, favourites, orders, reviews, and compressed product-photo uploads in one responsive PWA.',
+    tags: ['React', 'TypeScript', 'Firebase', 'Marketplace', 'Cloudflare Workers'],
+    categories: ['Latest', 'Marketplaces'],
+  },
+  {
+    name: 'Quick Scan First',
+    tag: 'Developer Security Tool',
+    status: 'Coming soon to Chrome',
+    img: '/images/quick-scan-first.jpg',
+    desc: 'A Chrome extension that scans GitHub repositories before launch, flags exposed secrets, unsafe database rules, missing authentication checks, dependency risks, and payment bugs, then prepares reviewed fixes as pull requests.',
+    tags: ['Chrome Extension', 'React', 'TypeScript', 'Claude AI', 'GitHub API'],
+    categories: ['Latest', 'Developer Tools'],
+  },
+  {
     name: 'First We Plan',
     tag: 'Mortgage Planner',
     url: 'https://mortgage.dean-da-dev.co.uk/',
     img: '/images/first-we-plan.jpg',
     desc: 'A free mortgage and household affordability planner — deposit, monthly payments, and total interest, plus a full essential vs optional expense breakdown and a PDF report, all calculated in the browser.',
     tags: ['React', 'Finance', 'Calculator', 'WordPress Plugin'],
+    categories: ['Business Tools'],
   },
   {
     name: 'BackTheVibes',
@@ -1576,6 +1595,7 @@ const MY_PRODUCTS = [
     img: '/images/backthevibes.jpg',
     desc: 'An independent music listening platform where discovery feels human, artists keep control of their work, and every subscription directly supports the artists behind it.',
     tags: ['React', 'Streaming', 'SaaS', 'Artist Payouts'],
+    categories: ['Platforms'],
   },
   {
     name: 'Show2Build',
@@ -1584,6 +1604,7 @@ const MY_PRODUCTS = [
     img: '/images/show2build.jpg',
     desc: 'A proof-first developer marketplace where clients give three developers the same brief, compare real working builds after a 24-hour challenge, and hire with confidence.',
     tags: ['Marketplace', 'SaaS', 'Web App', 'Project Workflow'],
+    categories: ['Marketplaces'],
   },
   {
     name: 'Bookrightly',
@@ -1592,6 +1613,7 @@ const MY_PRODUCTS = [
     img: '/images/bookrightly.jpg',
     desc: 'A UK booking marketplace for barbers, hairdressers, decorators, and personal trainers. Each business gets a public profile, online booking, Stripe payments, and a full dashboard — all on one platform.',
     tags: ['React', 'Firebase', 'Stripe', 'PWA', 'Cloudflare Workers'],
+    categories: ['Marketplaces', 'Platforms'],
   },
   {
     name: "DB's AI Trainer",
@@ -1600,6 +1622,7 @@ const MY_PRODUCTS = [
     img: '/images/4.jpg',
     desc: 'A personal AI fitness trainer that generates custom workout plans, tracks progress, and adapts its recommendations to the user over time. Built for DB\'s Workouts.',
     tags: ['React', 'AI', 'Firebase'],
+    categories: ['AI Products'],
   },
   {
     name: 'Growth Audit',
@@ -1608,6 +1631,7 @@ const MY_PRODUCTS = [
     img: '/images/3.jpg',
     desc: 'A free, AI-powered website growth audit tool that scans a business website for SEO, speed, and trust issues and returns prioritised, actionable fixes in under 30 seconds.',
     tags: ['React', 'AI', 'SEO'],
+    categories: ['AI Products'],
   },
   {
     name: 'AI Growth Platform',
@@ -1616,6 +1640,7 @@ const MY_PRODUCTS = [
     img: '/images/7.jpg',
     desc: 'An AI-driven lead discovery platform that scans the web for businesses matching a target profile and helps sales teams find and reach prospective customers faster.',
     tags: ['React', 'AI', 'Cloudflare'],
+    categories: ['AI Products'],
   },
 ];
 
@@ -1676,6 +1701,10 @@ const DEMO_SITES = [
 ];
 
 function PortfolioPage({ navigate }) {
+  const productCategories = ['Latest', 'Marketplaces', 'Developer Tools', 'Business Tools', 'AI Products', 'Platforms'];
+  const [activeProductCategory, setActiveProductCategory] = useState('Latest');
+  const visibleProducts = MY_PRODUCTS.filter((product) => product.categories.includes(activeProductCategory));
+
   return (
     <>
       <Hero
@@ -1689,15 +1718,28 @@ function PortfolioPage({ navigate }) {
 
       {/* My Products */}
       <Section tone="dark">
-        <SectionHeader eyebrow="My Products" title="Apps and platforms I built, own, and run." copy="Not client work. These are live products with real users — built, launched, and maintained by Dean Da Dev." />
+        <SectionHeader eyebrow="My Products" title="Apps and platforms I built, own, and run." copy="Browse by category to see a focused selection instead of every product at once." />
+        <div className="product-category-tabs" role="tablist" aria-label="Product categories">
+          {productCategories.map((category) => (
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeProductCategory === category}
+              className={activeProductCategory === category ? 'is-active' : ''}
+              onClick={() => setActiveProductCategory(category)}
+              key={category}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
         <div className="my-products-grid">
-          {MY_PRODUCTS.map((product) => (
-            <div className="my-product-card" key={product.name}>
+          {visibleProducts.map((product) => (
+            <article className="my-product-card" key={product.name}>
               <img
                 src={product.img}
                 alt={`${product.name} built by Dean Da Dev`}
                 loading="lazy"
-                className={product.imageFit === 'contain' ? 'product-image-contain' : undefined}
               />
               <div className="my-product-body">
                 <span>{product.tag}</span>
@@ -1706,9 +1748,15 @@ function PortfolioPage({ navigate }) {
                 <div className="featured-project-tags">
                   {product.tags.map((tag) => <span key={tag}>{tag}</span>)}
                 </div>
-                <a className="button button-primary button-small" href={product.url} target="_blank" rel="noopener noreferrer">View live site</a>
+                <div className="product-actions">
+                  {product.url ? (
+                    <a className="button button-primary button-small" href={product.url} target="_blank" rel="noopener noreferrer">{product.cta || 'View live site'}</a>
+                  ) : (
+                    <span className="button button-secondary button-small">{product.status}</span>
+                  )}
+                </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </Section>
