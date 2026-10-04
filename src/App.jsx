@@ -560,7 +560,7 @@ function Hero({ eyebrow, title, copy, primary, secondary, navigate, primaryActio
           <Button href={secondary[1]} variant="secondary" navigate={navigate}>{secondary[0]}</Button>
         </div>
         <div className="trust-strip" aria-label="Key credentials">
-          {['7 live apps shipped', 'UK-based developer', 'Fixed-price guarantee', 'Free, no-obligation consultation', 'Fast, scope-based delivery'].map((item) => <span key={item}>{item}</span>)}
+          {['8 live apps shipped', 'UK-based developer', 'Fixed-price guarantee', 'Free, no-obligation consultation', 'Fast, scope-based delivery'].map((item) => <span key={item}>{item}</span>)}
         </div>
       </div>
     </section>
@@ -1513,7 +1513,7 @@ function AboutPage({ navigate }) {
       <Hero
         eyebrow="About Dean Da Dev"
         title="UK developer who builds and ships real products, not mockups."
-        copy="7 live apps shipped. Full-stack from design to deployment — without agency overhead."
+        copy="8 live apps shipped. Full-stack from design to deployment — without agency overhead."
         primary={['Book a discovery call', BOOKING_URL]}
         secondary={['See live work', '/portfolio']}
         navigate={navigate}
@@ -1527,9 +1527,9 @@ function AboutPage({ navigate }) {
             <p className="eyebrow">Dean Burt · Founder</p>
             <h2>Building production-grade apps and websites for UK businesses.</h2>
             <p>Dean Burt is a UK-based full-stack developer who designs, builds, and ships mobile apps, websites, AI tools, and dashboards for local businesses and early-stage founders. Every project is handled end to end — from initial scope and UX through development, App Store submission, and deployment.</p>
-            <p>With 7 live production apps and a track record of shipping properly scoped projects in weeks, Dean Da Dev offers professional development without traditional agency overhead. No account managers or handoffs — just a direct line to the developer building your product.</p>
+            <p>With 8 live production apps and a track record of shipping properly scoped projects in weeks, Dean Da Dev offers professional development without traditional agency overhead. No account managers or handoffs — just a direct line to the developer building your product.</p>
             <div className="about-stats">
-              {[['7', 'Live apps shipped'], ['4–8 wk', 'Average time to launch'], ['100%', 'Handled end to end'], ['UK', 'Based and built here']].map(([n, l]) => (
+              {[['8', 'Live apps shipped'], ['4–8 wk', 'Average time to launch'], ['100%', 'Handled end to end'], ['UK', 'Based and built here']].map(([n, l]) => (
                 <div key={l} className="about-stat">
                   <strong>{n}</strong>
                   <span>{l}</span>
