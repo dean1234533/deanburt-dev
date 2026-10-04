@@ -1573,7 +1573,7 @@ const MY_PRODUCTS = [
   {
     name: 'Quick Scan First',
     tag: 'Developer Security Tool',
-    status: 'Coming soon to Chrome',
+    url: 'https://www.dean-da-dev.co.uk/quick-scan-first/',
     img: '/images/quick-scan-first.jpg',
     desc: 'A Chrome extension that scans GitHub repositories before launch, flags exposed secrets, unsafe database rules, missing authentication checks, dependency risks, and payment bugs, then prepares reviewed fixes as pull requests.',
     tags: ['Chrome Extension', 'React', 'TypeScript', 'Claude AI', 'GitHub API'],
