@@ -24,7 +24,17 @@ const MIME_TYPES = {
 };
 
 // Static pages that live in public/ and are not part of the React app's routes.
-const STATIC_FILE_PAGES = ['/quick-scan-first/', '/quick-scan-first/privacy.html'];
+const STATIC_FILE_PAGES = [
+  '/quick-scan-first/',
+  '/quick-scan-first/github-repository-security-scanner/',
+  '/quick-scan-first/pre-launch-code-review/',
+  '/quick-scan-first/exposed-api-key-scanner/',
+  '/quick-scan-first/blog/',
+  '/quick-scan-first/blog/github-security-checklist-before-launch/',
+  '/quick-scan-first/blog/remove-exposed-api-keys-from-github/',
+  '/quick-scan-first/blog/firebase-supabase-security-rules/',
+  '/quick-scan-first/privacy.html',
+];
 
 function buildSitemap(routes) {
   const urls = [...routes, ...STATIC_FILE_PAGES.map((path) => ({ path, changefreq: 'monthly', priority: '0.8' }))].map((route) => {
