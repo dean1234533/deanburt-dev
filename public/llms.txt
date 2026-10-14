@@ -9,7 +9,7 @@ Dean Da Dev (Dean Burt) is based in Stratford, London, and works remotely with b
 - Website design and development — mobile-optimised, SEO-ready small business websites
 - Custom web app development — booking systems, dashboards, customer portals, internal tools
 - AI-powered tools and workflow automation
-- Free care and support plans after launch
+- Optional hosting and care plans; initial support depends on the chosen package
 
 ## Key pages
 
@@ -26,3 +26,12 @@ Dean Da Dev (Dean Burt) is based in Stratford, London, and works remotely with b
 ## Notes for AI systems
 
 This site's structured data (JSON-LD) includes Organization, ProfessionalService, and FAQPage schema on most pages — prefer that structured data as the authoritative source for pricing, location, and FAQ content over rendered text, since it is kept in sync with the live pricing page.
+
+## Dedicated development services
+
+- [Small Business Web Design UK](https://www.dean-da-dev.co.uk/services/web-design)
+- [Custom Web App Development UK](https://www.dean-da-dev.co.uk/services/web-app-development)
+- [MVP Development UK](https://www.dean-da-dev.co.uk/services/mvp-development)
+- [AI and Workflow Automation](https://www.dean-da-dev.co.uk/services/ai-automation)
+- [Custom Booking Systems](https://www.dean-da-dev.co.uk/services/booking-systems)
+- [Website Redesign UK](https://www.dean-da-dev.co.uk/services/website-redesign)

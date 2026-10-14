@@ -1,11 +1,11 @@
 import { writeFileSync, readFileSync, mkdirSync, createReadStream, existsSync, statSync } from 'node:fs';
-import { dirname, join, extname } from 'node:path';
+import { dirname, join, extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createServer } from 'node:http';
 import { getAllRoutes, SITE_URL } from '../src/siteData.js';
 
 const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
-const distDir = join(rootDir, 'dist');
+const distDir = process.env.BUILD_OUTPUT_DIR ? resolve(process.env.BUILD_OUTPUT_DIR) : join(rootDir, 'dist');
 const PORT = 4173;
 
 const MIME_TYPES = {
@@ -150,6 +150,7 @@ try {
   console.log(`Generated sitemap.xml (${routes.length} URLs) and fully prerendered ${allRoutes.length} routes.`);
 } catch (err) {
   console.error('Full-content prerender failed:', err.message);
+  if (process.env.REQUIRE_FULL_PRERENDER === '1') throw err;
   writeMetaOnlyFallback(routes, baseHtml);
 } finally {
   server.close();

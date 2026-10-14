@@ -5,7 +5,8 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // Separate project and its already-built static bundles are not site source.
+  globalIgnores(['dist', 'first we plan/**', 'public/quick-scan-first/assets/**']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [

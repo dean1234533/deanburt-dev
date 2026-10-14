@@ -1,3 +1,6 @@
+import { servicePages } from './servicePages.js';
+export { servicePages };
+
 export const SITE_URL = 'https://www.dean-da-dev.co.uk';
 export const BOOKING_URL = '/DiscoveryCall';
 export const BOOKING_EMBED_URL = 'https://coding-leads.vercel.app/book';
@@ -806,11 +809,11 @@ export function resourceGuides() {
 }
 
 export const STATIC_PAGES = [
-  { path: '/', title: 'Affordable Web App Developer UK | Dean Da Dev', description: 'Custom web apps from £699 and professional websites from £249. Work directly with a UK developer for fixed-scope design, development and launch.' },
+  { path: '/', title: 'Freelance Web Developer UK | Websites & Apps | Dean Da Dev', description: 'UK freelance web developer for small businesses and founders. Websites from £249, web apps from £699. Work directly with Dean Burt from brief to launch.' },
   { path: '/about', title: 'About Dean Da Dev | UK Web, App and AI Developer', description: 'Meet Dean Da Dev, a UK full-stack developer building websites, apps, AI tools, and automation for growing businesses.' },
   { path: '/services', title: 'App, Web and AI Development Services UK', description: 'Professional apps, websites, AI tools, automation, dashboards, and business tool development services for UK businesses.' },
   { path: '/portfolio', title: 'Portfolio | Live Websites and Apps by Dean Da Dev', description: 'Explore live web, app, ecommerce, and AI projects built and launched by Dean Da Dev.' },
-  { path: '/pricing', title: 'Affordable Web App Development Pricing UK | From £699', description: 'Custom web apps from £699 and websites from £249. Fixed, transparent starting prices, milestone payments and fast UK development for small businesses and founders.' },
+  { path: '/pricing', title: 'Website & Web App Development Prices UK | Dean Da Dev', description: 'Website prices from £249 and custom web apps from £699. Compare UK website, app and support packages with a fixed scope agreed before the build.' },
   { path: '/contact', title: 'Contact dean-da-dev | Start Your Website Project', description: 'Contact dean-da-dev to discuss a premium, mobile-friendly website, booking system, free tool, app, or business automation project.' },
   { path: '/DiscoveryCall', title: 'Book a Discovery Call | Dean Da Dev', description: 'Book a discovery call with Dean Da Dev to discuss a website, app, AI tool, dashboard, or automation project.' },
   { path: '/resources', title: 'Resources | Website, SEO and Software Guides', description: 'Helpful guides that support the free tools and help businesses plan better digital projects.' },
@@ -828,6 +831,10 @@ export function getAllRoutes() {
 
   for (const page of STATIC_PAGES) {
     routes.push({ path: page.path, title: page.title, description: page.description, changefreq: page.path === '/' ? 'weekly' : 'monthly', priority: page.path === '/' ? '1.0' : '0.8' });
+  }
+
+  for (const page of servicePages) {
+    routes.push({ path: page.path, title: page.title, description: page.description, changefreq: 'monthly', priority: '0.8' });
   }
 
   for (const category of categories) {
@@ -851,7 +858,7 @@ export function getAllRoutes() {
   }
 
   for (const area of locationAreas) {
-    routes.push({ path: `/areas/${area.slug}`, title: `Web Design in ${area.name} | Dean Da Dev`, description: area.intro, changefreq: 'monthly', priority: '0.7' });
+    routes.push({ path: `/areas/${area.slug}`, title: `Web Design ${area.name} | Websites from £249 | Dean Da Dev`, description: `Website design and development for ${area.name} businesses. Mobile-friendly websites from £249, enquiry forms and SEO foundations. Based in Stratford, London.`, changefreq: 'monthly', priority: '0.7' });
   }
 
   return routes;

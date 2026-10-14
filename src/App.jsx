@@ -27,6 +27,8 @@ import {
   BLOG_POSTS,
   slugify,
   resourceGuides,
+  servicePages,
+  STATIC_PAGES,
 } from './siteData';
 
 const ImageToolWorkspace = lazy(() => import('./ImageTools').then((m) => ({ default: m.ImageToolWorkspace })));
@@ -131,6 +133,14 @@ function normalizePath(value) {
 }
 
 function resolveRoute(path) {
+  const service = servicePages.find((page) => page.path === path);
+  if (service) {
+    return {
+      Component: ServiceLandingPage,
+      service,
+      meta: { title: service.title, description: service.description, path, schema: servicePageSchema(service) },
+    };
+  }
   if (path === '/tools') {
     return {
       Component: ImageToolsHubPage,
@@ -193,10 +203,10 @@ function resolveRoute(path) {
       Component: LocationPage,
       area: areaMatch,
       meta: {
-        title: `Web Design in ${areaMatch.name} | Dean Da Dev`,
-        description: areaMatch.intro,
+        title: `Web Design ${areaMatch.name} | Websites from £249 | Dean Da Dev`,
+        description: `Website design and development for ${areaMatch.name} businesses. Mobile-friendly websites from £249, enquiry forms and SEO foundations. Based in Stratford, London.`,
         path,
-        schema: { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema([areaMatch.name])] },
+        schema: { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema(['United Kingdom', ...locationAreas.map((area) => area.name)]), { '@type': 'Service', '@id': `${SITE_URL}${path}#service`, name: `Web design in ${areaMatch.name}`, serviceType: 'Website design and development', url: `${SITE_URL}${path}`, provider: { '@id': `${SITE_URL}/#business` }, areaServed: { '@type': 'Place', name: areaMatch.name } }, breadcrumbSchema([['Home', '/'], ['Areas', '/areas'], [areaMatch.name, path]])] },
       },
     };
   }
@@ -263,7 +273,7 @@ function resolveRoute(path) {
           : websiteSchema();
   return {
     Component: selected[0],
-    meta: { title: selected[1], description: selected[2], path, schema },
+    meta: { title: STATIC_PAGES.find((page) => page.path === path)?.title || selected[1], description: STATIC_PAGES.find((page) => page.path === path)?.description || selected[2], path, schema },
   };
 }
 
@@ -457,8 +467,8 @@ function HomePage({ navigate }) {
   return (
     <>
       <Hero
-        eyebrow="Dean Da Dev"
-        title="Affordable custom apps and websites for real businesses."
+        eyebrow="Freelance developer · London · UK-wide"
+        title="Custom websites and web apps for UK businesses."
         copy="Websites from £249 and working web apps from £699. Work directly with a UK developer who handles the design, build, testing and launch."
         primary={['Get an honest scope estimate', '#project-enquiry']}
         secondary={['View live work', '/portfolio']}
@@ -486,6 +496,7 @@ function HomePage({ navigate }) {
         </div>
       </Section>
       <ServicesSnapshot />
+      <ServiceDirectory navigate={navigate} />
       <Section tone="dark" className="home-tools-bridge">
         <SectionHeader eyebrow="Free Tools" title="Planning something yourself first?" copy="Use the free tools to shape your idea, then come back when you need the production version built properly." />
         <div className="center-gap">
@@ -1557,7 +1568,57 @@ const SERVICES_FAQS = [
 ];
 
 function ServicesPage({ navigate }) {
-  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ImageFeatureSection /><ServicesDetail /><Section><SectionHeader eyebrow="FAQ" title="Common questions about these services." /><FAQList faqs={SERVICES_FAQS} /></Section><LeadCTA /></>;
+  return <><Hero eyebrow="Services" title="App development, web development, AI tools, and automation for UK businesses." copy="From a conversion-focused website to a mobile app, dashboard, or AI workflow, Dean Da Dev handles planning, UX, development, launch, and iteration." primary={['See what you get', '#services-detail']} secondary={['View pricing', '/pricing']} navigate={navigate} /><ServiceDirectory navigate={navigate} /><ImageFeatureSection /><ServicesDetail /><Section><SectionHeader eyebrow="FAQ" title="Common questions about these services." /><FAQList faqs={SERVICES_FAQS} /></Section><LeadCTA /></>;
+}
+
+function ServiceDirectory({ navigate, exclude }) {
+  return (
+    <Section>
+      <SectionHeader eyebrow="Development Services" title="Choose the right build for your business." copy="Explore the scope, starting prices and examples for the work you need." />
+      <div className="resource-grid">
+        {servicePages.filter((service) => service.path !== exclude).map((service) => (
+          <a className="resource-card" key={service.path} href={service.path} onClick={(event) => handleLink(event, service.path, navigate)}>
+            <span>{service.price}</span>
+            <h3>{service.label}</h3>
+            <p>{service.intro}</p>
+          </a>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+function ServiceLandingPage({ route, navigate }) {
+  const service = route.service;
+  const openContactModal = useContactModal();
+  return (
+    <>
+      <Hero eyebrow={service.label} title={service.heading} copy={service.intro} primary={['Discuss your project', '#project-enquiry']} primaryAction={openContactModal} secondary={['Compare prices', '/pricing']} compact navigate={navigate} />
+      <Section>
+        <SectionHeader eyebrow="Scope & Budget" title={service.price} copy={service.scope} />
+        <div className="value-grid">
+          {service.sections.map(([heading, copy]) => <article className="value-card" key={heading}><h2>{heading}</h2><p>{copy}</p></article>)}
+        </div>
+      </Section>
+      <Section tone="dark">
+        <SectionHeader eyebrow={service.project.type} title={service.project.name} copy={service.project.copy} />
+        <div className="button-row">
+          <Button href={service.project.url} variant="secondary">View the live project</Button>
+          <Button href="/portfolio" variant="secondary" navigate={navigate}>Explore Dean’s portfolio</Button>
+        </div>
+      </Section>
+      <Section>
+        <article className="guide-article">
+          <h2>Work directly with a UK freelance developer</h2>
+          <p>Dean Burt is based in {BUSINESS_LOCATION}, working with businesses across the UK. Start with a free discovery conversation about your requirements, budget and timeline. The deliverables, final price and release plan are agreed before work begins.</p>
+          <p><a href="/about" onClick={(event) => handleLink(event, '/about', navigate)}>Meet Dean</a>, <a href="/pricing" onClick={(event) => handleLink(event, '/pricing', navigate)}>compare development packages</a> or <a href={BOOKING_URL} onClick={(event) => handleLink(event, BOOKING_URL, navigate)}>book a discovery call</a>.</p>
+        </article>
+      </Section>
+      <Section tone="dark"><SectionHeader eyebrow="FAQ" title={`Questions about ${service.label.toLowerCase()}.`} /><FAQList faqs={service.faqs} /></Section>
+      <ServiceDirectory navigate={navigate} exclude={service.path} />
+      <LeadCTA />
+    </>
+  );
 }
 
 const MY_PRODUCTS = [
@@ -1910,7 +1971,7 @@ function PricingPage({ navigate }) {
     <>
       <Hero
         eyebrow="Pricing"
-        title="Custom software shouldn't cost £10,000."
+        title="Website and web app development prices in the UK."
         copy="Websites from £249. Working web apps from £699. Professional websites and custom apps without agency overhead — built, deployed, and ready to use in weeks, not months."
         primary={['Get an honest scope estimate', '#pricing']}
         secondary={['Book a free 15-minute call', BOOKING_URL]}
@@ -2062,6 +2123,8 @@ function PricingPage({ navigate }) {
         <SectionHeader eyebrow="FAQ" title="Common questions before you get in touch." />
         <FAQList faqs={PRICING_FAQS} />
       </Section>
+
+      <ServiceDirectory navigate={navigate} />
 
       <section className="lead-cta">
         <div>
@@ -2441,8 +2504,8 @@ function LocationPage({ route, navigate }) {
     <>
       <Hero
         eyebrow={`Web Design in ${area.name}`}
-        title={`Websites and free tools for ${area.name} businesses.`}
-        copy={area.intro}
+        title={`Web design and development for ${area.name} businesses.`}
+        copy={`Mobile-friendly websites from £249, web apps from £699 and clear enquiry routes. Work directly with Dean Burt, based in Stratford and serving ${area.name} and businesses across the UK.`}
         primary={['Book a discovery call', BOOKING_URL]}
         secondary={['See pricing', '/pricing']}
         navigate={navigate}
@@ -2450,11 +2513,13 @@ function LocationPage({ route, navigate }) {
       <Section>
         <article className="guide-article">
           <h2>Working with businesses in {area.name}</h2>
+          <p>{area.intro}</p>
           <p>{area.context}</p>
           <h2>Location & hours</h2>
           <p>Based in {BUSINESS_LOCATION}, {BUSINESS_HOURS.toLowerCase()}. <a href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>.</p>
         </article>
       </Section>
+      <ServiceDirectory navigate={navigate} />
       <Section tone="dark">
         <SectionHeader eyebrow="Nearby areas" title="Also covering these areas." />
         <div className="resource-grid">
@@ -2660,6 +2725,7 @@ function websiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
     name: 'Dean Da Dev',
     url: SITE_URL,
     description: 'Free developer, SEO, AI, and business tools plus professional UK app, web, AI tool, dashboard, and automation development services.',
@@ -2677,7 +2743,22 @@ function localBusinessSchema(areaServed) {
     priceRange: '££',
     address: { '@type': 'PostalAddress', ...BUSINESS_ADDRESS },
     geo: { '@type': 'GeoCoordinates', ...BUSINESS_GEO },
-    areaServed: areaServed.map((name) => ({ '@type': 'City', name })),
+    areaServed: [...new Set(['United Kingdom', ...areaServed])].map((name) => ({ '@type': name === 'United Kingdom' ? 'Country' : 'Place', name })),
+  };
+}
+
+function servicePageSchema(service) {
+  const url = `${SITE_URL}${service.path}`;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      websiteSchema(),
+      localBusinessSchema(locationAreas.map((area) => area.name)),
+      { '@type': 'WebPage', '@id': `${url}#webpage`, url, name: service.title, description: service.description, inLanguage: 'en-GB', isPartOf: { '@id': `${SITE_URL}/#website` }, about: { '@id': `${url}#service` } },
+      { '@type': 'Service', '@id': `${url}#service`, url, name: service.label, serviceType: service.label, description: service.description, provider: { '@id': `${SITE_URL}/#business` }, areaServed: { '@type': 'Country', name: 'United Kingdom' } },
+      breadcrumbSchema([['Home', '/'], ['Services', '/services'], [service.label, service.path]]),
+      faqSchema(service.faqs),
+    ],
   };
 }
 

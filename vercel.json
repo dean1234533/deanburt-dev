@@ -1,7 +1,8 @@
 {
   "build": {
     "env": {
-      "PUPPETEER_SKIP_DOWNLOAD": "true"
+      "PUPPETEER_SKIP_DOWNLOAD": "true",
+      "REQUIRE_FULL_PRERENDER": "1"
     }
   },
   "redirects": [

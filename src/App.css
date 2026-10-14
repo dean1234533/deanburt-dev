@@ -1388,7 +1388,8 @@ pre {
   padding: 28px;
 }
 
-.value-card h3 {
+.value-card h3,
+.value-card h2 {
   margin: 0 0 14px;
   color: #0f172a;
   font-size: 24px;
