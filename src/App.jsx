@@ -1623,6 +1623,15 @@ function ServiceLandingPage({ route, navigate }) {
 
 const MY_PRODUCTS = [
   {
+    name: 'Thor Computer',
+    tag: 'Repair Marketplace',
+    url: 'https://thorcomputers.dbsworkouts.workers.dev',
+    img: '/images/thor-computer.jpg',
+    desc: 'A UK repair marketplace that connects customers with approved local engineers. Customers describe a repair, compare quotes, book and pay; engineers manage jobs, messages and payouts; admins run approvals, finance, leads and a built-in help assistant.',
+    tags: ['React', 'Firebase', 'Stripe Connect', 'PWA', 'Cloudflare Workers'],
+    categories: ['Latest', 'Marketplaces', 'Platforms'],
+  },
+  {
     name: 'Nerd Multiverse',
     tag: 'Collector Marketplace',
     url: 'https://nerd-multiverse.deanburt1308.workers.dev',
@@ -1674,15 +1683,6 @@ const MY_PRODUCTS = [
     img: '/images/bookrightly.jpg',
     desc: 'A UK booking marketplace for barbers, hairdressers, decorators, and personal trainers. Each business gets a public profile, online booking, Stripe payments, and a full dashboard — all on one platform.',
     tags: ['React', 'Firebase', 'Stripe', 'PWA', 'Cloudflare Workers'],
-    categories: ['Marketplaces', 'Platforms'],
-  },
-  {
-    name: 'Thor Computer',
-    tag: 'Repair Marketplace',
-    url: 'https://thorcomputers.dbsworkouts.workers.dev',
-    img: '/images/thor-computer.jpg',
-    desc: 'A UK repair marketplace that connects customers with approved local engineers. Customers describe a repair, compare quotes, book and pay; engineers manage jobs, messages and payouts; admins run approvals, finance, leads and a built-in help assistant.',
-    tags: ['React', 'Firebase', 'Stripe Connect', 'PWA', 'Cloudflare Workers'],
     categories: ['Marketplaces', 'Platforms'],
   },
   {
