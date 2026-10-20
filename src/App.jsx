@@ -1467,7 +1467,7 @@ function SocialProofBanner() {
             <span className="sp-stars" aria-label="5 stars">★★★★★</span>
             <div>
               <strong>5.0 out of 5</strong>
-              <p>9 verified Google Reviews</p>
+              <p>7 verified Google Reviews</p>
             </div>
           </div>
           <a className="button button-secondary" href={BOOKING_URL}>Book a free discovery call →</a>
@@ -1674,6 +1674,15 @@ const MY_PRODUCTS = [
     img: '/images/bookrightly.jpg',
     desc: 'A UK booking marketplace for barbers, hairdressers, decorators, and personal trainers. Each business gets a public profile, online booking, Stripe payments, and a full dashboard — all on one platform.',
     tags: ['React', 'Firebase', 'Stripe', 'PWA', 'Cloudflare Workers'],
+    categories: ['Marketplaces', 'Platforms'],
+  },
+  {
+    name: 'Thor Computer',
+    tag: 'Repair Marketplace',
+    url: 'https://thorcomputers.dbsworkouts.workers.dev',
+    img: '/images/thor-computer.jpg',
+    desc: 'A UK repair marketplace that connects customers with approved local engineers. Customers describe a repair, compare quotes, book and pay; engineers manage jobs, messages and payouts; admins run approvals, finance, leads and a built-in help assistant.',
+    tags: ['React', 'Firebase', 'Stripe Connect', 'PWA', 'Cloudflare Workers'],
     categories: ['Marketplaces', 'Platforms'],
   },
   {
