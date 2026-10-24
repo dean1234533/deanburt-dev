@@ -403,13 +403,17 @@ const FOOTER_BADGES = [
   { name: 'Fazier', href: 'https://fazier.com', image: 'https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light', alt: 'Fazier badge', width: 120, height: 40 },
 ];
 
+// A few badges sit in a plain row; the strip only scrolls (and repeats to loop) once there are enough to need it.
+const SCROLL_FROM = 5;
+
 function FooterBadgeCarousel() {
+  const scrolling = FOOTER_BADGES.length >= SCROLL_FROM;
   return (
     <div className="footer-carousel" role="region" aria-label="Directories featuring Dean Da Dev">
       <p className="footer-carousel-title">Featured on</p>
-      <div className="footer-carousel-viewport">
+      <div className={`footer-carousel-viewport${scrolling ? ' is-scrolling' : ''}`}>
         <ul className="footer-carousel-track">
-          {[0, 1, 2, 3].map((copy) => FOOTER_BADGES.map((badge) => (
+          {(scrolling ? [0, 1] : [0]).map((copy) => FOOTER_BADGES.map((badge) => (
             <li key={`${copy}-${badge.name}`} aria-hidden={copy > 0 ? 'true' : undefined}>
               <a href={badge.href} target="_blank" rel="noopener" tabIndex={copy > 0 ? -1 : undefined}>
                 <img src={badge.image} width={badge.width} height={badge.height} alt={badge.alt} loading="lazy" />

@@ -2023,23 +2023,28 @@ pre {
   text-transform: uppercase;
 }
 
-.footer-carousel-viewport {
+.footer-carousel-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-carousel-viewport.is-scrolling {
   overflow: hidden;
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 
-.footer-carousel-track {
-  display: flex;
-  gap: 16px;
+.is-scrolling .footer-carousel-track {
+  flex-wrap: nowrap;
   width: max-content;
-  margin: 0;
-  padding: 0;
-  list-style: none;
   animation: footer-carousel-scroll 30s linear infinite;
 }
 
-.footer-carousel-viewport:hover .footer-carousel-track,
-.footer-carousel-viewport:focus-within .footer-carousel-track {
+.is-scrolling:hover .footer-carousel-track,
+.is-scrolling:focus-within .footer-carousel-track {
   animation-play-state: paused;
 }
 
@@ -2060,12 +2065,12 @@ pre {
 }
 
 @keyframes footer-carousel-scroll {
-  to { transform: translateX(calc(-25% - 4px)); }
+  to { transform: translateX(calc(-50% - 8px)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .footer-carousel-viewport { overflow-x: auto; mask-image: none; }
-  .footer-carousel-track { animation: none; }
+  .footer-carousel-viewport.is-scrolling { overflow-x: auto; mask-image: none; }
+  .is-scrolling .footer-carousel-track { animation: none; }
 }
 
 .footer-meta {
