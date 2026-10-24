@@ -2,7 +2,8 @@ import { writeFileSync, readFileSync, mkdirSync, createReadStream, existsSync, s
 import { dirname, join, extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createServer } from 'node:http';
-import { getAllRoutes, SITE_URL } from '../src/siteData.js';
+import { getAllRoutes, SITE_URL, locationAreas } from '../src/siteData.js';
+import { buildGeoIndex, geoLlmsText } from '../src/geoPages.js';
 
 const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const distDir = process.env.BUILD_OUTPUT_DIR ? resolve(process.env.BUILD_OUTPUT_DIR) : join(rootDir, 'dist');
@@ -104,37 +105,53 @@ async function launchBrowser() {
 
 const routes = getAllRoutes();
 writeFileSync(join(distDir, 'sitemap.xml'), buildSitemap(routes));
+buildGeoIndex(locationAreas);
+writeFileSync(join(distDir, 'llms-areas.txt'), geoLlmsText(SITE_URL));
 
 const baseHtml = readFileSync(join(distDir, 'index.html'), 'utf8');
 const server = await startStaticServer();
 
 try {
   const browser = await launchBrowser();
-  const page = await browser.newPage();
 
-  // The crawl only needs the DOM, not real fonts/maps/booking widgets — block
-  // third-party requests so a slow or hanging external host (Google Fonts,
-  // the Maps embed, the booking iframe) can't stall every single page.
-  await page.setRequestInterception(true);
-  page.on('request', (req) => {
-    if (new URL(req.url()).hostname === 'localhost') req.continue();
-    else req.abort();
-  });
-
+  // ~1,800 area pages means rendering one at a time is far too slow, so a small pool of
+  // pages works through the route list in parallel.
   const allRoutes = [{ path: '/' }, ...routes];
+  const queue = [...allRoutes];
+  const CONCURRENCY = Number(process.env.PRERENDER_CONCURRENCY) || 6;
 
-  for (const route of allRoutes) {
-    const url = `http://localhost:${PORT}${route.path}`;
-    await page.goto(url, { waitUntil: 'networkidle0', timeout: 15000 });
-    await page.waitForSelector('footer', { timeout: 5000 }).catch(() => {});
-    const html = await page.content();
+  async function worker() {
+    const page = await browser.newPage();
+    // The crawl only needs the DOM, not real fonts/maps/booking widgets — block
+    // third-party requests so a slow or hanging external host (Google Fonts,
+    // the Maps embed, the booking iframe) can't stall every single page.
+    await page.setRequestInterception(true);
+    page.on('request', (req) => {
+      if (new URL(req.url()).hostname === 'localhost') req.continue();
+      else req.abort();
+    });
 
-    const outPath = route.path === '/'
-      ? join(distDir, 'index.html')
-      : join(distDir, route.path.replace(/^\//, ''), 'index.html');
-    mkdirSync(dirname(outPath), { recursive: true });
-    writeFileSync(outPath, html);
+    for (let route = queue.shift(); route; route = queue.shift()) {
+      const url = `http://localhost:${PORT}${route.path}`;
+      // One retry: under load a single slow navigation shouldn't sink the whole build.
+      try {
+        await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
+      } catch {
+        await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
+      }
+      await page.waitForSelector('footer', { timeout: 5000 }).catch(() => {});
+      const html = await page.content();
+
+      const outPath = route.path === '/'
+        ? join(distDir, 'index.html')
+        : join(distDir, route.path.replace(/^\//, ''), 'index.html');
+      mkdirSync(dirname(outPath), { recursive: true });
+      writeFileSync(outPath, html);
+    }
+    await page.close();
   }
+
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
   await browser.close();
   console.log(`Generated sitemap.xml (${routes.length} URLs) and fully prerendered ${allRoutes.length} routes.`);

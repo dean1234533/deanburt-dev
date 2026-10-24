@@ -1,4 +1,5 @@
 import { servicePages } from './servicePages.js';
+import { geoRoutes } from './geoPages.js';
 export { servicePages };
 
 export const SITE_URL = 'https://www.dean-da-dev.co.uk';
@@ -823,7 +824,7 @@ export const STATIC_PAGES = [
   { path: '/terms', title: 'Terms & Conditions | Dean Da Dev', description: 'Terms and conditions for using the free tools and for commissioning project work from Dean Da Dev.' },
   { path: '/tools', title: 'Free Business & Website Tools | dean-da-dev', description: 'Free tools from dean-da-dev to compress images, convert files, check website assets, and improve your online presence. No sign-up, no watermark, no hidden paywall.' },
   { path: '/blog', title: 'Web Design Blog | dean-da-dev', description: 'Helpful web design tips, website speed advice, SEO guidance, and business website ideas from dean-da-dev.' },
-  { path: '/areas', title: 'Areas Covered | Web Design Near Stratford, London | Dean Da Dev', description: 'Website design and development for businesses in Stratford, Forest Gate, Wanstead, Ilford, Leyton, Leytonstone, East Ham, West Ham, and Manor Park.' },
+  { path: '/areas', title: 'Areas Covered | Web Design London & England | Dean Da Dev', description: 'Website design and development for businesses in every London borough and area, plus towns, counties and regions across England. Based in Stratford, websites from £249.' },
 ];
 
 export function getAllRoutes() {
@@ -860,6 +861,8 @@ export function getAllRoutes() {
   for (const area of locationAreas) {
     routes.push({ path: `/areas/${area.slug}`, title: `Web Design ${area.name} | Websites from £249 | Dean Da Dev`, description: `Website design and development for ${area.name} businesses. Mobile-friendly websites from £249, enquiry forms and SEO foundations. Based in Stratford, London.`, changefreq: 'monthly', priority: '0.7' });
   }
+
+  routes.push(...geoRoutes(locationAreas));
 
   return routes;
 }

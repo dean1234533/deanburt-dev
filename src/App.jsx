@@ -30,6 +30,7 @@ import {
   servicePages,
   STATIC_PAGES,
 } from './siteData';
+import { buildGeoIndex, getGeoPage } from './geoPages';
 
 const ImageToolWorkspace = lazy(() => import('./ImageTools').then((m) => ({ default: m.ImageToolWorkspace })));
 
@@ -76,7 +77,7 @@ function App() {
         <main>
           <route.Component navigate={navigate} route={route} />
         </main>
-        <Footer navigate={navigate} />
+        <Footer navigate={navigate} path={path} />
         <StickyMobileCTA />
         <CookieNotice navigate={navigate} />
       </div>
@@ -189,26 +190,20 @@ function resolveRoute(path) {
     return {
       Component: LocationsHubPage,
       meta: {
-        title: 'Areas Covered | Web Design Near Stratford, London | Dean Da Dev',
-        description: 'Website design and development for businesses in Stratford, Forest Gate, Wanstead, Ilford, Leyton, Leytonstone, East Ham, West Ham, and Manor Park.',
+        title: 'Areas Covered | Web Design London & England | Dean Da Dev',
+        description: 'Website design and development for businesses in every London borough and area, plus towns, counties and regions across England. Based in Stratford, websites from £249.',
         path,
-        schema: { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema(locationAreas.map((area) => area.name))] },
+        schema: { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema(['London', 'England', ...locationAreas.map((area) => area.name)]), breadcrumbSchema([['Home', '/'], ['Areas', '/areas']])] },
       },
     };
   }
 
-  const areaMatch = locationAreas.find((area) => `/areas/${area.slug}` === path);
-  if (areaMatch) {
-    return {
-      Component: LocationPage,
-      area: areaMatch,
-      meta: {
-        title: `Web Design ${areaMatch.name} | Websites from £249 | Dean Da Dev`,
-        description: `Website design and development for ${areaMatch.name} businesses. Mobile-friendly websites from £249, enquiry forms and SEO foundations. Based in Stratford, London.`,
-        path,
-        schema: { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema(['United Kingdom', ...locationAreas.map((area) => area.name)]), { '@type': 'Service', '@id': `${SITE_URL}${path}#service`, name: `Web design in ${areaMatch.name}`, serviceType: 'Website design and development', url: `${SITE_URL}${path}`, provider: { '@id': `${SITE_URL}/#business` }, areaServed: { '@type': 'Place', name: areaMatch.name } }, breadcrumbSchema([['Home', '/'], ['Areas', '/areas'], [areaMatch.name, path]])] },
-      },
-    };
+  if (path.startsWith('/areas/')) {
+    buildGeoIndex(locationAreas);
+    const geoPage = getGeoPage(path);
+    if (geoPage) {
+      return { Component: GeoPage, geoPage, meta: { title: geoPage.title, description: geoPage.description, path, schema: geoPageSchema(geoPage) } };
+    }
   }
 
   const guideMatch = resourceGuides().find((guide) => guide.path === path);
@@ -401,7 +396,34 @@ function Header({ navigate, path }) {
   );
 }
 
-function Footer({ navigate }) {
+// Directory badges, shown only in the footer of the tools hub (/tools). Each directory below
+// asks for its badge in return for a listing or a dofollow link; add a row when a new one is required.
+const TOOLS_HUB_PATH = '/tools';
+const TOOLS_HUB_BADGES = [
+  { name: 'Startup Fame', href: 'https://startupfa.me/s/dean-da-dev?utm_source=www.dean-da-dev.co.uk', image: 'https://startupfa.me/badge?t=classic&theme=default', alt: 'Dean Da Dev - Featured on Startup Fame', width: 171, height: 54 },
+  { name: 'Fazier', href: 'https://fazier.com', image: 'https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light', alt: 'Fazier badge', width: 120, height: 40 },
+];
+
+function ToolsHubBadgeCarousel() {
+  return (
+    <div className="footer-carousel" role="region" aria-label="Directories featuring these tools">
+      <p className="footer-carousel-title">Featured on</p>
+      <div className="footer-carousel-viewport">
+        <ul className="footer-carousel-track">
+          {[0, 1, 2, 3].map((copy) => TOOLS_HUB_BADGES.map((badge) => (
+            <li key={`${copy}-${badge.name}`} aria-hidden={copy > 0 ? 'true' : undefined}>
+              <a href={badge.href} target="_blank" rel="noopener" tabIndex={copy > 0 ? -1 : undefined}>
+                <img src={badge.image} width={badge.width} height={badge.height} alt={badge.alt} loading="lazy" />
+              </a>
+            </li>
+          )))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function Footer({ navigate, path }) {
   const openContactModal = useContactModal();
   return (
     <footer className="footer">
@@ -441,6 +463,7 @@ function Footer({ navigate }) {
           <a href="/terms" onClick={(event) => handleLink(event, '/terms', navigate)}>Terms & Conditions</a>
         </div>
       </div>
+      {path === TOOLS_HUB_PATH && <ToolsHubBadgeCarousel />}
       <p className="footer-meta">© {new Date().getFullYear()} Dean Da Dev. UK app development, web development, AI tools, dashboards, and automation.</p>
     </footer>
   );
@@ -776,11 +799,6 @@ function ImageToolsHubPage({ navigate }) {
             {['Free to use', 'No sign-up', 'No watermark', 'Browser-based', 'Privacy-friendly'].map((b) => (
               <span className="tool-badge" key={b}>{b}</span>
             ))}
-          </div>
-          <div className="tools-hub-fazier-badge">
-            <a href="https://fazier.com" target="_blank" rel="noopener noreferrer">
-              <img src="https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light" width="120" alt="Fazier badge" />
-            </a>
           </div>
         </div>
       </section>
@@ -2479,18 +2497,35 @@ function GuidePage({ route, navigate }) {
 }
 
 function LocationsHubPage({ navigate }) {
+  const { londonHub, englandHub } = buildGeoIndex(locationAreas);
+  const cards = [
+    [londonHub, `All ${londonHub.boroughs.length} boroughs and ${buildGeoIndex(locationAreas).londonAreaPages.length}+ local areas, from Stratford to Croydon.`],
+    [englandHub, `${englandHub.regions.length} regions, counties and ${buildGeoIndex(locationAreas).countyPages.reduce((total, county) => total + county.towns.length, 0)}+ towns, served remotely.`],
+  ];
   return (
     <>
       <Hero
         eyebrow="Areas Covered"
-        title="Website design for businesses near Stratford, London."
-        copy="Based in Stratford, working with businesses across East London — in person where useful, remotely everywhere else."
+        title="Website design for businesses across London and England."
+        copy="Based in Stratford, East London. In person where useful, remotely everywhere else, with the same fixed prices in every area."
         primary={['Book a discovery call', BOOKING_URL]}
         secondary={['See pricing', '/pricing']}
         navigate={navigate}
       />
       <Section>
-        <SectionHeader eyebrow="Areas" title="Areas near Stratford." copy="Pick your area for a page written about the businesses and high streets nearby." />
+        <SectionHeader eyebrow="Coverage" title="Choose London or England." copy="Pick a borough, region, county or town for a page written around that area." />
+        <div className="resource-grid">
+          {cards.map(([page, copy]) => (
+            <a className="resource-card" href={page.path} onClick={(event) => handleLink(event, page.path, navigate)} key={page.path}>
+              <span>Area</span>
+              <h3>{page.name}</h3>
+              <p>{copy}</p>
+            </a>
+          ))}
+        </div>
+      </Section>
+      <Section>
+        <SectionHeader eyebrow="Closest to home" title="Areas near Stratford." copy="Pick your area for a page written about the businesses and high streets nearby." />
         <div className="resource-grid">
           {locationAreas.map((area) => (
             <a className="resource-card" href={`/areas/${area.slug}`} onClick={(event) => handleLink(event, `/areas/${area.slug}`, navigate)} key={area.slug}>
@@ -2506,41 +2541,86 @@ function LocationsHubPage({ navigate }) {
   );
 }
 
-function LocationPage({ route, navigate }) {
-  const area = route.area;
-  const nearby = locationAreas.filter((item) => item.slug !== area.slug).slice(0, 4);
+// One template for every London/England location page (hubs, boroughs, areas, regions,
+// counties, towns). The content is built in geoPages.js; this only lays it out.
+// One template for every London/England location page (hubs, boroughs, areas, regions,
+// counties, towns). The content is built in geoPages.js; the layout reuses the same
+// sections as the service pages so these pages look like the rest of the site.
+const GEO_CARD_TITLES = ['Your area', 'The local picture', 'What to expect'];
+
+function GeoPage({ route, navigate }) {
+  const page = route.geoPage;
+  const project = servicePages[0].project;
+  const openContactModal = useContactModal();
   return (
     <>
-      <Hero
-        eyebrow={`Web Design in ${area.name}`}
-        title={`Web design and development for ${area.name} businesses.`}
-        copy={`Mobile-friendly websites from £249, web apps from £699 and clear enquiry routes. Work directly with Dean Burt, based in Stratford and serving ${area.name} and businesses across the UK.`}
-        primary={['Book a discovery call', BOOKING_URL]}
-        secondary={['See pricing', '/pricing']}
-        navigate={navigate}
-      />
-      <Section>
-        <article className="guide-article">
-          <h2>Working with businesses in {area.name}</h2>
-          <p>{area.intro}</p>
-          <p>{area.context}</p>
-          <h2>Location & hours</h2>
-          <p>Based in {BUSINESS_LOCATION}, {BUSINESS_HOURS.toLowerCase()}. <a href={GBP_URL} target="_blank" rel="noopener noreferrer">View on Google</a>.</p>
-        </article>
-      </Section>
-      <ServiceDirectory navigate={navigate} />
-      <Section tone="dark">
-        <SectionHeader eyebrow="Nearby areas" title="Also covering these areas." />
-        <div className="resource-grid">
-          {nearby.map((item) => (
-            <a className="resource-card" href={`/areas/${item.slug}`} onClick={(event) => handleLink(event, `/areas/${item.slug}`, navigate)} key={item.slug}>
-              <span>Area</span>
-              <h3>{item.name}</h3>
-              <p>{item.intro}</p>
-            </a>
+      <Hero eyebrow={page.eyebrow} title={page.h1} copy={page.lede} primary={['Discuss your project', '#project-enquiry']} primaryAction={openContactModal} secondary={['Compare prices', '/pricing']} compact navigate={navigate} />
+      <Section className="geo-answer">
+        <SectionHeader eyebrow="Local web design" title={`${page.name}: the short answer.`} copy={page.quickAnswer} />
+        <div className="value-grid">
+          <article className="value-card">
+            <h2>{GEO_CARD_TITLES[0]}</h2>
+            <p className="geo-facts-line">{page.facts.filter(([label]) => label !== 'Based in').slice(0, 6).map(([label, value]) => <span key={label}><strong>{label}:</strong> {value}</span>)}</p>
+          </article>
+          {[page.paragraphs.slice(0, -2), page.paragraphs.slice(-2)].map((texts, index) => (
+            <article className="value-card" key={GEO_CARD_TITLES[index + 1]}>
+              <h2>{GEO_CARD_TITLES[index + 1]}</h2>
+              {(texts.length ? texts : page.paragraphs.slice(0, 1)).map((text) => <p key={text}>{text}</p>)}
+            </article>
           ))}
         </div>
       </Section>
+      <Section tone="dark">
+        <SectionHeader eyebrow={project.type} title={project.name} copy={project.copy} />
+        <div className="button-row">
+          <Button href={project.url} variant="secondary">View the live project</Button>
+          <Button href="/portfolio" variant="secondary" navigate={navigate}>Explore Dean’s portfolio</Button>
+        </div>
+      </Section>
+      <Section>
+        <div className="geo-work">
+          <article className="guide-article">
+            <h2>Work directly with a UK freelance developer</h2>
+            <p>Dean Burt is based in {BUSINESS_LOCATION}, working with businesses in {page.name} and across the UK. Start with a free discovery conversation about your requirements, budget and timeline. The deliverables, final price and release plan are agreed before work begins.</p>
+            <p><a href="/about" onClick={(event) => handleLink(event, '/about', navigate)}>Meet Dean</a>, <a href="/pricing" onClick={(event) => handleLink(event, '/pricing', navigate)}>compare development packages</a> or <a href={BOOKING_URL} onClick={(event) => handleLink(event, BOOKING_URL, navigate)}>book a discovery call</a>. Open {BUSINESS_HOURS}.</p>
+          </article>
+          {page.mapQuery && (
+            <div className="map-embed-wrap">
+              <iframe
+                title={`Map of ${page.name}`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(page.mapQuery)}&output=embed`}
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+          )}
+        </div>
+      </Section>
+      <Section tone="dark">
+        <SectionHeader eyebrow="FAQ" title={`Questions from ${page.name} businesses.`} />
+        <FAQList faqs={page.faqs} />
+      </Section>
+      <Section>
+        <div className="geo-links">
+          {page.linkGroups.map((group) => (
+            <div key={group.title}>
+              <p className="eyebrow">{group.eyebrow}</p>
+              <h2>{group.title}</h2>
+              <ul>
+                {group.items.map((item) => (
+                  <li key={item.href}>
+                    <a href={item.href} onClick={(event) => handleLink(event, item.href, navigate)}>
+                      {item.name}
+                      {item.blurb && <small>{item.blurb}</small>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Section>
+      <ServiceDirectory navigate={navigate} />
       <LeadCTA />
     </>
   );
@@ -2753,6 +2833,22 @@ function localBusinessSchema(areaServed) {
     address: { '@type': 'PostalAddress', ...BUSINESS_ADDRESS },
     geo: { '@type': 'GeoCoordinates', ...BUSINESS_GEO },
     areaServed: [...new Set(['United Kingdom', ...areaServed])].map((name) => ({ '@type': name === 'United Kingdom' ? 'Country' : 'Place', name })),
+  };
+}
+
+function geoPageSchema(page) {
+  const url = `${SITE_URL}${page.path}`;
+  const place = { '@type': page.placeType, name: page.name, ...(page.geo ? { geo: { '@type': 'GeoCoordinates', latitude: page.geo[0], longitude: page.geo[1] } } : {}), ...(page.containedIn ? { containedInPlace: { '@type': 'Place', name: page.containedIn } } : {}) };
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      websiteSchema(),
+      localBusinessSchema(page.areaServed.slice(0, 40)),
+      { '@type': 'WebPage', '@id': `${url}#webpage`, url, name: page.title, description: page.description, inLanguage: 'en-GB', isPartOf: { '@id': `${SITE_URL}/#website` }, about: { '@id': `${url}#service` }, speakable: { '@type': 'SpeakableSpecification', cssSelector: ['.geo-answer .section-header p:not(.eyebrow)'] } },
+      { '@type': 'Service', '@id': `${url}#service`, url, name: `Web design in ${page.name}`, serviceType: 'Website design and development', description: page.quickAnswer, provider: { '@id': `${SITE_URL}/#business` }, areaServed: place, offers: { '@type': 'Offer', price: '249', priceCurrency: 'GBP', description: 'Launch Website, from' } },
+      breadcrumbSchema(page.breadcrumbs),
+      faqSchema(page.faqs),
+    ],
   };
 }
 
