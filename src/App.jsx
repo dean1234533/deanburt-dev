@@ -191,7 +191,7 @@ function resolveRoute(path) {
       Component: LocationsHubPage,
       meta: {
         title: 'Areas Covered | Web Design London & England | Dean Da Dev',
-        description: 'Website design and development for businesses in every London borough and area, plus towns, counties and regions across England. Based in Stratford, websites from £249.',
+        description: 'Website design for businesses in every London borough and area, plus towns, counties and regions across England. Based in Stratford, from £249.',
         path,
         schema: { '@context': 'https://schema.org', '@graph': [websiteSchema(), localBusinessSchema(['London', 'England', ...locationAreas.map((area) => area.name)]), breadcrumbSchema([['Home', '/'], ['Areas', '/areas']])] },
       },
@@ -2499,14 +2499,14 @@ function LocationsHubPage({ navigate }) {
   const { londonHub, englandHub } = buildGeoIndex(locationAreas);
   const cards = [
     [londonHub, `All ${londonHub.boroughs.length} boroughs and ${buildGeoIndex(locationAreas).londonAreaPages.length}+ local areas, from Stratford to Croydon.`],
-    [englandHub, `${englandHub.regions.length} regions, counties and ${buildGeoIndex(locationAreas).countyPages.reduce((total, county) => total + county.towns.length, 0)}+ towns, served remotely.`],
+    [englandHub, `${englandHub.regions.length} regions, counties and ${buildGeoIndex(locationAreas).countyPages.reduce((total, county) => total + county.towns.length, 0)}+ towns across England.`],
   ];
   return (
     <>
       <Hero
         eyebrow="Areas Covered"
         title="Website design for businesses across London and England."
-        copy="Based in Stratford, East London. In person where useful, remotely everywhere else, with the same fixed prices in every area."
+        copy="Based in Stratford, East London, working with local businesses across London and England at the same fixed prices in every area."
         primary={['Book a discovery call', BOOKING_URL]}
         secondary={['See pricing', '/pricing']}
         navigate={navigate}

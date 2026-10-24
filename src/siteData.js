@@ -824,7 +824,7 @@ export const STATIC_PAGES = [
   { path: '/terms', title: 'Terms & Conditions | Dean Da Dev', description: 'Terms and conditions for using the free tools and for commissioning project work from Dean Da Dev.' },
   { path: '/tools', title: 'Free Business & Website Tools | dean-da-dev', description: 'Free tools from dean-da-dev to compress images, convert files, check website assets, and improve your online presence. No sign-up, no watermark, no hidden paywall.' },
   { path: '/blog', title: 'Web Design Blog | dean-da-dev', description: 'Helpful web design tips, website speed advice, SEO guidance, and business website ideas from dean-da-dev.' },
-  { path: '/areas', title: 'Areas Covered | Web Design London & England | Dean Da Dev', description: 'Website design and development for businesses in every London borough and area, plus towns, counties and regions across England. Based in Stratford, websites from £249.' },
+  { path: '/areas', title: 'Areas Covered | Web Design London & England | Dean Da Dev', description: 'Website design for businesses in every London borough and area, plus towns, counties and regions across England. Based in Stratford, from £249.' },
 ];
 
 export function getAllRoutes() {

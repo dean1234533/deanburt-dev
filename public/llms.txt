@@ -2,7 +2,7 @@
 
 > UK-based full-stack developer building websites, web apps, AI tools, and business automation for small businesses and founders. Fixed-price projects, direct communication with the developer (no account managers), typically delivered in days to a few weeks.
 
-Dean Da Dev (Dean Burt) is based in Stratford, London, and works with businesses in every London borough and across England, in person in East London where useful and remotely elsewhere. Pricing starts from £249 for websites, £399 for simple tools, and £699 for custom web apps. Every project gets a fixed price and scope agreed before work starts.
+Dean Da Dev (Dean Burt) is based in Stratford, London, and works with businesses in every London borough and across England, by video, phone or in person. Pricing starts from £249 for websites, £399 for simple tools, and £699 for custom web apps. Every project gets a fixed price and scope agreed before work starts.
 
 ## Services
 
@@ -22,7 +22,7 @@ Dean Da Dev (Dean Burt) is based in Stratford, London, and works with businesses
 - [Resources](https://www.dean-da-dev.co.uk/resources): guides on website costs, SEO, and choosing a developer
 - [Areas Covered](https://www.dean-da-dev.co.uk/areas): every London borough and area, plus towns, counties and regions across England
 - [London areas](https://www.dean-da-dev.co.uk/areas/london): all 33 London boroughs and 500+ local areas
-- [England areas](https://www.dean-da-dev.co.uk/areas/england): 9 regions, counties and 900+ towns, served remotely
+- [England areas](https://www.dean-da-dev.co.uk/areas/england): 9 regions, counties and 900+ towns
 - [Full list of area pages (text)](https://www.dean-da-dev.co.uk/llms-areas.txt): every borough, county and town page in one file
 - [Contact / Discovery Call](https://www.dean-da-dev.co.uk/DiscoveryCall): free, no-obligation project consultation
 

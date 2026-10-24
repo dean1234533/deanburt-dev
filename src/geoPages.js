@@ -164,11 +164,11 @@ export function buildGeoIndex(curatedAreas = []) {
 // ---- Page models ------------------------------------------------------------
 const link = (page, blurb = '') => ({ href: page.path, name: page.name, blurb });
 
-function sharedFaqs(name, where, remoteLine) {
+function sharedFaqs(name) {
   return [
     { q: `Do you build websites for businesses in ${name}?`, a: `Yes. Dean Da Dev designs and builds websites, web apps and business tools for ${name} businesses. ${PRICE_LINE}` },
     { q: `How much does a website cost in ${name}?`, a: `A professional small-business website for a ${name} business starts from £249. Larger sites, booking systems and custom web apps are scoped and quoted as a fixed price before any work begins, so the cost does not change once work starts.` },
-    { q: 'Do I need to be nearby to work with you?', a: remoteLine },
+    { q: 'Can we meet to discuss my project?', a: `Yes. Book a free discovery call to talk it through. Dean works with businesses in ${name}, and you can meet by video, phone or in person, whichever suits you.` },
     { q: `Will a new website help me show up in local Google searches for ${name}?`, a: `It gives you the foundations: clear service pages, local wording, page titles and descriptions, structured data and a Google Business Profile checklist. Nobody can guarantee a ranking, but a fast, well-structured site is what local rankings are built on.` },
     { q: 'How long does a website take to build?', a: 'Most small-business websites are delivered in days to a few weeks, depending on how quickly content and feedback come back. You get a clear timeline in the fixed quote.' },
   ];
@@ -209,7 +209,7 @@ function fitMeta(page, keepTitle) {
     title = title.replace(' | Websites from £249', ' | From £249');
     if (title.length > 68) title = title.replace(' | Dean Da Dev', '');
   }
-  for (const [from, to] of [[' Based in Stratford, London.', ''], ['Website design and development', 'Web design'], ['enquiry forms and SEO foundations', 'SEO foundations'], ['Mobile-friendly websites', 'Websites'], [' built remotely', '']]) {
+  for (const [from, to] of [[' Based in Stratford, London.', ''], ['Website design and development', 'Web design'], ['enquiry forms and SEO foundations', 'SEO foundations'], ['Mobile-friendly websites', 'Websites']]) {
     if (description.length <= 160) break;
     description = description.replace(from, to);
   }
@@ -250,7 +250,7 @@ function describeRaw(entity) {
       paragraphs: [
         'London is made up of many local high streets, each with its own customers and competitors. Choose your borough below to find your area.',
       ],
-      faqs: sharedFaqs('London', 'wherever in London you are', 'No. Dean is based in Stratford, East London, and works with businesses across all London boroughs. Discovery calls are by video or phone, and in-person meetings can be arranged where they help.'),
+      faqs: sharedFaqs('London'),
       linkGroups: [{ eyebrow: 'Boroughs', title: 'Choose your London borough.', items: entity.boroughs.map((borough) => link(borough, `${plural(borough.areas.length, 'area')} covered`)) }, { eyebrow: 'Wider coverage', title: 'Outside London?', items: [link(englandHub, 'Towns, counties and regions across England')] }],
       breadcrumbs: [['Home', '/'], ['Areas', '/areas'], ['London', entity.path]],
       areaServed: ['London', ...entity.boroughs.map((b) => b.name)],
@@ -271,7 +271,7 @@ function describeRaw(entity) {
       quickAnswer: `Yes. Dean Da Dev builds websites, web apps and business tools for businesses across ${label}, covering ${plural(entity.areas.length, 'local area')} including ${entity.areas.slice(0, 3).map((a) => a.name).join(', ')}. ${PRICE_LINE}`,
       facts: [['Borough', entity.name], ['County', 'Greater London'], ['Areas covered', String(entity.areas.length)], ['Based in', 'Stratford, London E15']],
       paragraphs: localBodyParagraphs(entity.name, `in ${entity.name}`, entity.path),
-      faqs: sharedFaqs(entity.name, `across ${entity.name}`, `No. Dean is based in Stratford, East London, and works with businesses across ${entity.name} and the rest of London. Calls are by video or phone, and in-person meetings can be arranged where they help.`),
+      faqs: sharedFaqs(entity.name),
       linkGroups: [
         { eyebrow: 'Local areas', title: `Areas in ${entity.name}.`, items: entity.areas.map((area) => link(area, area.postcodes.join(', '))) },
         { eyebrow: 'Nearby boroughs', title: 'Also covering these boroughs.', items: siblings.map((b) => link(b)) },
@@ -291,7 +291,6 @@ function describeRaw(entity) {
     const market = marketParagraph(entity, close);
     const boroughText = entity.boroughs.join(' and ');
     const distance = entity.miles == null ? null : entity.miles < 1 ? 'under a mile' : `about ${entity.miles.toFixed(1).replace(/\.0$/, '')} miles`;
-    const closeEnough = entity.miles != null && entity.miles <= 15;
     const facts = [
       ['Area', entity.name],
       [entity.boroughs.length > 1 ? 'Boroughs' : 'Borough', boroughText],
@@ -301,9 +300,6 @@ function describeRaw(entity) {
       ...(entity.pop ? [['Population (approx.)', formatPop(entity.pop)]] : []),
       ['Based in', 'Stratford, London E15'],
     ];
-    const remoteLine = closeEnough
-      ? `No. Dean is based in Stratford${distance ? `, ${distance} from ${entity.name}` : ''}, so in-person meetings are possible for larger projects. Most work is handled by video call and messages, so it also works well if you prefer to stay remote.`
-      : `No. Dean is based in Stratford, East London, and works with businesses across London. Discovery calls are by video or phone, and everything is reviewed with you online.`;
     return {
       ...base,
       title: curated ? `Web Design ${entity.name} | Websites from £249 | Dean Da Dev` : `Web Design ${entity.name}, London | Websites from £249 | Dean Da Dev`,
@@ -314,7 +310,7 @@ function describeRaw(entity) {
       quickAnswer: `Yes. Dean Da Dev designs and builds websites for ${entity.name} businesses${entity.boroughs.length ? ` in ${boroughText}, London` : ''}${entity.postcodes.length ? ` (${entity.postcodes.join(', ')})` : ''}. ${PRICE_LINE}`,
       facts,
       paragraphs: [...(curated ? [curated.intro, curated.context] : []), ...(market && !curated ? [market] : []), ...(curated ? [] : localBodyParagraphs(entity.name, `in ${entity.name}, ${boroughText}`, entity.path))],
-      faqs: sharedFaqs(entity.name, `in ${entity.name}`, remoteLine),
+      faqs: sharedFaqs(entity.name),
       linkGroups: [
         ...(close.length ? [{ eyebrow: 'Nearby areas', title: `Closest areas to ${entity.name}.`, items: close.map(({ other, miles }) => link(other, `${formatMiles(miles)} away${other.postcodes.length ? ` · ${other.postcodes.join(', ')}` : ''}`)) }] : siblings.length ? [{ eyebrow: 'Nearby areas', title: `More areas in ${boroughText}.`, items: siblings.map((a) => link(a, a.postcodes.join(', '))) }] : []),
         { eyebrow: 'Wider coverage', title: 'Explore more of London.', items: [...entity.boroughs.map((b) => boroughByName.get(b)).filter(Boolean).map((b) => link(b, 'Borough overview')), link(londonHub, 'All London boroughs')] },
@@ -334,11 +330,11 @@ function describeRaw(entity) {
       description: `Website design and development for businesses in every region of England: ${plural(entity.regions.length, 'region')}, ${plural(cache.countyPages.length, 'county', 'counties')} and ${geo.towns.length}+ towns. Websites from £249, fixed prices.`,
       eyebrow: 'England',
       h1: 'Web design and development for businesses across England.',
-      lede: 'Dean Da Dev works remotely with small businesses and founders in every region of England: fixed prices, one developer, and no account managers.',
-      quickAnswer: `Yes. Dean Da Dev builds websites, web apps and business tools for businesses anywhere in England, remotely, covering ${entity.regions.length} regions, ${cache.countyPages.length} counties and ${geo.towns.length}+ towns. ${PRICE_LINE}`,
-      facts: [['Coverage', `${entity.regions.length} regions, ${cache.countyPages.length} counties, ${geo.towns.length}+ towns`], ['Delivery', 'Remote — video and phone'], ['Starting price', 'Websites from £249'], ['Based in', 'Stratford, London E15']],
+      lede: 'Dean Da Dev works with small businesses and founders in every region of England: fixed prices, one developer, and no account managers.',
+      quickAnswer: `Yes. Dean Da Dev builds websites, web apps and business tools for businesses anywhere in England, covering ${entity.regions.length} regions, ${cache.countyPages.length} counties and ${geo.towns.length}+ towns. ${PRICE_LINE}`,
+      facts: [['Coverage', `${entity.regions.length} regions, ${cache.countyPages.length} counties, ${geo.towns.length}+ towns`], ['Starting price', 'Websites from £249'], ['Based in', 'Stratford, London E15']],
       paragraphs: ['Choose your region to find your county and town. Every page covers the same fixed-price services, written around the area you work in.'],
-      faqs: sharedFaqs('England', 'wherever you are in England', 'No. Dean works remotely with clients across England. The discovery call is a free video or phone call, and every stage is reviewed with you online.'),
+      faqs: sharedFaqs('England'),
       linkGroups: [{ eyebrow: 'Regions', title: 'Choose your region of England.', items: entity.regions.map((r) => link(r, plural(r.counties.length, 'county', 'counties'))) }, { eyebrow: 'London', title: 'In London?', items: [link(londonHub, 'Every borough and area')] }],
       breadcrumbs: [['Home', '/'], ['Areas', '/areas'], ['England', entity.path]],
       areaServed: ['England', ...entity.regions.map((r) => r.name)],
@@ -352,14 +348,14 @@ function describeRaw(entity) {
     return {
       ...base,
       title: `Web Design ${entity.name} | Websites from £249 | Dean Da Dev`,
-      description: `Website design and development for businesses across ${entity.name}, England — ${plural(entity.counties.length, 'county', 'counties')} and ${townCount}+ towns. Websites from £249, fixed prices, built remotely.`,
+      description: `Website design and development for businesses across ${entity.name}, England — ${plural(entity.counties.length, 'county', 'counties')} and ${townCount}+ towns. Websites from £249, fixed prices.`,
       eyebrow: `${eyebrowPrefix} ${entity.name}`,
       h1: `Web design and development for businesses in ${entity.name}.`,
-      lede: `Mobile-friendly websites from £249 and web apps from £699 for ${entity.name} businesses, built remotely with a free discovery call.`,
-      quickAnswer: `Yes. Dean Da Dev builds websites, web apps and business tools for businesses across ${entity.name}, England, working remotely across ${entity.counties.length} counties and ${townCount}+ towns. ${PRICE_LINE}`,
-      facts: [['Region', entity.name], ['Country', 'England'], ['Counties covered', String(entity.counties.length)], ['Delivery', 'Remote — video and phone']],
+      lede: `Mobile-friendly websites from £249 and web apps from £699 for ${entity.name} businesses with a free discovery call.`,
+      quickAnswer: `Yes. Dean Da Dev builds websites, web apps and business tools for businesses across ${entity.name}, England, across ${entity.counties.length} counties and ${townCount}+ towns. ${PRICE_LINE}`,
+      facts: [['Region', entity.name], ['Country', 'England'], ['Counties covered', String(entity.counties.length)]],
       paragraphs: localBodyParagraphs(entity.name, `in ${entity.name}`, entity.path),
-      faqs: sharedFaqs(entity.name, `across ${entity.name}`, `No. Dean works remotely with clients across ${entity.name} and the rest of England. The discovery call is a free video or phone call, and everything is reviewed with you online.`),
+      faqs: sharedFaqs(entity.name),
       linkGroups: [
         ...(entity.counties.length ? [{ eyebrow: 'Counties', title: `Counties in ${entity.name}.`, items: entity.counties.map((c) => link(c, plural(c.towns.length, 'town'))) }] : []),
         ...(entity.districts.length ? [{ eyebrow: 'Districts', title: `Other local authority districts in ${entity.name}.`, items: entity.districts.map((d) => link(d)) }] : []),
@@ -377,14 +373,14 @@ function describeRaw(entity) {
     return {
       ...base,
       title: `Web Design ${entity.name}${entity.name === entity.region.name ? ' County' : ''} | Websites from £249 | Dean Da Dev`,
-      description: `Website design and development for businesses in ${entity.name}, ${entity.region.name}. Websites from £249 across ${entity.towns.length} towns, fixed prices, built remotely.`,
+      description: `Website design and development for businesses in ${entity.name}, ${entity.region.name}. Websites from £249 across ${entity.towns.length} towns, fixed prices.`,
       eyebrow: `${eyebrowPrefix} ${entity.name}`,
       h1: `Web design and development for ${entity.name} businesses.`,
-      lede: `Mobile-friendly websites from £249 and web apps from £699 for businesses across ${entity.name}, built remotely with a free discovery call.`,
+      lede: `Mobile-friendly websites from £249 and web apps from £699 for businesses across ${entity.name} with a free discovery call.`,
       quickAnswer: `Yes. Dean Da Dev builds websites, web apps and business tools for businesses across ${entity.name} in ${entity.region.name}, including ${entity.towns.slice(0, 3).map((t) => t.name).join(', ')}. ${PRICE_LINE}`,
-      facts: [['County', entity.name], ['Region', entity.region.name], ['Country', 'England'], ['Towns covered', String(entity.towns.length)], ['Delivery', 'Remote — video and phone']],
+      facts: [['County', entity.name], ['Region', entity.region.name], ['Country', 'England'], ['Towns covered', String(entity.towns.length)]],
       paragraphs: localBodyParagraphs(entity.name, `in ${entity.name}`, entity.path),
-      faqs: sharedFaqs(entity.name, `across ${entity.name}`, `No. Dean works remotely with clients across ${entity.name} and the rest of England. The discovery call is a free video or phone call, and everything is reviewed with you online.`),
+      faqs: sharedFaqs(entity.name),
       linkGroups: [
         { eyebrow: 'Towns', title: `Towns in ${entity.name}.`, items: entity.towns.map((t) => link(t)) },
         { eyebrow: 'Nearby counties', title: `More of ${entity.region.name}.`, items: [link(entity.region, 'Region overview'), ...siblings.map((c) => link(c))] },
@@ -405,14 +401,14 @@ function describeRaw(entity) {
     return {
       ...base,
       title: `Web Design ${entity.name}, ${county.name} | Websites from £249 | Dean Da Dev`,
-      description: `Website design and development for ${entity.name} businesses in ${county.name}. Mobile-friendly websites from £249, enquiry forms and SEO foundations. Fixed prices, built remotely.`,
+      description: `Website design and development for ${entity.name} businesses in ${county.name}. Mobile-friendly websites from £249, enquiry forms and SEO foundations. Fixed prices.`,
       eyebrow: `${eyebrowPrefix} ${entity.name}`,
       h1: `Web design and development for ${entity.name} businesses.`,
-      lede: `Mobile-friendly websites from £249, web apps from £699 and clear enquiry routes for ${entity.name}, ${county.name}. Work directly with Dean Burt, remotely and at a fixed price.`,
-      quickAnswer: `Yes. Dean Da Dev designs and builds websites for businesses in ${entity.name}, ${county.name}. ${PRICE_LINE} Work is done remotely, with a free video or phone discovery call.`,
-      facts: [['Town', entity.name], ['County', county.name], ['Region', region.name], ['Country', 'England'], ...(entity.pop ? [['Population (approx.)', formatPop(entity.pop)]] : []), ...(homeMiles ? [['From Stratford', `about ${formatMiles(homeMiles)} (straight line)`]] : []), ['Delivery', 'Remote — video and phone'], ['Based in', 'Stratford, London E15']],
+      lede: `Mobile-friendly websites from £249, web apps from £699 and clear enquiry routes for ${entity.name}, ${county.name}. Work directly with Dean Burt at a fixed price.`,
+      quickAnswer: `Yes. Dean Da Dev designs and builds websites for businesses in ${entity.name}, ${county.name}. ${PRICE_LINE} Start with a free discovery call.`,
+      facts: [['Town', entity.name], ['County', county.name], ['Region', region.name], ['Country', 'England'], ...(entity.pop ? [['Population (approx.)', formatPop(entity.pop)]] : []), ...(homeMiles ? [['From Stratford', `about ${formatMiles(homeMiles)} (straight line)`]] : []), ['Based in', 'Stratford, London E15']],
       paragraphs: [...(market ? [market] : []), ...localBodyParagraphs(entity.name, `in ${entity.name}, ${county.name}`, entity.path)],
-      faqs: sharedFaqs(entity.name, `in ${entity.name}`, `No. Dean works remotely with clients across England, including ${entity.name} in ${county.name}. The discovery call is a free video or phone call, and everything is reviewed with you online.`),
+      faqs: sharedFaqs(entity.name),
       linkGroups: [
         ...(close.length ? [{ eyebrow: 'Nearby towns', title: `Closest towns to ${entity.name}.`, items: close.map(({ other, miles }) => link(other, `${formatMiles(miles)} away · ${other.county.name}`)) }] : siblings.length ? [{ eyebrow: 'Nearby towns', title: `More towns in ${county.name}.`, items: siblings.map((t) => link(t)) }] : []),
         { eyebrow: 'Wider coverage', title: `Explore ${county.name} and ${region.name}.`, items: [link(county, `All ${county.towns.length} towns`), link(region, 'Region overview'), link(englandHub, 'All of England')] },
@@ -431,14 +427,14 @@ function describeRaw(entity) {
   return {
     ...base,
     title: `Web Design ${entity.name}, ${region.name} | Websites from £249 | Dean Da Dev`,
-    description: `Website design and development for businesses in ${entity.name}, ${region.name}. Mobile-friendly websites from £249, fixed prices, built remotely by a UK developer.`,
+    description: `Website design and development for businesses in ${entity.name}, ${region.name}. Mobile-friendly websites from £249, fixed prices, built by a UK developer.`,
     eyebrow: `${eyebrowPrefix} ${entity.name}`,
     h1: `Web design and development for ${entity.name} businesses.`,
-    lede: `Mobile-friendly websites from £249 and web apps from £699 for businesses in the ${entity.name} area of ${region.name}, built remotely.`,
-    quickAnswer: `Yes. Dean Da Dev designs and builds websites for businesses in ${entity.name}, ${region.name}. ${PRICE_LINE} Work is done remotely, with a free video or phone discovery call.`,
-    facts: [['Area', entity.name], ['Type', 'Local authority district'], ['Region', region.name], ['Country', 'England'], ['Delivery', 'Remote — video and phone']],
+    lede: `Mobile-friendly websites from £249 and web apps from £699 for businesses in the ${entity.name} area of ${region.name}.`,
+    quickAnswer: `Yes. Dean Da Dev designs and builds websites for businesses in ${entity.name}, ${region.name}. ${PRICE_LINE} Start with a free discovery call.`,
+    facts: [['Area', entity.name], ['Type', 'Local authority district'], ['Region', region.name], ['Country', 'England']],
     paragraphs: localBodyParagraphs(entity.name, `in ${entity.name}`, entity.path),
-    faqs: sharedFaqs(entity.name, `in ${entity.name}`, `No. Dean works remotely with clients across England, including ${entity.name}. The discovery call is a free video or phone call, and everything is reviewed with you online.`),
+    faqs: sharedFaqs(entity.name),
     linkGroups: [
       { eyebrow: 'Nearby areas', title: `More of ${region.name}.`, items: [link(region, 'Region overview'), ...siblings.map((d) => link(d))] },
     ],
@@ -474,7 +470,7 @@ export function geoLlmsText(siteUrl) {
   const lines = [
     '# Dean Da Dev — areas covered',
     '',
-    '> Dean Da Dev (Stratford, London E15) builds fixed-price websites (from £249), simple tools (from £399) and custom web apps (from £699) for small businesses. Every page below covers one place in London or England; the service and prices are the same everywhere. Work outside East London is delivered remotely.',
+    '> Dean Da Dev (Stratford, London E15) builds fixed-price websites (from £249), simple tools (from £399) and custom web apps (from £699) for small businesses. Every page below covers one place in London or England; the service and prices are the same everywhere.',
     '',
     `## London (${londonHub.boroughs.length} boroughs)`,
   ];
