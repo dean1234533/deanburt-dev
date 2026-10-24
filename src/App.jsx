@@ -77,7 +77,7 @@ function App() {
         <main>
           <route.Component navigate={navigate} route={route} />
         </main>
-        <Footer navigate={navigate} path={path} />
+        <Footer navigate={navigate} />
         <StickyMobileCTA />
         <CookieNotice navigate={navigate} />
       </div>
@@ -396,21 +396,20 @@ function Header({ navigate, path }) {
   );
 }
 
-// Directory badges, shown only in the footer of the tools hub (/tools). Each directory below
-// asks for its badge in return for a listing or a dofollow link; add a row when a new one is required.
-const TOOLS_HUB_PATH = '/tools';
-const TOOLS_HUB_BADGES = [
+// Directory badges, shown in the site footer. Each directory below asks for its badge in
+// return for a listing or a dofollow link; add a row when a new one is required.
+const FOOTER_BADGES = [
   { name: 'Startup Fame', href: 'https://startupfa.me/s/dean-da-dev?utm_source=www.dean-da-dev.co.uk', image: 'https://startupfa.me/badge?t=classic&theme=default', alt: 'Dean Da Dev - Featured on Startup Fame', width: 171, height: 54 },
   { name: 'Fazier', href: 'https://fazier.com', image: 'https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light', alt: 'Fazier badge', width: 120, height: 40 },
 ];
 
-function ToolsHubBadgeCarousel() {
+function FooterBadgeCarousel() {
   return (
-    <div className="footer-carousel" role="region" aria-label="Directories featuring these tools">
+    <div className="footer-carousel" role="region" aria-label="Directories featuring Dean Da Dev">
       <p className="footer-carousel-title">Featured on</p>
       <div className="footer-carousel-viewport">
         <ul className="footer-carousel-track">
-          {[0, 1, 2, 3].map((copy) => TOOLS_HUB_BADGES.map((badge) => (
+          {[0, 1, 2, 3].map((copy) => FOOTER_BADGES.map((badge) => (
             <li key={`${copy}-${badge.name}`} aria-hidden={copy > 0 ? 'true' : undefined}>
               <a href={badge.href} target="_blank" rel="noopener" tabIndex={copy > 0 ? -1 : undefined}>
                 <img src={badge.image} width={badge.width} height={badge.height} alt={badge.alt} loading="lazy" />
@@ -423,7 +422,7 @@ function ToolsHubBadgeCarousel() {
   );
 }
 
-function Footer({ navigate, path }) {
+function Footer({ navigate }) {
   const openContactModal = useContactModal();
   return (
     <footer className="footer">
@@ -463,7 +462,7 @@ function Footer({ navigate, path }) {
           <a href="/terms" onClick={(event) => handleLink(event, '/terms', navigate)}>Terms & Conditions</a>
         </div>
       </div>
-      {path === TOOLS_HUB_PATH && <ToolsHubBadgeCarousel />}
+      <FooterBadgeCarousel />
       <p className="footer-meta">© {new Date().getFullYear()} Dean Da Dev. UK app development, web development, AI tools, dashboards, and automation.</p>
     </footer>
   );
