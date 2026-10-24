@@ -957,11 +957,12 @@ function ImageToolPage({ route, navigate }) {
 
 function CategoryPage({ route, navigate }) {
   const items = categoryTools(route.category.slug);
+  const categoryLabel = ['AI', 'SEO'].includes(route.category.label) ? route.category.label : route.category.label.toLowerCase();
   return (
     <>
       <Hero
         eyebrow={`${route.category.label} Tools`}
-        title={`Free ${route.category.label.toLowerCase()} tools for better digital work.`}
+        title={`Free ${categoryLabel} tools for better digital work.`}
         copy={route.category.intro}
         primary={['View tools', '#tools']}
         secondary={['Request a custom tool', BOOKING_URL]}
@@ -969,7 +970,7 @@ function CategoryPage({ route, navigate }) {
       />
       <Section className="anchor-section">
         <div id="tools" />
-        <SectionHeader eyebrow="Tools" title={`${items.length || 'Selected'} useful ${route.category.label.toLowerCase()} tools.`} copy="Built to solve real tasks and point visitors toward professional help when they need it." />
+        <SectionHeader eyebrow="Tools" title={`${items.length || 'Selected'} useful ${categoryLabel} tools.`} copy="Built to solve real tasks and point visitors toward professional help when they need it." />
         <ToolFilter activeCategory={route.category.slug} includeAll navigate={navigate} />
         {items.length ? <ToolGrid tools={items} navigate={navigate} /> : <UtilityPanel><p>This category is reserved for future complete tools. Current phase-one tools are available in the hub.</p><Button href="/free-tools" navigate={navigate}>Open Tools Hub</Button></UtilityPanel>}
       </Section>
@@ -1609,6 +1610,27 @@ function ServiceDirectory({ navigate, exclude }) {
   );
 }
 
+function ProjectProofSection({ project, navigate }) {
+  return (
+    <Section tone="dark">
+      <div className={project.image ? 'project-proof project-proof-with-image' : 'project-proof'}>
+        <div>
+          <SectionHeader eyebrow={project.type} title={project.name} copy={project.copy} />
+          <div className="button-row">
+            <Button href={project.url} variant="secondary">View the live project</Button>
+            <Button href="/portfolio" variant="secondary" navigate={navigate}>Explore Dean’s portfolio</Button>
+          </div>
+        </div>
+        {project.image && (
+          <a className="project-proof-image" href={project.url}>
+            <img src={project.image} alt={project.imageAlt} width="1000" height="539" loading="lazy" decoding="async" />
+          </a>
+        )}
+      </div>
+    </Section>
+  );
+}
+
 function ServiceLandingPage({ route, navigate }) {
   const service = route.service;
   const openContactModal = useContactModal();
@@ -1621,13 +1643,7 @@ function ServiceLandingPage({ route, navigate }) {
           {service.sections.map(([heading, copy]) => <article className="value-card" key={heading}><h2>{heading}</h2><p>{copy}</p></article>)}
         </div>
       </Section>
-      <Section tone="dark">
-        <SectionHeader eyebrow={service.project.type} title={service.project.name} copy={service.project.copy} />
-        <div className="button-row">
-          <Button href={service.project.url} variant="secondary">View the live project</Button>
-          <Button href="/portfolio" variant="secondary" navigate={navigate}>Explore Dean’s portfolio</Button>
-        </div>
-      </Section>
+      <ProjectProofSection project={service.project} navigate={navigate} />
       <Section>
         <article className="guide-article">
           <h2>Work directly with a UK freelance developer</h2>
@@ -2545,41 +2561,36 @@ function LocationsHubPage({ navigate }) {
 }
 
 // One template for every London/England location page (hubs, boroughs, areas, regions,
-// counties, towns). The content is built in geoPages.js; this only lays it out.
-// One template for every London/England location page (hubs, boroughs, areas, regions,
 // counties, towns). The content is built in geoPages.js; the layout reuses the same
 // sections as the service pages so these pages look like the rest of the site.
-const GEO_CARD_TITLES = ['Your area', 'The local picture', 'What to expect'];
-
 function GeoPage({ route, navigate }) {
   const page = route.geoPage;
   const project = servicePages[0].project;
+  const [localPicture, ...expectations] = [...new Set(page.paragraphs)];
   const openContactModal = useContactModal();
   return (
     <>
       <Hero eyebrow={page.eyebrow} title={page.h1} copy={page.lede} primary={['Discuss your project', '#project-enquiry']} primaryAction={openContactModal} secondary={['Compare prices', '/pricing']} compact navigate={navigate} />
       <Section className="geo-answer">
         <SectionHeader eyebrow="Local web design" title={`${page.name}: the short answer.`} copy={page.quickAnswer} />
-        <div className="value-grid">
-          <article className="value-card">
-            <h2>{GEO_CARD_TITLES[0]}</h2>
-            <p className="geo-facts-line">{page.facts.filter(([label]) => label !== 'Based in').slice(0, 6).map(([label, value]) => <span key={label}><strong>{label}:</strong> {value}</span>)}</p>
+        <div className="geo-overview">
+          <aside className="value-card geo-facts" aria-label={`About ${page.name}`}>
+            <h2>Your area</h2>
+            <dl>
+              {page.facts.filter(([label]) => label !== 'Based in').slice(0, 6).map(([label, value]) => (
+                <div key={label}><dt>{label}</dt><dd>{value}</dd></div>
+              ))}
+            </dl>
+          </aside>
+          <article className="guide-article geo-context">
+            <h2>The local picture</h2>
+            <p>{localPicture}</p>
+            {expectations.length > 0 && <h2>What to expect</h2>}
+            {expectations.map((text) => <p key={text}>{text}</p>)}
           </article>
-          {[page.paragraphs.slice(0, -2), page.paragraphs.slice(-2)].map((texts, index) => (
-            <article className="value-card" key={GEO_CARD_TITLES[index + 1]}>
-              <h2>{GEO_CARD_TITLES[index + 1]}</h2>
-              {(texts.length ? texts : page.paragraphs.slice(0, 1)).map((text) => <p key={text}>{text}</p>)}
-            </article>
-          ))}
         </div>
       </Section>
-      <Section tone="dark">
-        <SectionHeader eyebrow={project.type} title={project.name} copy={project.copy} />
-        <div className="button-row">
-          <Button href={project.url} variant="secondary">View the live project</Button>
-          <Button href="/portfolio" variant="secondary" navigate={navigate}>Explore Dean’s portfolio</Button>
-        </div>
-      </Section>
+      <ProjectProofSection project={project} navigate={navigate} />
       <Section>
         <div className="geo-work">
           <article className="guide-article">
