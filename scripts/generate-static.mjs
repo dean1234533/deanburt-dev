@@ -1,6 +1,6 @@
 import { writeFileSync, readFileSync, mkdirSync, createReadStream, existsSync, statSync } from 'node:fs';
 import { dirname, join, extname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createServer } from 'node:http';
 import { getAllRoutes, SITE_URL, locationAreas } from '../src/siteData.js';
 import { buildGeoIndex, geoLlmsText } from '../src/geoPages.js';
@@ -109,56 +109,80 @@ buildGeoIndex(locationAreas);
 writeFileSync(join(distDir, 'llms-areas.txt'), geoLlmsText(SITE_URL));
 
 const baseHtml = readFileSync(join(distDir, 'index.html'), 'utf8');
+
+// The ~1,800 London/England area pages are rendered straight to HTML with React's server
+// renderer (see src/entry-server.jsx). Driving a headless browser through every one of them
+// is far too slow for a build machine, so the browser below only handles the remaining routes.
+const isAreaPage = (route) => route.path.startsWith('/areas/');
+const areaRoutes = routes.filter(isAreaPage);
+const browserRoutes = routes.filter((route) => !isAreaPage(route));
+
+function renderAreaPages() {
+  return import(pathToFileURL(join(rootDir, 'dist-ssr/entry-server.js')).href).then(({ renderPage }) => {
+    for (const route of areaRoutes) {
+      const { html, meta } = renderPage(route.path);
+      const schema = JSON.stringify(meta.schema).replace(/</g, '\\u003c');
+      const page = injectMeta(baseHtml, route)
+        .replace('</head>', `<script id="page-schema" type="application/ld+json">${schema}</script></head>`)
+        .replace('<div id="root"></div>', `<div id="root">${html}</div>`);
+      const outDir = join(distDir, route.path.replace(/^\//, ''));
+      mkdirSync(outDir, { recursive: true });
+      writeFileSync(join(outDir, 'index.html'), page);
+    }
+    console.log(`Server-rendered ${areaRoutes.length} area pages.`);
+  });
+}
+
+try {
+  await renderAreaPages();
+} catch (err) {
+  console.error('Area page server render failed:', err.message);
+  if (process.env.REQUIRE_FULL_PRERENDER === '1') throw err;
+  writeMetaOnlyFallback(areaRoutes, baseHtml);
+}
+
 const server = await startStaticServer();
 
 try {
   const browser = await launchBrowser();
+  const page = await browser.newPage();
 
-  // ~1,800 area pages means rendering one at a time is far too slow, so a small pool of
-  // pages works through the route list in parallel.
-  const allRoutes = [{ path: '/' }, ...routes];
-  const queue = [...allRoutes];
-  const CONCURRENCY = Number(process.env.PRERENDER_CONCURRENCY) || 6;
+  // The crawl only needs the DOM, not real fonts/maps/booking widgets — block
+  // third-party requests so a slow or hanging external host (Google Fonts,
+  // the Maps embed, the booking iframe) can't stall every single page.
+  await page.setRequestInterception(true);
+  page.on('request', (req) => {
+    if (new URL(req.url()).hostname === 'localhost') req.continue();
+    else req.abort();
+  });
 
-  async function worker() {
-    const page = await browser.newPage();
-    // The crawl only needs the DOM, not real fonts/maps/booking widgets — block
-    // third-party requests so a slow or hanging external host (Google Fonts,
-    // the Maps embed, the booking iframe) can't stall every single page.
-    await page.setRequestInterception(true);
-    page.on('request', (req) => {
-      if (new URL(req.url()).hostname === 'localhost') req.continue();
-      else req.abort();
-    });
+  const allRoutes = [{ path: '/' }, ...browserRoutes];
 
-    for (let route = queue.shift(); route; route = queue.shift()) {
-      const url = `http://localhost:${PORT}${route.path}`;
-      // One retry: under load a single slow navigation shouldn't sink the whole build.
-      try {
-        await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
-      } catch {
-        await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
-      }
-      await page.waitForSelector('footer', { timeout: 5000 }).catch(() => {});
-      const html = await page.content();
-
-      const outPath = route.path === '/'
-        ? join(distDir, 'index.html')
-        : join(distDir, route.path.replace(/^\//, ''), 'index.html');
-      mkdirSync(dirname(outPath), { recursive: true });
-      writeFileSync(outPath, html);
+  for (const route of allRoutes) {
+    const url = `http://localhost:${PORT}${route.path}`;
+    // One retry: a single slow navigation shouldn't sink the whole build.
+    try {
+      await page.goto(url, { waitUntil: 'networkidle0', timeout: 20000 });
+    } catch (err) {
+      console.warn(`Retrying ${route.path}: ${err.message}`);
+      await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
     }
-    await page.close();
+    await page.waitForSelector('footer', { timeout: 5000 }).catch(() => {});
+    const html = await page.content();
+
+    const outPath = route.path === '/'
+      ? join(distDir, 'index.html')
+      : join(distDir, route.path.replace(/^\//, ''), 'index.html');
+    mkdirSync(dirname(outPath), { recursive: true });
+    writeFileSync(outPath, html);
   }
 
-  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
-
   await browser.close();
-  console.log(`Generated sitemap.xml (${routes.length} URLs) and fully prerendered ${allRoutes.length} routes.`);
+  console.log(`Generated sitemap.xml (${routes.length} URLs), server-rendered ${areaRoutes.length} area pages and prerendered ${allRoutes.length} other routes.`);
 } catch (err) {
   console.error('Full-content prerender failed:', err.message);
   if (process.env.REQUIRE_FULL_PRERENDER === '1') throw err;
-  writeMetaOnlyFallback(routes, baseHtml);
+  writeMetaOnlyFallback(browserRoutes, baseHtml);
 } finally {
   server.close();
 }

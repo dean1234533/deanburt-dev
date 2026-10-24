@@ -3040,4 +3040,7 @@ function metaForImageTool(item) {
   };
 }
 
+// The build-time server render (src/entry-server.jsx) needs the route resolver for page meta.
+// eslint-disable-next-line react-refresh/only-export-components
+export { resolveRoute };
 export default App;
