@@ -1746,9 +1746,9 @@ const PORTFOLIO_APPS = [
   {
     name: 'Thor Computer',
     tag: 'Repair Marketplace',
-    url: 'https://thorcomputers.dbsworkouts.workers.dev',
+    url: 'https://thorcomputer.com/',
     img: '/images/thor-computer.jpg',
-    desc: 'A UK repair marketplace built for a real business. Customers describe a repair, compare quotes, book and pay; engineers manage jobs, messages and payouts; admins run approvals, finance, leads and a built-in help assistant.',
+    desc: 'The website and platform for Thor Computer, a London computer repair business offering same-day on-site repairs. Customers describe a repair, compare quotes, book and pay; engineers manage jobs, messages and payouts; admins run approvals, finance, leads and a built-in help assistant.',
   },
   {
     name: 'Perennia',
