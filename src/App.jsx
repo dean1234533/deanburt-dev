@@ -1746,7 +1746,7 @@ const PORTFOLIO_APPS = [
   {
     name: 'Thor Computer',
     tag: 'Repair Marketplace',
-    url: 'https://thorcomputer.com/',
+    url: 'https://thorcomputers.dbsworkouts.workers.dev',
     img: '/images/thor-computer.jpg',
     desc: 'The website and platform for Thor Computer, a London computer repair business offering same-day on-site repairs. Customers describe a repair, compare quotes, book and pay; engineers manage jobs, messages and payouts; admins run approvals, finance, leads and a built-in help assistant.',
   },
