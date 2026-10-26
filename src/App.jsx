@@ -44,6 +44,7 @@ const navItems = [
 // The place data behind the /areas pages is large, so it is loaded only when one of those pages
 // is opened (main.jsx preloads it for a direct visit; the server render sets it up front).
 let geo = null;
+// eslint-disable-next-line react-refresh/only-export-components
 export function setGeoModule(module) {
   geo = module;
 }
@@ -62,6 +63,8 @@ function App() {
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
+  // geoReady is not read here but must re-run the lookup once the area data has loaded.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const route = useMemo(() => resolveRoute(path), [path, geoReady]);
   usePageMeta(route.meta);
 
