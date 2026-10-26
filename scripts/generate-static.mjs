@@ -3,7 +3,7 @@ import { dirname, join, extname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createServer } from 'node:http';
 import { getAllRoutes, SITE_URL, locationAreas } from '../src/siteData.js';
-import { buildGeoIndex, geoLlmsText } from '../src/geoPages.js';
+import { buildGeoIndex, geoLlmsText, geoRoutes } from '../src/geoPages.js';
 
 const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const distDir = process.env.BUILD_OUTPUT_DIR ? resolve(process.env.BUILD_OUTPUT_DIR) : join(rootDir, 'dist');
@@ -103,7 +103,9 @@ async function launchBrowser() {
   return puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
 }
 
-const routes = getAllRoutes();
+// The area-page routes are added here rather than in getAllRoutes() so the browser bundle
+// does not have to carry the place data (src/geoData.js) on every page.
+const routes = [...getAllRoutes(), ...geoRoutes(locationAreas)];
 writeFileSync(join(distDir, 'sitemap.xml'), buildSitemap(routes));
 buildGeoIndex(locationAreas);
 writeFileSync(join(distDir, 'llms-areas.txt'), geoLlmsText(SITE_URL));

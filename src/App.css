@@ -2077,29 +2077,51 @@ pre {
   text-transform: uppercase;
 }
 
+.footer-carousel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.footer .footer-carousel-head .footer-carousel-title {
+  margin: 0;
+}
+
+.footer-carousel-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.footer-carousel-buttons button {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.footer-carousel-viewport {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding-bottom: 8px;
+}
+
 .footer-carousel-track {
   display: flex;
-  flex-wrap: wrap;
   gap: 16px;
+  width: max-content;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.footer-carousel-viewport.is-scrolling {
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
-}
-
-.is-scrolling .footer-carousel-track {
-  flex-wrap: nowrap;
-  width: max-content;
-  animation: footer-carousel-scroll 30s linear infinite;
-}
-
-.is-scrolling:hover .footer-carousel-track,
-.is-scrolling:focus-within .footer-carousel-track {
-  animation-play-state: paused;
+.footer-carousel-track li {
+  scroll-snap-align: start;
 }
 
 .footer .footer-carousel-track a {
@@ -2116,15 +2138,6 @@ pre {
   display: block;
   height: 48px;
   width: auto;
-}
-
-@keyframes footer-carousel-scroll {
-  to { transform: translateX(calc(-50% - 8px)); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .footer-carousel-viewport.is-scrolling { overflow-x: auto; mask-image: none; }
-  .is-scrolling .footer-carousel-track { animation: none; }
 }
 
 .footer-meta {

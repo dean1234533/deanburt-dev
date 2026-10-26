@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useEffect, useMemo, useRef, useState } from 'react';
 import './App.css';
 import { ContactModalProvider } from './ContactModal';
 import { useContactModal } from './contactModalContext';
@@ -30,7 +30,6 @@ import {
   servicePages,
   STATIC_PAGES,
 } from './siteData';
-import { buildGeoIndex, getGeoPage } from './geoPages';
 
 const ImageToolWorkspace = lazy(() => import('./ImageTools').then((m) => ({ default: m.ImageToolWorkspace })));
 
@@ -42,8 +41,20 @@ const navItems = [
   ['Free Tools', '/free-tools'],
 ];
 
+// The place data behind the /areas pages is large, so it is loaded only when one of those pages
+// is opened (main.jsx preloads it for a direct visit; the server render sets it up front).
+let geo = null;
+export function setGeoModule(module) {
+  geo = module;
+}
+
+function GeoLoadingPage() {
+  return <Section><p>Loading…</p></Section>;
+}
+
 function App() {
   const [path, setPath] = useState(normalizePath(window.location.pathname));
+  const [geoReady, setGeoReady] = useState(Boolean(geo));
 
   useEffect(() => {
     const onPop = () => setPath(normalizePath(window.location.pathname));
@@ -51,8 +62,16 @@ function App() {
     return () => window.removeEventListener('popstate', onPop);
   }, []);
 
-  const route = useMemo(() => resolveRoute(path), [path]);
+  const route = useMemo(() => resolveRoute(path), [path, geoReady]);
   usePageMeta(route.meta);
+
+  useEffect(() => {
+    if (!route.needsGeo) return;
+    import('./geoPages').then((module) => {
+      setGeoModule(module);
+      setGeoReady(true);
+    });
+  }, [route.needsGeo]);
 
   const navigate = (href) => {
     if (href.startsWith('http') || href.startsWith('mailto:')) return;
@@ -186,6 +205,10 @@ function resolveRoute(path) {
     };
   }
 
+  if (!geo && (path === '/areas' || path.startsWith('/areas/'))) {
+    return { Component: GeoLoadingPage, needsGeo: true, meta: { title: 'Areas Covered | Web Design London & England | Dean Da Dev', description: 'Website design for businesses across London and England.', path } };
+  }
+
   if (path === '/areas') {
     return {
       Component: LocationsHubPage,
@@ -199,8 +222,8 @@ function resolveRoute(path) {
   }
 
   if (path.startsWith('/areas/')) {
-    buildGeoIndex(locationAreas);
-    const geoPage = getGeoPage(path);
+    geo.buildGeoIndex(locationAreas);
+    const geoPage = geo.getGeoPage(path);
     if (geoPage) {
       return { Component: GeoPage, geoPage, meta: { title: geoPage.title, description: geoPage.description, path, schema: geoPageSchema(geoPage) } };
     }
@@ -401,25 +424,45 @@ function Header({ navigate, path }) {
 const FOOTER_BADGES = [
   { name: 'Startup Fame', href: 'https://startupfa.me/s/dean-da-dev?utm_source=www.dean-da-dev.co.uk', image: 'https://startupfa.me/badge?t=classic&theme=default', alt: 'Dean Da Dev - Featured on Startup Fame', width: 171, height: 54 },
   { name: 'Fazier', href: 'https://fazier.com', image: 'https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light', alt: 'Fazier badge', width: 120, height: 40 },
+  { name: 'Neeed Directory', href: 'https://neeed.directory/products/dean-da-dev-free-tools-hub?utm_source=dean-da-dev-free-tools-hub', image: 'https://neeed.directory/badges/neeed-badge-light.svg', alt: 'Featured on neeed.directory', width: 139, height: 40 },
+  { name: 'Twelve Tools', href: 'https://twelve.tools', image: 'https://twelve.tools/badge2-dark.svg', alt: 'Featured on Twelve Tools', width: 148, height: 40 },
+  { name: 'Findly', href: 'https://findly.tools/dean-da-dev-free-tools-hub?utm_source=dean-da-dev-free-tools-hub', image: 'https://findly.tools/badges/findly-tools-badge-light.svg', alt: 'Featured on Findly.tools', width: 175, height: 55 },
+  { name: 'Uno Directory', href: 'https://uno.directory', image: 'https://uno.directory/uno-directory.svg', alt: 'Listed on Uno Directory', width: 120, height: 30 },
+  { name: 'ToolDirs', href: 'https://tooldirs.com', image: 'https://tooldirs.com/badge/badge_light.svg', alt: 'Featured on ToolDirs', width: 200, height: 54 },
+  { name: 'SaaSFame', href: 'https://saasfame.com/item/dean-da-dev-free-tools-hub', image: 'https://saasfame.com/badge-light.svg', alt: 'Featured on saasfame.com', width: 170, height: 54 },
+  { name: 'SaaSCity', href: 'https://saascity.io', image: 'https://saascity.io/badges/featured-light.svg', alt: 'Featured on SaaSCity', width: 150, height: 54 },
+  { name: 'PeerPush', href: 'https://peerpush.com/p/dean-da-dev-free-tools-hub', image: 'https://peerpush.com/p/dean-da-dev-free-tools-hub/badge.png', alt: 'Dean Da Dev Free Tools Hub on PeerPush', width: 230, height: 65 },
+  { name: 'ToolFame', href: 'https://toolfame.com/item/dean-da-dev-free-tools-hub', image: 'https://toolfame.com/badge-light.svg', alt: 'Featured on toolfame.com', width: 170, height: 54 },
+  { name: 'DeepLaunch', href: 'https://deeplaunch.io', image: 'https://deeplaunch.io/badge/badge_light.svg', alt: 'Featured on DeepLaunch.io', width: 200, height: 54 },
+  { name: 'Smol Launch', href: 'https://smollaunch.com', image: 'https://smollaunch.com/badges/featured.svg', alt: 'Dean Da Dev Free Tools Hub — Featured on Smol Launch', width: 250, height: 60 },
+  { name: 'Nick Launches', href: 'https://nicklaunches.com/products/dean-da-dev-free-tools-hub/', image: 'https://nicklaunches.com/badges/featured.png', alt: 'Dean Da Dev Free Tools Hub on Nick Launches', width: 244, height: 56 },
 ];
 
-// A few badges sit in a plain row; the strip only scrolls (and repeats to loop) once there are enough to need it.
-const SCROLL_FROM = 5;
-
+// The strip never moves by itself: visitors scroll it by hand (swipe, scrollbar or the arrow buttons).
 function FooterBadgeCarousel() {
-  const scrolling = FOOTER_BADGES.length >= SCROLL_FROM;
+  const viewport = useRef(null);
+  const step = (direction) => {
+    const node = viewport.current;
+    if (node) node.scrollBy({ left: direction * node.clientWidth * 0.8, behavior: 'smooth' });
+  };
   return (
     <div className="footer-carousel" role="region" aria-label="Directories featuring Dean Da Dev">
-      <p className="footer-carousel-title">Featured on</p>
-      <div className={`footer-carousel-viewport${scrolling ? ' is-scrolling' : ''}`}>
+      <div className="footer-carousel-head">
+        <p className="footer-carousel-title">Featured on</p>
+        <div className="footer-carousel-buttons">
+          <button type="button" aria-label="Scroll badges left" onClick={() => step(-1)}>‹</button>
+          <button type="button" aria-label="Scroll badges right" onClick={() => step(1)}>›</button>
+        </div>
+      </div>
+      <div className="footer-carousel-viewport" ref={viewport} tabIndex={0}>
         <ul className="footer-carousel-track">
-          {(scrolling ? [0, 1] : [0]).map((copy) => FOOTER_BADGES.map((badge) => (
-            <li key={`${copy}-${badge.name}`} aria-hidden={copy > 0 ? 'true' : undefined}>
-              <a href={badge.href} target="_blank" rel="noopener" tabIndex={copy > 0 ? -1 : undefined}>
-                <img src={badge.image} width={badge.width} height={badge.height} alt={badge.alt} loading="lazy" />
+          {FOOTER_BADGES.map((badge) => (
+            <li key={badge.name}>
+              <a href={badge.href} target="_blank" rel="noopener">
+                <img src={badge.image} width={badge.width} height={badge.height} alt={badge.alt} loading="lazy" decoding="async" />
               </a>
             </li>
-          )))}
+          ))}
         </ul>
       </div>
     </div>
@@ -2514,10 +2557,11 @@ function GuidePage({ route, navigate }) {
 }
 
 function LocationsHubPage({ navigate }) {
-  const { londonHub, englandHub } = buildGeoIndex(locationAreas);
+  const index = geo.buildGeoIndex(locationAreas);
+  const { londonHub, englandHub } = index;
   const cards = [
-    [londonHub, `All ${londonHub.boroughs.length} boroughs and ${buildGeoIndex(locationAreas).londonAreaPages.length}+ local areas, from Stratford to Croydon.`],
-    [englandHub, `${englandHub.regions.length} regions, counties and ${buildGeoIndex(locationAreas).countyPages.reduce((total, county) => total + county.towns.length, 0)}+ towns across England.`],
+    [londonHub, `All ${londonHub.boroughs.length} boroughs and ${index.londonAreaPages.length}+ local areas, from Stratford to Croydon.`],
+    [englandHub, `${englandHub.regions.length} regions, counties and ${index.countyPages.reduce((total, county) => total + county.towns.length, 0)}+ towns across England.`],
   ];
   return (
     <>

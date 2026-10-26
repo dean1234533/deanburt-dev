@@ -1,5 +1,4 @@
 import { servicePages } from './servicePages.js';
-import { geoRoutes } from './geoPages.js';
 export { servicePages };
 
 export const SITE_URL = 'https://www.dean-da-dev.co.uk';
@@ -861,8 +860,6 @@ export function getAllRoutes() {
   for (const area of locationAreas) {
     routes.push({ path: `/areas/${area.slug}`, title: `Web Design ${area.name} | Websites from £249 | Dean Da Dev`, description: `Website design and development for ${area.name} businesses. Mobile-friendly websites from £249, enquiry forms and SEO foundations. Based in Stratford, London.`, changefreq: 'monthly', priority: '0.7' });
   }
-
-  routes.push(...geoRoutes(locationAreas));
 
   return routes;
 }
