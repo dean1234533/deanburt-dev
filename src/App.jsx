@@ -425,6 +425,7 @@ function Header({ navigate, path }) {
 // Directory badges, shown in the site footer. Each directory below asks for its badge in
 // return for a listing or a dofollow link; add a row when a new one is required.
 const FOOTER_BADGES = [
+  { name: 'TechBehemoths', href: 'https://techbehemoths.com/company/dean-da-dev', image: '/images/tb-verified-logo.svg', alt: 'TechBehemoths Verification', width: 123, height: 40, verification: true },
   { name: 'Startup Fame', href: 'https://startupfa.me/s/dean-da-dev?utm_source=www.dean-da-dev.co.uk', image: 'https://startupfa.me/badge?t=classic&theme=default', alt: 'Dean Da Dev - Featured on Startup Fame', width: 171, height: 54 },
   { name: 'Fazier', href: 'https://fazier.com', image: 'https://fazier.com/api/v1//public/badges/launch_badges.svg?badge_type=launched&theme=light', alt: 'Fazier badge', width: 120, height: 40 },
   { name: 'Neeed Directory', href: 'https://neeed.directory/products/dean-da-dev-free-tools-hub?utm_source=dean-da-dev-free-tools-hub', image: 'https://neeed.directory/badges/neeed-badge-light.svg', alt: 'Featured on neeed.directory', width: 139, height: 40 },
@@ -461,7 +462,7 @@ function FooterBadgeCarousel() {
         <ul className="footer-carousel-track">
           {FOOTER_BADGES.map((badge) => (
             <li key={badge.name}>
-              <a href={badge.href} target="_blank" rel="noopener">
+              <a href={badge.href} target="_blank" rel="noopener" {...(badge.verification ? { 'data-techbehemoths-verification': '' } : {})}>
                 <img src={badge.image} width={badge.width} height={badge.height} alt={badge.alt} loading="lazy" decoding="async" />
               </a>
             </li>
