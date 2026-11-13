@@ -1822,6 +1822,13 @@ const PORTFOLIO_APPS = [
 
 const DEMO_SITES = [
   {
+    name: 'Luma & Vale Cleaning',
+    tag: 'Cleaning Survey & Enquiry Flow',
+    industry: 'Cleaning companies · Property services',
+    url: 'https://dm-cleaning-survey.pages.dev/',
+    desc: 'A fictional cleaning brand with a guided five-step site survey. Includes property details, cleaning requirements, dates, photo previews and an editable review. A responsive concept demo; enquiries are not sent.',
+  },
+  {
     name: 'The Beauty Studio',
     tag: 'Salon & Booking System',
     industry: 'Hair salons · Beauty · Barbers',
