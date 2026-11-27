@@ -1882,6 +1882,9 @@ const DEMO_SITES = [
 ];
 
 function PortfolioPage({ navigate }) {
+  const workFilters = ['All', 'My Products', 'Industry Demos', 'Client Work'];
+  const [activeWorkFilter, setActiveWorkFilter] = useState('All');
+  const showWork = (category) => activeWorkFilter === 'All' || activeWorkFilter === category;
   const productCategories = ['Latest', 'Marketplaces', 'Developer Tools', 'Business Tools', 'AI Products', 'Platforms'];
   const [activeProductCategory, setActiveProductCategory] = useState('Latest');
   const visibleProducts = MY_PRODUCTS.filter((product) => product.categories.includes(activeProductCategory));
@@ -1897,8 +1900,19 @@ function PortfolioPage({ navigate }) {
         navigate={navigate}
       />
 
+      <div className="portfolio-filterbar">
+        <div className="section-inner">
+          <p className="eyebrow">Browse the portfolio</p>
+          <div className="product-category-tabs portfolio-filters" role="group" aria-label="Filter portfolio projects">
+            {workFilters.map((filter) => <button type="button" key={filter} aria-pressed={activeWorkFilter === filter} aria-controls="portfolio-results" className={activeWorkFilter === filter ? 'is-active' : ''} onClick={() => setActiveWorkFilter(filter)}>{filter}</button>)}
+          </div>
+          <p className="portfolio-filter-status" role="status">{activeWorkFilter === 'All' ? 'Showing all project types.' : `Showing ${activeWorkFilter.toLowerCase()}.`}</p>
+        </div>
+      </div>
+
+      <div id="portfolio-results">
       {/* My Products */}
-      <Section tone="dark">
+      {showWork('My Products') && <Section tone="dark">
         <SectionHeader eyebrow="My Products" title="Apps and platforms I built, own, and run." copy="Browse by category to see a focused selection instead of every product at once." />
         <div className="product-category-tabs" role="tablist" aria-label="Product categories">
           {productCategories.map((category) => (
@@ -1940,10 +1954,10 @@ function PortfolioPage({ navigate }) {
             </article>
           ))}
         </div>
-      </Section>
+      </Section>}
 
       {/* Demo Sites */}
-      <Section>
+      {showWork('Industry Demos') && <Section>
         <SectionHeader eyebrow="Industry Demos" title="Ready-made demos for outreach." copy="Use these to show prospects exactly what their industry website could look like — before they commit to anything." />
         <div className="demo-grid">
           {DEMO_SITES.map((demo) => (
@@ -1967,10 +1981,10 @@ function PortfolioPage({ navigate }) {
             </div>
           ))}
         </div>
-      </Section>
+      </Section>}
 
       {/* Client Work */}
-      <Section tone="dark">
+      {showWork('Client Work') && <Section tone="dark">
         <SectionHeader eyebrow="Client Work" title="Projects built for real businesses." copy="Each one live, deployed, and in active use by the client." />
         <div className="portfolio-grid">
           {PORTFOLIO_APPS.map((app) => (
@@ -1984,7 +1998,9 @@ function PortfolioPage({ navigate }) {
             </a>
           ))}
         </div>
-      </Section>
+      </Section>}
+
+      </div>
 
       <SocialProofBanner />
       <LeadCTA />

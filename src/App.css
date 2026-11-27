@@ -3725,3 +3725,11 @@ pre {
 /* Keep summaries compact and align the actions below them. */
 .demo-card > p,.my-product-body > p{flex:0 0 auto;max-height:6.6em}
 .demo-card-links,.product-actions{margin-top:auto;padding-top:8px}
+
+/* Project-type filters sit above the existing portfolio sections. */
+.portfolio-filterbar{padding:26px 20px;background:var(--panel);border-block:1px solid var(--line)}
+.portfolio-filterbar .eyebrow{margin:0 0 14px}
+.portfolio-filters{flex-wrap:wrap;overflow:visible;padding:0;margin:0;gap:8px}
+.portfolio-filters button{min-height:44px}
+.portfolio-filter-status{margin:12px 0 0;color:var(--soft);font-size:12px}
+@media(max-width:480px){.portfolio-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.portfolio-filters button{padding:0 10px}}
