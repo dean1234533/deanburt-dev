@@ -1823,6 +1823,7 @@ const PORTFOLIO_APPS = [
 const DEMO_SITES = [
   {
     name: 'Stillwater Mindfulness',
+    category: 'Mindfulness & Wellness',
     tag: 'Mindfulness Website',
     industry: 'Mindfulness teachers · Meditation · Wellness',
     url: 'https://stillwater-mindfulness.deanburt1308.workers.dev/',
@@ -1831,6 +1832,7 @@ const DEMO_SITES = [
   },
   {
     name: 'Veyra Strength',
+    category: 'Fitness & Sport',
     tag: 'Personal Training & Online Coaching',
     industry: 'Personal trainers · Fitness coaches · Wellness',
     url: 'https://dean1234533.github.io/veyra-strength-website/',
@@ -1840,6 +1842,7 @@ const DEMO_SITES = [
   },
   {
     name: 'Luma & Vale Cleaning',
+    category: 'Cleaning',
     img: '/images/luma-vale.webp',
     tag: 'Cleaning Survey & Enquiry Flow',
     industry: 'Cleaning companies · Property services',
@@ -1848,6 +1851,7 @@ const DEMO_SITES = [
   },
   {
     name: 'The Beauty Studio',
+    category: 'Beauty',
     img: '/images/beauty-studio.webp',
     tag: 'Salon & Booking System',
     industry: 'Hair salons · Beauty · Barbers',
@@ -1857,6 +1861,7 @@ const DEMO_SITES = [
   },
   {
     name: 'Da Gym',
+    category: 'Fitness & Sport',
     img: '/images/da-gym.webp',
     tag: 'Fitness Website',
     industry: 'Gyms · Personal trainers · Fitness centres',
@@ -1865,6 +1870,7 @@ const DEMO_SITES = [
   },
   {
     name: 'The Law Firm',
+    category: 'Legal',
     img: '/images/law-firm.webp',
     tag: 'Professional Services',
     industry: 'Law firms · Solicitors',
@@ -1873,6 +1879,7 @@ const DEMO_SITES = [
   },
   {
     name: 'Apex Boxing Club',
+    category: 'Fitness & Sport',
     img: '/images/apex-boxing.webp',
     tag: 'Sports & Fitness',
     industry: 'Boxing clubs · Martial arts · Sports clubs',
@@ -1888,6 +1895,9 @@ function PortfolioPage({ navigate }) {
   const productCategories = ['Latest', 'Marketplaces', 'Developer Tools', 'Business Tools', 'AI Products', 'Platforms'];
   const [activeProductCategory, setActiveProductCategory] = useState('Latest');
   const visibleProducts = MY_PRODUCTS.filter((product) => product.categories.includes(activeProductCategory));
+  const demoCategories = ['All demos', 'Mindfulness & Wellness', 'Fitness & Sport', 'Cleaning', 'Beauty', 'Legal'];
+  const [activeDemoCategory, setActiveDemoCategory] = useState('All demos');
+  const visibleDemos = DEMO_SITES.filter((demo) => activeDemoCategory === 'All demos' || demo.category === activeDemoCategory);
 
   return (
     <>
@@ -1959,8 +1969,12 @@ function PortfolioPage({ navigate }) {
       {/* Demo Sites */}
       {showWork('Industry Demos') && <Section>
         <SectionHeader eyebrow="Industry Demos" title="Ready-made demos for outreach." copy="Use these to show prospects exactly what their industry website could look like — before they commit to anything." />
-        <div className="demo-grid">
-          {DEMO_SITES.map((demo) => (
+        <div className="product-category-tabs demo-filters" role="group" aria-label="Filter demos by industry">
+          {demoCategories.map((category) => <button type="button" key={category} aria-pressed={activeDemoCategory === category} aria-controls="demo-results" className={activeDemoCategory === category ? 'is-active' : ''} onClick={() => setActiveDemoCategory(category)}>{category}</button>)}
+        </div>
+        <p className="demo-filter-status" role="status">Showing {visibleDemos.length} {visibleDemos.length === 1 ? 'demo' : 'demos'}{activeDemoCategory !== 'All demos' ? ` in ${activeDemoCategory.toLowerCase()}` : ''}.</p>
+        <div className="demo-grid" id="demo-results">
+          {visibleDemos.map((demo) => (
             <div className="demo-card" key={demo.name}>
               {demo.img && <img className="demo-card-preview" src={demo.img} alt={`${demo.name} website preview`} width="960" height="600" loading="lazy" />}
               <div className="demo-card-header">
