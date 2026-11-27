@@ -3729,13 +3729,11 @@ pre {
 /* Project-type filters sit above the existing portfolio sections. */
 .portfolio-filterbar{padding:26px 20px;background:var(--panel);border-block:1px solid var(--line)}
 .portfolio-filterbar .eyebrow{margin:0 0 14px}
-.portfolio-filters{flex-wrap:wrap;overflow:visible;padding:0;margin:0;gap:8px}
-.portfolio-filters button{min-height:44px}
+.portfolio-filters{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;padding:4px 0 8px;margin:0;gap:8px;overscroll-behavior-x:contain}
+.portfolio-filters button{min-height:44px;flex:0 0 auto;white-space:nowrap}
 .portfolio-filter-status{margin:12px 0 0;color:var(--soft);font-size:12px}
-@media(max-width:480px){.portfolio-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.portfolio-filters button{padding:0 10px}}
 
-.demo-filters{flex-wrap:wrap;overflow:visible;margin:0 0 12px;padding:0;gap:8px}
-.demo-filters button{min-height:44px;color:#475569;border-color:rgba(15,23,42,.18);background:#fff}
+.demo-filters{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;margin:0 0 12px;padding:4px 0 8px;gap:8px;overscroll-behavior-x:contain}
+.demo-filters button{min-height:44px;flex:0 0 auto;white-space:nowrap;color:#475569;border-color:rgba(15,23,42,.18);background:#fff}
 .demo-filters button:hover,.demo-filters button.is-active{color:#0369a1;border-color:#0369a1;background:#f0f9ff}
 .demo-filter-status{font-size:12px;color:#475569;margin:0 0 22px}
-@media(max-width:480px){.demo-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.demo-filters button{white-space:normal;padding:8px 10px}}
