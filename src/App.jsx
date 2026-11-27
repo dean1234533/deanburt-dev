@@ -1792,17 +1792,17 @@ const MY_PRODUCTS = [
 const PORTFOLIO_APPS = [
   {
     name: 'Stillwater Mindfulness',
-    tag: 'Mindfulness Website & Client Admin',
+    tag: 'Mindfulness Website',
     url: 'https://stillwater-mindfulness.deanburt1308.workers.dev/',
     img: '/images/stillwater-mindfulness.webp',
-    desc: 'A premium website for a mindfulness teacher in Hebden Bridge, with a moving meditation hero, one-to-one and group sessions, services and pricing, local search pages and an enquiry form. Includes a client admin app for editing content and images, managing enquiries and receiving push notifications.',
+    desc: 'A mindfulness website with a video hero, session pricing and local search pages. Includes a client admin app for content, images, enquiries and push notifications.',
   },
   {
     name: 'Thor Computer',
     tag: 'Repair Marketplace',
     url: 'https://thorcomputers.dbsworkouts.workers.dev',
     img: '/images/thor-computer.jpg',
-    desc: 'The website and platform for Thor Computer, a London computer repair business offering same-day on-site repairs. Customers describe a repair, compare quotes, book and pay; engineers manage jobs, messages and payouts; admins run approvals, finance, leads and a built-in help assistant.',
+    desc: 'A computer repair marketplace with quotes, bookings and payments. Engineers manage jobs and messages, while an admin dashboard handles approvals, finance and leads.',
   },
   {
     name: 'Perennia',
@@ -1835,17 +1835,19 @@ const DEMO_SITES = [
     url: 'https://dean1234533.github.io/veyra-strength-website/',
     sourceUrl: 'https://github.com/dean1234533/veyra-strength-website',
     img: '/images/veyra-strength.jpg',
-    desc: 'A premium fitness website concept with responsive video heroes, dedicated coaching and recovery pages, SEO-focused content and a custom brand identity. Built for a fictional business with licensed stock media and clearly labelled enquiry previews.',
+    desc: 'A fictional fitness brand with video heroes, coaching and recovery pages, local search content and an enquiry preview.',
   },
   {
     name: 'Luma & Vale Cleaning',
+    img: '/images/luma-vale.webp',
     tag: 'Cleaning Survey & Enquiry Flow',
     industry: 'Cleaning companies · Property services',
     url: 'https://dm-cleaning-survey.pages.dev/',
-    desc: 'A fictional cleaning brand with a guided five-step site survey. Includes property details, cleaning requirements, dates, photo previews and an editable review. A responsive concept demo; enquiries are not sent.',
+    desc: 'A fictional cleaning demo; enquiries are not sent. Its five-step survey covers property details, cleaning needs, dates and photo previews.',
   },
   {
     name: 'The Beauty Studio',
+    img: '/images/beauty-studio.webp',
     tag: 'Salon & Booking System',
     industry: 'Hair salons · Beauty · Barbers',
     url: 'https://dean1234533.github.io/The-Beauty-Studio-Premium-Booking-Website-Demo/',
@@ -1854,6 +1856,7 @@ const DEMO_SITES = [
   },
   {
     name: 'Da Gym',
+    img: '/images/da-gym.webp',
     tag: 'Fitness Website',
     industry: 'Gyms · Personal trainers · Fitness centres',
     url: 'https://dean1234533.github.io/Da-Gym-Premium-Fitness-Website-Mockup/',
@@ -1861,6 +1864,7 @@ const DEMO_SITES = [
   },
   {
     name: 'The Law Firm',
+    img: '/images/law-firm.webp',
     tag: 'Professional Services',
     industry: 'Law firms · Solicitors',
     url: 'https://dean1234533.github.io/Da-Law-Firm-Premium-Law-Firm-Website-Mockup/',
@@ -1868,6 +1872,7 @@ const DEMO_SITES = [
   },
   {
     name: 'Apex Boxing Club',
+    img: '/images/apex-boxing.webp',
     tag: 'Sports & Fitness',
     industry: 'Boxing clubs · Martial arts · Sports clubs',
     url: 'https://dean1234533.github.io/Apex-boxing-club-Premium-Website-Mockup/',

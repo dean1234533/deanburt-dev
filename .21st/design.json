@@ -71,7 +71,8 @@
     ]
   },
   "decisions": [
-    "Location pages pair a compact facts panel with readable local copy, showing each paragraph once. Reuse the portfolio screenshot in the Bella Flor project section. Keep all five trust credentials in one desktop row, with the final credential spanning the mobile row."
+    "Location pages pair a compact facts panel with readable local copy, showing each paragraph once. Reuse the portfolio screenshot in the Bella Flor project section. Keep all five trust credentials in one desktop row, with the final credential spanning the mobile row.",
+    "Portfolio cards use concise summaries capped at four visible lines; every client project and industry demo has a screenshot, reusing the existing card components."
   ],
   "evidence": [
     {

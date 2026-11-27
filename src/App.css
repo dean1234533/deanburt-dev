@@ -1375,6 +1375,10 @@ pre {
 }
 
 .portfolio-card p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
   margin: 0;
   color: #475569;
   font-size: 14px;
@@ -3518,6 +3522,10 @@ pre {
 }
 
 .my-product-body > p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
   font-size: 13.5px;
   color: var(--text-muted);
   line-height: 1.65;
@@ -3601,6 +3609,10 @@ pre {
 }
 
 .demo-card > p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
   font-size: 13.5px;
   color: #475569;
   line-height: 1.65;
@@ -3709,3 +3721,7 @@ pre {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* Keep summaries compact and align the actions below them. */
+.demo-card > p,.my-product-body > p{flex:0 0 auto;max-height:6.6em}
+.demo-card-links,.product-actions{margin-top:auto;padding-top:8px}
