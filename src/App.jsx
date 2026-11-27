@@ -1889,15 +1889,15 @@ const DEMO_SITES = [
 ];
 
 function PortfolioPage({ navigate }) {
-  const workFilters = ['All', 'My Products', 'Industry Demos', 'Client Work'];
-  const [activeWorkFilter, setActiveWorkFilter] = useState('All');
-  const showWork = (category) => activeWorkFilter === 'All' || activeWorkFilter === category;
+  const workFilters = ['My Products', 'Industry Demos', 'Client Work'];
+  const [activeWorkFilter, setActiveWorkFilter] = useState('My Products');
+  const showWork = (category) => activeWorkFilter === category;
   const productCategories = ['Latest', 'Marketplaces', 'Developer Tools', 'Business Tools', 'AI Products', 'Platforms'];
   const [activeProductCategory, setActiveProductCategory] = useState('Latest');
   const visibleProducts = MY_PRODUCTS.filter((product) => product.categories.includes(activeProductCategory));
-  const demoCategories = ['All demos', 'Mindfulness & Wellness', 'Fitness & Sport', 'Cleaning', 'Beauty', 'Legal'];
-  const [activeDemoCategory, setActiveDemoCategory] = useState('All demos');
-  const visibleDemos = DEMO_SITES.filter((demo) => activeDemoCategory === 'All demos' || demo.category === activeDemoCategory);
+  const demoCategories = ['Mindfulness & Wellness', 'Fitness & Sport', 'Cleaning', 'Beauty', 'Legal'];
+  const [activeDemoCategory, setActiveDemoCategory] = useState('Mindfulness & Wellness');
+  const visibleDemos = DEMO_SITES.filter((demo) => demo.category === activeDemoCategory);
 
   return (
     <>
@@ -1916,7 +1916,7 @@ function PortfolioPage({ navigate }) {
           <div className="product-category-tabs portfolio-filters" role="group" aria-label="Filter portfolio projects">
             {workFilters.map((filter) => <button type="button" key={filter} aria-pressed={activeWorkFilter === filter} aria-controls="portfolio-results" className={activeWorkFilter === filter ? 'is-active' : ''} onClick={() => setActiveWorkFilter(filter)}>{filter}</button>)}
           </div>
-          <p className="portfolio-filter-status" role="status">{activeWorkFilter === 'All' ? 'Showing all project types.' : `Showing ${activeWorkFilter.toLowerCase()}.`}</p>
+          <p className="portfolio-filter-status" role="status">{`Showing ${activeWorkFilter.toLowerCase()}.`}</p>
         </div>
       </div>
 
@@ -1972,7 +1972,7 @@ function PortfolioPage({ navigate }) {
         <div className="product-category-tabs demo-filters" role="group" aria-label="Filter demos by industry">
           {demoCategories.map((category) => <button type="button" key={category} aria-pressed={activeDemoCategory === category} aria-controls="demo-results" className={activeDemoCategory === category ? 'is-active' : ''} onClick={() => setActiveDemoCategory(category)}>{category}</button>)}
         </div>
-        <p className="demo-filter-status" role="status">Showing {visibleDemos.length} {visibleDemos.length === 1 ? 'demo' : 'demos'}{activeDemoCategory !== 'All demos' ? ` in ${activeDemoCategory.toLowerCase()}` : ''}.</p>
+        <p className="demo-filter-status" role="status">Showing {visibleDemos.length} {visibleDemos.length === 1 ? 'demo' : 'demos'}{` in ${activeDemoCategory.toLowerCase()}`}.</p>
         <div className="demo-grid" id="demo-results">
           {visibleDemos.map((demo) => (
             <div className="demo-card" key={demo.name}>

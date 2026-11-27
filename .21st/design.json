@@ -74,8 +74,9 @@
     "Location pages pair a compact facts panel with readable local copy, showing each paragraph once. Reuse the portfolio screenshot in the Bella Flor project section. Keep all five trust credentials in one desktop row, with the final credential spanning the mobile row.",
     "Portfolio cards use concise summaries capped at four visible lines; every client project and industry demo has a screenshot, reusing the existing card components.",
     "Stillwater Mindfulness belongs in Industry Demos, not Client Work. Keep the portfolio section order as My Products, Industry Demos, then Client Work.",
-    "A project-type filter above the portfolio switches between All, My Products, Industry Demos and Client Work. Preserve the existing product-category subfilters and keep All as the prerendered default.",
-    "Industry Demos has its own industry filter: All demos, Mindfulness & Wellness, Fitness & Sport, Cleaning, Beauty and Legal. This operates independently of the overall portfolio filter."
+    "A project-type filter above the portfolio switches between My Products, Industry Demos and Client Work. Show only the selected section, defaulting to My Products. Preserve the existing product-category subfilters.",
+    "Industry Demos has its own industry filter: Mindfulness & Wellness, Fitness & Sport, Cleaning, Beauty and Legal. This operates independently of the overall portfolio filter.",
+    "Owner requested no show-all views: portfolio and demo filters always show just one selected category. Demos default to Mindfulness & Wellness."
   ],
   "evidence": [
     {
