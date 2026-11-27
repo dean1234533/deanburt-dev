@@ -1791,6 +1791,13 @@ const MY_PRODUCTS = [
 
 const PORTFOLIO_APPS = [
   {
+    name: 'Stillwater Mindfulness',
+    tag: 'Mindfulness Website & Client Admin',
+    url: 'https://stillwater-mindfulness.deanburt1308.workers.dev/',
+    img: '/images/stillwater-mindfulness.webp',
+    desc: 'A premium website for a mindfulness teacher in Hebden Bridge, with a moving meditation hero, one-to-one and group sessions, services and pricing, local search pages and an enquiry form. Includes a client admin app for editing content and images, managing enquiries and receiving push notifications.',
+  },
+  {
     name: 'Thor Computer',
     tag: 'Repair Marketplace',
     url: 'https://thorcomputers.dbsworkouts.workers.dev',
