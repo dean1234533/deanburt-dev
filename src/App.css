@@ -3563,6 +3563,15 @@ pre {
   gap: 10px;
 }
 
+.demo-card-preview {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 8 / 5;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
 .demo-card-header {
   display: flex;
   flex-direction: column;
@@ -3597,6 +3606,11 @@ pre {
   line-height: 1.65;
   flex: 1;
   margin: 0;
+}
+
+.demo-card-links .button-secondary {
+  color: #0369a1;
+  border-color: rgba(15, 23, 42, 0.18);
 }
 
 .demo-card-links {

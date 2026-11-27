@@ -1822,6 +1822,15 @@ const PORTFOLIO_APPS = [
 
 const DEMO_SITES = [
   {
+    name: 'Veyra Strength',
+    tag: 'Personal Training & Online Coaching',
+    industry: 'Personal trainers · Fitness coaches · Wellness',
+    url: 'https://dean1234533.github.io/veyra-strength-website/',
+    sourceUrl: 'https://github.com/dean1234533/veyra-strength-website',
+    img: '/images/veyra-strength.jpg',
+    desc: 'A premium fitness website concept with responsive video heroes, dedicated coaching and recovery pages, SEO-focused content and a custom brand identity. Built for a fictional business with licensed stock media and clearly labelled enquiry previews.',
+  },
+  {
     name: 'Luma & Vale Cleaning',
     tag: 'Cleaning Survey & Enquiry Flow',
     industry: 'Cleaning companies · Property services',
@@ -1926,6 +1935,7 @@ function PortfolioPage({ navigate }) {
         <div className="demo-grid">
           {DEMO_SITES.map((demo) => (
             <div className="demo-card" key={demo.name}>
+              {demo.img && <img className="demo-card-preview" src={demo.img} alt={`${demo.name} website preview`} width="960" height="600" loading="lazy" />}
               <div className="demo-card-header">
                 <span>{demo.tag}</span>
                 <p className="demo-industry">{demo.industry}</p>
@@ -1934,6 +1944,9 @@ function PortfolioPage({ navigate }) {
               <p>{demo.desc}</p>
               <div className="demo-card-links">
                 <a href={demo.url} target="_blank" rel="noopener noreferrer" className="button button-primary button-small">View demo</a>
+                {demo.sourceUrl && (
+                  <a href={demo.sourceUrl} target="_blank" rel="noopener noreferrer" className="button button-secondary button-small">View source</a>
+                )}
                 {demo.adminUrl && (
                   <a href={demo.adminUrl} target="_blank" rel="noopener noreferrer" className="button button-secondary button-small">Admin demo</a>
                 )}
