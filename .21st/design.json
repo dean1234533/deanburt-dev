@@ -72,7 +72,8 @@
   },
   "decisions": [
     "Location pages pair a compact facts panel with readable local copy, showing each paragraph once. Reuse the portfolio screenshot in the Bella Flor project section. Keep all five trust credentials in one desktop row, with the final credential spanning the mobile row.",
-    "Portfolio cards use concise summaries capped at four visible lines; every client project and industry demo has a screenshot, reusing the existing card components."
+    "Portfolio cards use concise summaries capped at four visible lines; every client project and industry demo has a screenshot, reusing the existing card components.",
+    "Stillwater Mindfulness belongs in Industry Demos, not Client Work. Keep the portfolio section order as My Products, Industry Demos, then Client Work."
   ],
   "evidence": [
     {

@@ -1791,13 +1791,6 @@ const MY_PRODUCTS = [
 
 const PORTFOLIO_APPS = [
   {
-    name: 'Stillwater Mindfulness',
-    tag: 'Mindfulness Website',
-    url: 'https://stillwater-mindfulness.deanburt1308.workers.dev/',
-    img: '/images/stillwater-mindfulness.webp',
-    desc: 'A mindfulness website with a video hero, session pricing and local search pages. Includes a client admin app for content, images, enquiries and push notifications.',
-  },
-  {
     name: 'Thor Computer',
     tag: 'Repair Marketplace',
     url: 'https://thorcomputers.dbsworkouts.workers.dev',
@@ -1828,6 +1821,14 @@ const PORTFOLIO_APPS = [
 ];
 
 const DEMO_SITES = [
+  {
+    name: 'Stillwater Mindfulness',
+    tag: 'Mindfulness Website',
+    industry: 'Mindfulness teachers · Meditation · Wellness',
+    url: 'https://stillwater-mindfulness.deanburt1308.workers.dev/',
+    img: '/images/stillwater-mindfulness.webp',
+    desc: 'A mindfulness website demo with a video hero, session pricing and local search pages. Includes a client admin app for content, images, enquiries and push notifications.',
+  },
   {
     name: 'Veyra Strength',
     tag: 'Personal Training & Online Coaching',
@@ -1895,23 +1896,6 @@ function PortfolioPage({ navigate }) {
         secondary={['View pricing', '/pricing']}
         navigate={navigate}
       />
-
-      {/* Client Work */}
-      <Section tone="dark">
-        <SectionHeader eyebrow="Client Work" title="Projects built for real businesses." copy="Each one live, deployed, and in active use by the client." />
-        <div className="portfolio-grid">
-          {PORTFOLIO_APPS.map((app) => (
-            <a className="portfolio-card" href={app.url} target="_blank" rel="noreferrer" key={app.name}>
-              <img src={app.img} alt={`${app.name} — ${app.tag} built by Dean Da Dev`} loading="lazy" />
-              <div>
-                <span>{app.tag}</span>
-                <h3>{app.name}</h3>
-                <p>{app.desc}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </Section>
 
       {/* My Products */}
       <Section tone="dark">
@@ -1981,6 +1965,23 @@ function PortfolioPage({ navigate }) {
                 )}
               </div>
             </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Client Work */}
+      <Section tone="dark">
+        <SectionHeader eyebrow="Client Work" title="Projects built for real businesses." copy="Each one live, deployed, and in active use by the client." />
+        <div className="portfolio-grid">
+          {PORTFOLIO_APPS.map((app) => (
+            <a className="portfolio-card" href={app.url} target="_blank" rel="noreferrer" key={app.name}>
+              <img src={app.img} alt={`${app.name} — ${app.tag} built by Dean Da Dev`} loading="lazy" />
+              <div>
+                <span>{app.tag}</span>
+                <h3>{app.name}</h3>
+                <p>{app.desc}</p>
+              </div>
+            </a>
           ))}
         </div>
       </Section>
