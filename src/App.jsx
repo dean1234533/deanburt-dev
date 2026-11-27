@@ -1896,6 +1896,23 @@ function PortfolioPage({ navigate }) {
         navigate={navigate}
       />
 
+      {/* Client Work */}
+      <Section tone="dark">
+        <SectionHeader eyebrow="Client Work" title="Projects built for real businesses." copy="Each one live, deployed, and in active use by the client." />
+        <div className="portfolio-grid">
+          {PORTFOLIO_APPS.map((app) => (
+            <a className="portfolio-card" href={app.url} target="_blank" rel="noreferrer" key={app.name}>
+              <img src={app.img} alt={`${app.name} — ${app.tag} built by Dean Da Dev`} loading="lazy" />
+              <div>
+                <span>{app.tag}</span>
+                <h3>{app.name}</h3>
+                <p>{app.desc}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </Section>
+
       {/* My Products */}
       <Section tone="dark">
         <SectionHeader eyebrow="My Products" title="Apps and platforms I built, own, and run." copy="Browse by category to see a focused selection instead of every product at once." />
@@ -1964,23 +1981,6 @@ function PortfolioPage({ navigate }) {
                 )}
               </div>
             </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Client Work */}
-      <Section tone="dark">
-        <SectionHeader eyebrow="Client Work" title="Projects built for real businesses." copy="Each one live, deployed, and in active use by the client." />
-        <div className="portfolio-grid">
-          {PORTFOLIO_APPS.map((app) => (
-            <a className="portfolio-card" href={app.url} target="_blank" rel="noreferrer" key={app.name}>
-              <img src={app.img} alt={`${app.name} — ${app.tag} built by Dean Da Dev`} loading="lazy" />
-              <div>
-                <span>{app.tag}</span>
-                <h3>{app.name}</h3>
-                <p>{app.desc}</p>
-              </div>
-            </a>
           ))}
         </div>
       </Section>
